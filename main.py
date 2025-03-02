@@ -19,7 +19,7 @@ def main():
        - Repeats until user exits
     """
     # Print welcome information to the console
-    print("Voice-Enabled Chatbot")
+    print("Voice-Enabled Coaching Assistant")
     print("Say 'exit' or 'quit' to end the conversation.")
     print("-" * 50)
     
@@ -28,7 +28,7 @@ def main():
     conversation = Conversation()
     
     # Define and speak a welcome message to the user
-    welcome_message = "Hello! I'm your voice assistant. How can I help you today?"
+    welcome_message = "Hello! I'm your AI coaching assistant. How can I help you today?"
     print(f"Assistant: {welcome_message}")
     text_to_speech(welcome_message)  # Convert text to spoken audio
     

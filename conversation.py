@@ -2,14 +2,14 @@ from langchain.memory import ConversationBufferMemory  # For storing conversatio
 from langchain.chains import ConversationChain  # For managing conversation flow
 from langchain_openai import ChatOpenAI  # For connecting to OpenAI's models
 from langchain.prompts import PromptTemplate  # For creating prompt templates
-from config import OPENAI_API_KEY, SYSTEM_PROMPT  # Import configuration
+from config import OPENAI_API_KEY, SYSTEM_PROMPT, MODEL_NAME, MODEL_TEMPERATURE  # Import configuration
 
 class Conversation:
     """
     Manages the conversation between the user and the AI assistant.
     
     This class:
-    1. Sets up the language model (GPT-4o)
+    1. Sets up the language model (fine-tuned GPT-4o-mini)
     2. Maintains conversation history
     3. Processes user input and generates responses
     4. Provides access to conversation history
@@ -20,17 +20,17 @@ class Conversation:
         Initialize the conversation manager with a language model and memory.
         
         This method:
-        1. Sets up the GPT-4o language model
+        1. Sets up the fine-tuned language model
         2. Creates a memory component to store conversation history
         3. Creates a conversation chain to manage the flow
         """
         # Step 1: Initialize the language model
-        # - model="gpt-4o": Use OpenAI's GPT-4o model
-        # - temperature=0.7: Control randomness (higher = more creative)
+        # - model=MODEL_NAME: Use your fine-tuned model
+        # - temperature=MODEL_TEMPERATURE: Control randomness (higher = more creative)
         self.llm = ChatOpenAI(
             api_key=OPENAI_API_KEY,
-            model="gpt-4o",
-            temperature=0.7
+            model=MODEL_NAME,
+            temperature=MODEL_TEMPERATURE
         )
         
         # Step 2: Set up conversation memory to store dialogue history

@@ -1,0 +1,15 @@
+User: Hi, my name is Ian and I have a problem with sleeping.
+Coach: Hi Ian, nice to meet you. Can you tell me more about what problem you're experiencing with sleeping?
+--------------------------------------------------
+User: I don't want to sleep every night, I like to wake.
+Coach: Ian, can you share more about why you don't want to sleep every night?
+--------------------------------------------------
+User: Because I like to keep away.
+Coach: Ian, can you help me understand what you mean by 'keep away'?
+--------------------------------------------------
+User: No, it's hard to expand.
+Coach: Ian, I sense that discussing your feelings about sleeping is challenging for you. Can you share, what do you feel when you think about sleeping?
+--------------------------------------------------
+User: Debug memory.
+Coach: Hi Ian, I sense that discussing your feelings about sleeping is challenging for you. Can you share, what do you feel when you think about sleeping?
+--------------------------------------------------

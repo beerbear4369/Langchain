@@ -1,0 +1,9 @@
+User: What is your name?
+Coach: My name is Yellow. How can I assist you today?
+--------------------------------------------------
+User: Thank you for watching and please do not forget to like, share and subscribe.
+Coach: What would you like to discuss today?
+--------------------------------------------------
+User: I need money. I need money.
+Coach: What would you like to discuss regarding your financial situation?
+--------------------------------------------------

@@ -1,0 +1,27 @@
+User: Hello, my name is Ian. What is your name?
+Coach: Hi Ian, I'm Yellow. How are you today? What brings you in?
+--------------------------------------------------
+User: I'm rich. I'd like to eat something.
+Coach: What would you like to discuss regarding your dining preferences or experiences?
+--------------------------------------------------
+User: One is my name, to the best of your knowledge.
+Coach: Hi Ian, I'm Yellow. How are you today? What brings you in?
+--------------------------------------------------
+User: Hi, I have a problem of sleeping. I cannot sleep.
+Coach: What would you like to discuss?
+--------------------------------------------------
+User: What is my name?
+Coach: Ian, may I call you that?
+--------------------------------------------------
+User: Okay, what problem did I tell you just now?
+Coach: You mentioned that you have a problem with sleeping and that you cannot sleep.
+--------------------------------------------------
+User: Okay, wonderful. It is working now.
+Coach: Hi Ian, how can I assist you today?
+--------------------------------------------------
+User: Why your response looks to be very stupid now?
+Coach: I'm sorry if my responses seem off. I'm here to help. How can I assist you today?
+--------------------------------------------------
+User: Goodbye.
+Coach: Hi Ian, I'm Yellow. How can I assist you today?
+--------------------------------------------------

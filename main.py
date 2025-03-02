@@ -23,6 +23,44 @@ def display_conversation_history(conversation):
     
     print("="*50 + "\n")
 
+def save_conversation_history(conversation):
+    """
+    Save the conversation history to a text file.
+    
+    Args:
+        conversation: The Conversation object with chat history
+    """
+    messages = conversation.get_conversation_history()
+    
+    with open("conversation_history.txt", "w") as f:
+        f.write("CONVERSATION HISTORY\n")
+        f.write("="*50 + "\n\n")
+        
+        for message in messages:
+            role = "User" if message.type == "human" else "Coach"
+            f.write(f"{role}: {message.content}\n\n")
+    
+    print("Conversation history saved to 'conversation_history.txt'")
+
+def debug_conversation_memory(conversation):
+    """Print details about the conversation memory for debugging."""
+    messages = conversation.get_conversation_history()
+    print(f"\nDEBUG: Memory contains {len(messages)} messages")
+    
+    if messages:
+        # Print the first and last message if they exist
+        print(f"First message: [{messages[0].type}] {messages[0].content[:50]}...")
+        print(f"Last message: [{messages[-1].type}] {messages[-1].content[:50]}...")
+        
+        # Get the raw prompt that would be sent to OpenAI
+        # This helps verify the history is included in prompts
+        try:
+            test_input = "This is a test."
+            prompt = conversation.conversation.prep_prompts([{"input": test_input}])[0]
+            print(f"\nPrompt that would be sent to OpenAI:\n{prompt}")
+        except Exception as e:
+            print(f"Error preparing prompt: {e}")
+
 def main():
     """
     Main application function that runs the voice-enabled chatbot.
@@ -67,7 +105,7 @@ def main():
                 # Display what the user said
                 print(f"You: {transcription}")
                 
-                # Check for special commands
+                # Step 3: Check if user wants to exit
                 if transcription.lower() in ["exit", "quit", "bye", "goodbye"]:
                     # Say goodbye and end the conversation
                     farewell = "Goodbye! Have a great day!"
@@ -86,6 +124,11 @@ def main():
                     response = "Conversation history has been saved to 'conversation_history.txt'."
                     print(f"Assistant: {response}")
                     text_to_speech(response)
+                    continue
+                
+                # Special command for debugging
+                elif transcription.lower() in ["debug memory", "debug"]:
+                    debug_conversation_memory(conversation)
                     continue
                 
                 # Step 4: Process the user's input and generate a response
@@ -108,25 +151,6 @@ def main():
         except Exception as e:
             print(f"An error occurred: {e}")
             continue  # Continue the loop despite the error
-
-def save_conversation_history(conversation):
-    """
-    Save the conversation history to a text file.
-    
-    Args:
-        conversation: The Conversation object with chat history
-    """
-    messages = conversation.get_conversation_history()
-    
-    with open("conversation_history.txt", "w") as f:
-        f.write("CONVERSATION HISTORY\n")
-        f.write("="*50 + "\n\n")
-        
-        for message in messages:
-            role = "User" if message.type == "human" else "Coach"
-            f.write(f"{role}: {message.content}\n\n")
-    
-    print("Conversation history saved to 'conversation_history.txt'")
 
 # This is the standard way to make a Python script runnable
 # It means this code only runs if this file is executed directly

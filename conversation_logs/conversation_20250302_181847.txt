@@ -1,0 +1,18 @@
+User: What's your name?
+Coach: My name is Yellow. How can I assist you today?
+--------------------------------------------------
+User: Okay, great. Goodbye, yellow.
+Coach: Goodbye! If you need anything in the future, feel free to reach out.
+--------------------------------------------------
+User: What did I say previously? Hello!
+Coach: Hello! How can I assist you today?
+--------------------------------------------------
+User: My name is Yiem, blah blah blah blah blah.
+Coach: Hi, Yiem! What brings you in today?
+--------------------------------------------------
+User: One is my name.
+Coach: Hello! What topic would you like to discuss today?
+--------------------------------------------------
+User: What is my name?
+Coach: Hi! What is your name?
+--------------------------------------------------

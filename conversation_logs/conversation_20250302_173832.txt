@@ -1,0 +1,42 @@
+User: Hi, I want to know what is your name?
+Coach: Hi, I'm Sam. How can I assist you today?
+--------------------------------------------------
+User: Which model are you?
+Coach: I'm based on the principles of OpenAI, focusing on understanding and addressing your concerns. How can I assist you today?
+--------------------------------------------------
+User: Have a safe conversation.
+Coach: Hi, we have 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: Thank you very much. Thank you. Thank you. Thank you. Thank you. 
+Coach: Hi, we have 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: oh B-Strip
+Coach: Hi, we've got 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: Thank you. Bye. Bye. Bye. Bye. 
+Coach: Hi, we have 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: Thank you.
+Coach: Hi, we have 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: Safe conversation.
+Coach: Hi, we've got 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: safe history
+Coach: Hi, we have 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: Save History.
+Coach: Hi, we've got 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: Bon Appetit!
+Coach: Hello! How can I assist you today?
+--------------------------------------------------
+User: I love you. I love you. I love you.
+Coach: Hi, we've got 20 minutes. How can I assist you today?
+--------------------------------------------------
+User: And that's it. Thank you. Thank you. Thank you. Thank you. 
+Coach: Hi, how can I assist you today?
+--------------------------------------------------
+User: What is your name?
+Coach: I'm Sam. How can I assist you today?
+--------------------------------------------------

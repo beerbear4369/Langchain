@@ -3,6 +3,9 @@ from langchain.chains import ConversationChain  # For managing conversation flow
 from langchain_openai import ChatOpenAI  # For connecting to OpenAI's models
 from langchain.prompts import PromptTemplate  # For creating prompt templates
 from config import OPENAI_API_KEY, SYSTEM_PROMPT, MODEL_NAME, MODEL_TEMPERATURE  # Import configuration
+import os
+import json
+from datetime import datetime
 
 class Conversation:
     """
@@ -55,6 +58,14 @@ class Conversation:
             prompt=prompt,
             verbose=False  # Don't print debug information
         )
+        
+        # Add logging directory
+        self.log_dir = "conversation_logs"
+        os.makedirs(self.log_dir, exist_ok=True)
+        
+        # Create a log file for this session
+        self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.log_file = os.path.join(self.log_dir, f"conversation_{self.session_id}.txt")
     
     def process_input(self, user_input):
         """
@@ -80,12 +91,22 @@ class Conversation:
             # This automatically updates the conversation memory
             response = self.conversation.predict(input=user_input)
             
+            # After getting a response, log the exchange
+            self._log_exchange(user_input, response)
+            
             # Step 3: Return the response
             return response
         except Exception as e:
             # Handle any errors that might occur during processing
             print(f"Error in conversation processing: {e}")
             return "I'm having trouble processing that request. Let's try again."
+    
+    def _log_exchange(self, user_input, response):
+        """Log the conversation exchange to a file."""
+        with open(self.log_file, "a") as f:
+            f.write(f"User: {user_input}\n")
+            f.write(f"Coach: {response}\n")
+            f.write("-" * 50 + "\n")
     
     def get_conversation_history(self):
         """

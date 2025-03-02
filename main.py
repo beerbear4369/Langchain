@@ -4,6 +4,25 @@ from conversation import Conversation
 from audio_output import text_to_speech
 from config import RECORDING_START_MESSAGE, RECORDING_STOP_MESSAGE, RESPONSE_START_MESSAGE
 
+def display_conversation_history(conversation):
+    """
+    Display the conversation history in a readable format.
+    
+    Args:
+        conversation: The Conversation object with chat history
+    """
+    messages = conversation.get_conversation_history()
+    
+    print("\n" + "="*50)
+    print("CONVERSATION HISTORY")
+    print("="*50)
+    
+    for i, message in enumerate(messages):
+        role = "You" if message.type == "human" else "Coach"
+        print(f"{role}: {message.content}")
+    
+    print("="*50 + "\n")
+
 def main():
     """
     Main application function that runs the voice-enabled chatbot.
@@ -48,13 +67,26 @@ def main():
                 # Display what the user said
                 print(f"You: {transcription}")
                 
-                # Step 3: Check if user wants to exit
+                # Check for special commands
                 if transcription.lower() in ["exit", "quit", "bye", "goodbye"]:
                     # Say goodbye and end the conversation
                     farewell = "Goodbye! Have a great day!"
                     print(f"Assistant: {farewell}")
                     text_to_speech(farewell)
                     break  # Exit the while loop
+                
+                # Special command to show history
+                elif transcription.lower() in ["show history", "display history", "show conversation"]:
+                    display_conversation_history(conversation)
+                    continue
+                
+                # Special command to save history to file
+                elif transcription.lower() in ["save history", "export history", "save conversation"]:
+                    save_conversation_history(conversation)
+                    response = "Conversation history has been saved to 'conversation_history.txt'."
+                    print(f"Assistant: {response}")
+                    text_to_speech(response)
+                    continue
                 
                 # Step 4: Process the user's input and generate a response
                 print(RESPONSE_START_MESSAGE)  # Inform user we're thinking
@@ -76,6 +108,25 @@ def main():
         except Exception as e:
             print(f"An error occurred: {e}")
             continue  # Continue the loop despite the error
+
+def save_conversation_history(conversation):
+    """
+    Save the conversation history to a text file.
+    
+    Args:
+        conversation: The Conversation object with chat history
+    """
+    messages = conversation.get_conversation_history()
+    
+    with open("conversation_history.txt", "w") as f:
+        f.write("CONVERSATION HISTORY\n")
+        f.write("="*50 + "\n\n")
+        
+        for message in messages:
+            role = "User" if message.type == "human" else "Coach"
+            f.write(f"{role}: {message.content}\n\n")
+    
+    print("Conversation history saved to 'conversation_history.txt'")
 
 # This is the standard way to make a Python script runnable
 # It means this code only runs if this file is executed directly

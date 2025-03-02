@@ -1,0 +1,15 @@
+User: Hello, my name is Mia. What is your name?
+Coach: Hello Mia, it's nice to meet you! My name is Yellow. What would you like to discuss today?
+--------------------------------------------------
+User: I would like to talk to you to see if the chat is working.
+Coach: That's perfectly fine, Mia! I'm here to support you. As we chat, I'm curious—what specific aspects are you looking to explore to determine if the chat is working for you?
+--------------------------------------------------
+User: I want to explore why the chat completions didn't show a word.
+Coach: That's an intriguing point, Mia. What do you think might be affecting the visibility of the chat completions? Are there specific expectations you had about how the chat should behave?
+--------------------------------------------------
+User: Of course, man. The chance should be really good.
+Coach: It seems like you're reflecting on the potential of the chat, Mia. What do you think would make the chat experience feel successful for you? What are your expectations?
+--------------------------------------------------
+User: The next station is Ha Ha Ha.
+Coach: "It sounds like you're expressing something lighthearted there, Mia! In the context of our discussion about the chat experience, how could we relate that thought to what you're seeking in terms of effectiveness or functionality? What elements would contribute to your enjoyment or satisfaction with this chat?"
+--------------------------------------------------

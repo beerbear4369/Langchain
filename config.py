@@ -12,6 +12,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # Model Configuration
 # This defines which OpenAI model to use
 MODEL_NAME = "ft:gpt-4o-mini-2024-07-18:bearly-alone:coaching-finetuning-test:B4VpCGe9:ckpt-step-90"
+# MODEL_NAME = "gpt-4o-mini"
 MODEL_TEMPERATURE = 1
 
 # Audio Recording Configuration
@@ -19,7 +20,7 @@ MODEL_TEMPERATURE = 1
 SAMPLE_RATE = 44100  # CD quality audio (44.1 kHz)
 CHANNELS = 1  # Mono audio (1 channel)
 CHUNK_SIZE = 1024  # How many samples to process at once
-RECORD_SECONDS = 5  # Default recording time in seconds
+RECORD_SECONDS = 300  # Maximum recording time in seconds (5 minutes)
 WAVE_OUTPUT_FILENAME = "input.wav"  # Default filename if needed
 
 # Text-to-Speech Configuration

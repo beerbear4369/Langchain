@@ -78,6 +78,7 @@ def main():
     # Print welcome information to the console
     print("Voice-Enabled Coaching Assistant")
     print("Say 'exit' or 'quit' to end the conversation.")
+    print("Press any key to stop recording when you're done speaking.")
     print("-" * 50)
     
     # Create a new conversation instance

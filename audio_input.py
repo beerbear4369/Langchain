@@ -2,6 +2,8 @@ import wave  # For working with WAV audio files
 import pyaudio  # For recording audio from microphone
 import os  # For file operations
 import tempfile  # For creating temporary files
+import threading  # For handling keyboard input while recording
+import platform  # For detecting the operating system
 from openai import OpenAI  # OpenAI API client
 from config import OPENAI_API_KEY, SAMPLE_RATE, CHANNELS, CHUNK_SIZE, RECORD_SECONDS
 
@@ -10,72 +12,122 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 def record_audio(duration=RECORD_SECONDS):
     """
-    Records audio from the user's microphone.
+    Records audio from the user's microphone until a key is pressed or max duration is reached.
     
     This function:
     1. Initializes the audio recording system
-    2. Records audio for the specified duration
+    2. Records audio until the user presses any key or max duration is reached
     3. Saves the recording to a temporary WAV file
     4. Returns the path to that file
     
     Args:
-        duration (int): How long to record in seconds (default from config)
+        duration (int): Maximum recording time in seconds (default from config)
         
     Returns:
         str: Path to the recorded audio file
     """
-    print("Recording...")
+    print("Recording... Press any key to stop recording")
     
-    # Step 1: Initialize PyAudio - this is the library that handles microphone input
-    p = pyaudio.PyAudio()
+    # Flag to indicate if recording should stop
+    stop_recording = threading.Event()
     
-    # Step 2: Open an audio stream to record from the microphone
-    # - format=paInt16: Record 16-bit audio (CD quality)
-    # - channels: Mono (1) or stereo (2)
-    # - rate: Sample rate in Hz (44100 = CD quality)
-    # - input=True: We want to record, not play audio
-    # - frames_per_buffer: How many samples to process at once
-    stream = p.open(
-        format=pyaudio.paInt16,
-        channels=CHANNELS,
-        rate=SAMPLE_RATE,
-        input=True,
-        frames_per_buffer=CHUNK_SIZE
-    )
+    # Function to check for key press in a separate thread
+    def check_for_keypress():
+        # Use the appropriate method based on the operating system
+        if platform.system() == 'Windows':
+            # Windows-specific implementation
+            import msvcrt
+            while not stop_recording.is_set():
+                # Check if a key has been pressed
+                if msvcrt.kbhit():
+                    # Read the key to clear the buffer
+                    msvcrt.getch()
+                    print("\nStopping recording...")
+                    stop_recording.set()
+                    break
+                # Small sleep to prevent high CPU usage
+                import time
+                time.sleep(0.1)
+        else:
+            # Unix-like systems (Linux, macOS) implementation
+            import sys
+            import select
+            while not stop_recording.is_set():
+                # Check if there's data available to read from stdin
+                if select.select([sys.stdin], [], [], 0.1)[0]:
+                    # Read the input to clear the buffer
+                    sys.stdin.readline()
+                    print("\nStopping recording...")
+                    stop_recording.set()
+                    break
     
-    # Step 3: Record audio in chunks and store in a list
-    frames = []  # This will hold all the audio data
+    # Start the keypress detection thread
+    keypress_thread = threading.Thread(target=check_for_keypress)
+    keypress_thread.daemon = True
+    keypress_thread.start()
     
-    # Calculate how many chunks we need to record based on duration
-    for i in range(0, int(SAMPLE_RATE / CHUNK_SIZE * duration)):
-        data = stream.read(CHUNK_SIZE)  # Read one chunk of audio
-        frames.append(data)  # Add to our list
+    try:
+        # Step 1: Initialize PyAudio
+        p = pyaudio.PyAudio()
+        
+        # Step 2: Open an audio stream to record from the microphone
+        stream = p.open(
+            format=pyaudio.paInt16,
+            channels=CHANNELS,
+            rate=SAMPLE_RATE,
+            input=True,
+            frames_per_buffer=CHUNK_SIZE
+        )
+        
+        # Step 3: Record audio in chunks and store in a list
+        frames = []  # This will hold all the audio data
+        
+        # Calculate maximum number of chunks based on duration
+        max_chunks = int(SAMPLE_RATE / CHUNK_SIZE * duration)
+        
+        # Record until key is pressed or max duration is reached
+        for i in range(max_chunks):
+            if stop_recording.is_set():
+                break
+                
+            data = stream.read(CHUNK_SIZE)  # Read one chunk of audio
+            frames.append(data)  # Add to our list
+            
+            # Visual indicator of recording progress
+            if i % 10 == 0:  # Update every 10 chunks
+                remaining = duration - (i * CHUNK_SIZE / SAMPLE_RATE)
+                print(f"\rRecording... {remaining:.1f}s remaining (or press any key to stop)", end="")
+        
+        print("\nRecording finished.")
+        
+        # Step 4: Clean up the audio stream
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+        
+        # Step 5: Create a temporary file to store the audio
+        temp_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+        temp_file.close()
+        
+        # Step 6: Save the recorded audio to a WAV file
+        wf = wave.open(temp_file.name, 'wb')
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(p.get_sample_size(pyaudio.paInt16))
+        wf.setframerate(SAMPLE_RATE)
+        wf.writeframes(b''.join(frames))
+        wf.close()
+        
+        return temp_file.name
     
-    print("Recording finished.")
-    
-    # Step 4: Clean up the audio stream
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-    
-    # Step 5: Create a temporary WAV file to store the recording
-    # This file will be deleted after transcription
-    temp_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
-    
-    # Step 6: Write the audio data to the WAV file
-    wf = wave.open(temp_file.name, 'wb')  # Open file for writing binary data
-    wf.setnchannels(CHANNELS)  # Set number of channels
-    wf.setsampwidth(p.get_sample_size(pyaudio.paInt16))  # Set sample width
-    wf.setframerate(SAMPLE_RATE)  # Set sample rate
-    wf.writeframes(b''.join(frames))  # Write all audio frames at once
-    wf.close()  # Close the file
-    
-    # Return the path to the temporary audio file
-    return temp_file.name
+    finally:
+        # Make sure we set the stop flag to terminate the thread
+        stop_recording.set()
+        # Wait for the thread to finish
+        keypress_thread.join(timeout=0.5)
 
 def transcribe_audio(audio_file_path):
     """
-    Transcribes an audio file to text using OpenAI's Whisper API.
+    Transcribes audio to text using OpenAI's Whisper API.
     
     This function:
     1. Opens the audio file

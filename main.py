@@ -32,15 +32,18 @@ def save_conversation_history(conversation):
     """
     messages = conversation.get_conversation_history()
     
-    with open("conversation_history.txt", "w") as f:
-        f.write("CONVERSATION HISTORY\n")
-        f.write("="*50 + "\n\n")
+    try:
+        with open("conversation_history.txt", "w", encoding="utf-8") as f:
+            f.write("CONVERSATION HISTORY\n")
+            f.write("="*50 + "\n\n")
+            
+            for message in messages:
+                role = "User" if message.type == "human" else "Coach"
+                f.write(f"{role}: {message.content}\n\n")
         
-        for message in messages:
-            role = "User" if message.type == "human" else "Coach"
-            f.write(f"{role}: {message.content}\n\n")
-    
-    print("Conversation history saved to 'conversation_history.txt'")
+        print("Conversation history saved to 'conversation_history.txt'")
+    except Exception as e:
+        print(f"Error saving conversation history: {e}")
 
 def debug_conversation_memory(conversation):
     """Print details about the conversation memory for debugging."""

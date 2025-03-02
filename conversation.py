@@ -6,6 +6,36 @@ from config import OPENAI_API_KEY, SYSTEM_PROMPT, MODEL_NAME, MODEL_TEMPERATURE 
 import os
 import json
 from datetime import datetime
+import sys
+import io
+import locale
+
+# Fix console encoding for international characters
+if sys.platform == 'win32':
+    # Instead of redirecting stdout/stderr, just set the console mode
+    import subprocess
+    try:
+        # Use Windows-specific command to set UTF-8 mode
+        subprocess.run(['chcp', '65001'], shell=True, check=False)
+    except Exception as e:
+        print(f"Warning: Could not set console to UTF-8 mode: {e}")
+        
+    # Ensure Python knows we want UTF-8 output
+    import os
+    os.environ['PYTHONIOENCODING'] = 'utf-8'
+
+def safe_print(*args, **kwargs):
+    """Print function that safely handles Unicode characters."""
+    try:
+        print(*args, **kwargs)
+    except UnicodeEncodeError:
+        # Fall back to printing with limited encoding
+        try:
+            # Try to encode as ASCII with replacement characters
+            encoded_args = [str(arg).encode('ascii', 'replace').decode('ascii') for arg in args]
+            print(*encoded_args, **kwargs)
+        except Exception as e:
+            print(f"Error printing output: {e}")
 
 class Conversation:
     """
@@ -103,10 +133,13 @@ class Conversation:
     
     def _log_exchange(self, user_input, response):
         """Log the conversation exchange to a file."""
-        with open(self.log_file, "a") as f:
-            f.write(f"User: {user_input}\n")
-            f.write(f"Coach: {response}\n")
-            f.write("-" * 50 + "\n")
+        try:
+            with open(self.log_file, "a", encoding="utf-8") as f:
+                f.write(f"User: {user_input}\n")
+                f.write(f"Coach: {response}\n")
+                f.write("-" * 50 + "\n")
+        except Exception as e:
+            print(f"Warning: Could not log conversation: {e}")
     
     def get_conversation_history(self):
         """

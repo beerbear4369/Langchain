@@ -1,0 +1,54 @@
+User: Hello, what's your name?
+Coach: I'm an AI trained to assist with coaching. How can I support you today?
+--------------------------------------------------
+User: 이게 뭐지? 나는... 나는 모르겠어
+Coach: 이해가 되지 않는다면, 무엇에 대해 이야기하고 싶은지 구체적으로 설명해 주실 수 있습니까?
+--------------------------------------------------
+User: Okay, let's talk in English. So I want to live a more healthy routine, but I cannot achieve that. I normally sleep late and wake up late.
+Coach: What time do you typically sleep and wake up?
+--------------------------------------------------
+User: We usually sleep at 4 or 5am in the morning and wake up around 12pm in the afternoon.
+Coach: What time would you ideally like to sleep and wake up?
+--------------------------------------------------
+User: I like to sleep around 12 p.m. and I would like to wake up at 7 a.m.
+Coach: What do you think is the biggest barrier to achieving that sleep schedule?
+--------------------------------------------------
+User: The biggest barrier is I cannot sleep or in the night, just like now.
+Coach: What do you think could help you start feeling sleepy at an earlier hour?
+--------------------------------------------------
+User: be tired enough like currently I'm so tired and because I've been having too much information from the AI
+Coach: How might you create a relaxing pre-sleep routine to help you wind down earlier?
+--------------------------------------------------
+User: I don't know. What could you suggest?
+Coach: What options feel right to you for creating a relaxing pre-sleep routine?
+--------------------------------------------------
+User: Drink, drink some alcohol, make me feel sleepy.
+Coach: How might drinking alcohol fit into a healthy routine, considering potential impacts on sleep quality?
+--------------------------------------------------
+User: So you know, right, drinking is not so healthy that we sleep, but it's also having some other issue like we drink too much, we get fat, so it's like a lifestyle issue. In the end of the day, I believe we want to be healthy.
+Coach: What does 'healthy' mean to you beyond just sleep, and how might that influence your routine changes?
+--------------------------------------------------
+User: What do you mean by, what does healthy mean to me? I think it's like being able to have a good mental health and also physical health, be energetic and productive every day. So that is what it means to me. It feels good and it's also like you are able to produce more, it's like a healthy loop.
+Coach: How might achieving a more energetic and productive state influence your approach to adjusting your sleep routine?
+--------------------------------------------------
+User: I don't know, I don't know what your question is about, can you clarify?
+Coach: What I understand is that you want to have a healthy routine, including sleeping early, but you feel stuck. Is that correct?
+--------------------------------------------------
+User: Yes, this is correct.
+Coach: What do you think could be a small first step to begin changing your sleep routine without feeling overwhelmed?
+--------------------------------------------------
+User: c'est la manne maternelle.
+Coach: I'm sorry, but I don't understand. Could you please speak in English?
+--------------------------------------------------
+User: like going to sleep now
+Coach: What do you think about starting to go to sleep now as a first step?
+--------------------------------------------------
+User: I think it could be a good first step, because it's only 4am in the morning, otherwise we will just keep talking about this topic and never take any action at all.
+Coach: How do you feel about the idea of starting to go to sleep now as a first step?
+--------------------------------------------------
+User: As I have sight, I think it is a good start.
+Coach: What might help you maintain the commitment to sleep now and gradually adjust your routine?
+--------------------------------------------------
+User: I don't know, could you suggest some permitment, potentially possible one?
+Coach: What has helped you stick to commitments in other areas of your life?
+--------------------------------------------------

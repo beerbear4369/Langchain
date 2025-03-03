@@ -1,0 +1,12 @@
+User: ฮัลโหล อาวิยอิอัน อ.ยู
+Coach: Hi! How are you?
+--------------------------------------------------
+User: Hi, what is my name?
+Coach: I don't know your name yet. What do you want me to call you?
+--------------------------------------------------
+User: Okay, you can call me Ian, maybe. I am very happy to talk to you.
+Coach: I'm also very happy to talk to you.
+--------------------------------------------------
+User: So what?
+Coach: ינית 23:11וג 23:12 
+--------------------------------------------------

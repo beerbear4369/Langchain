@@ -1,0 +1,36 @@
+User: Hello, how are you?
+Coach: I'm good, thank you. How about you?
+--------------------------------------------------
+User: 여러분, 고맙습니다.
+Coach: So, Yuna, what do you want to chat about today?
+--------------------------------------------------
+User: Maybe we can talk about the idea that we want to use an AI agent to create an AIGC content creation platform. It's like a chatgpd version for the AI creator. So basically you can just do some comment and do some prompt and then you'll be able to use the prompt to create a movie from the chatbox rather than currently people need to jump into a different platform to create an AIGC movie, there's so many human effort. So I want to automate this precisely so people can really impact their creativity.
+Coach: How would you assess the impact of this automation on user creativity, Yuna?
+--------------------------------------------------
+User: Wow. First of all, my name is Ian. Just now you hear me wrongly. Second, I think the impact would be transformative if we change the way people create movies. Or it could be not called a movie, but an AI movie or something like that. It's a new form of artwork. And this could be a billion-dollar business. What do you think?
+Coach: So, Ian, you're saying that the impact could be enormous—potentially a billion-dollar business. How did you arrive at that estimate?
+--------------------------------------------------
+User: Okay, you see, currently we are trying to use it with GUI, so it's really long, precise, right? We need to generate different picture and there are many garbage. So human need to eyeball, pick the right things, and then use that content to basically put everything, make it assembly, like a movie, that is the current workflow, right? And it's taking quite a long time, it takes us like half a year to do it, but with AI I think it can be really fast, maybe we can do it in a few days. So it will really unlock productivity and really cost, it's just the creator's time and the token sent to the big model.
+Coach: So you're saying the current process takes about six months, but with AI, it could be reduced to a few days. This significant speedup could dramatically enhance productivity. How do you translate that efficiency into a business valuation, like a billion-dollar impact?
+--------------------------------------------------
+User: How did I translate that efficiency to be this valuation? Because basically we reduce the cost and time to create a movie, and this can be so abundant, right? Many people will try not to use the old way, they will jump to the new way, and there will be many users in the platform to do it. So we can become like a cheap version of movie creation, something like that, or it's more like the capacity for movie creation.
+Coach: I see. You're suggesting that by drastically reducing the time and cost of movie creation, you could attract a large number of users, leading to substantial market growth. How are you planning to validate this business model?
+--------------------------------------------------
+User: I don't know, I think maybe we, if you ask me, I want to get a creator and be the partner so we understand what is the current workflow that they are using and try to use the agentic tool to automate that and then we come up with a MVP and just that is great to try. If it helps her, I think this is a good direction, means it is creating value, then we can make this more, like giving more functions, make it more mature and then launch it to the big market.
+Coach: So, if I hear you correctly, you plan to partner with a creator to understand the current workflow, use that knowledge to develop an MVP with your AI tool, and then refine the product based on feedback to fully launch it. Is that right?
+--------------------------------------------------
+User: Yeah, correct. You got the gist.
+Coach: What's the specific challenge you're facing that makes you want to talk about this today?
+--------------------------------------------------
+User: Specifically, I forgot what I mentioned, I think the specific challenge would be, I'm not sure if this is technically feasible, and I think I don't have enough results to launch this, but I think this is a really brilliant idea, it's a good direction, and I guess there are many people working on this idea already.
+Coach: So, Ian, you're feeling uncertain about the technical feasibility and whether you have enough results to move forward with this idea?
+--------------------------------------------------
+User: Correct, you can see so.
+Coach: 
+--------------------------------------------------
+User: I'm sorry.
+Coach: So, Ian, you're aware that many people might be working on this idea, which adds to your uncertainty about pursuing it?
+--------------------------------------------------
+User: Not really. I believe there are many ideas. Many people have many ideas. If it's the right direction, definitely many people will think of it. So basically, in the end of the day, the idea will compete with each other and the best idea will be knocked. That is what I believe is happening in the day, in the world. I think in the end of the day, this is really good because with this competition, we see other people spark and then we can further fund our idea to make it a better product. And in the end of the day, users will benefit.
+Coach: So, Ian, you believe that competition is essential, as it drives improvement and ultimately benefits users. How does this belief affect your confidence in moving forward with your idea?
+--------------------------------------------------

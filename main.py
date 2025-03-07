@@ -78,7 +78,7 @@ def main():
        - Converts response to speech
        - Repeats until user exits
     """
-    # Print welcome information to the console
+     # Print welcome information to the console
     print("Voice-Enabled Coaching Assistant")
     print("Say 'exit' or 'quit' to end the conversation.")
     print("Press any key to stop recording when you're done speaking.")

@@ -1,0 +1,40 @@
+User: Hello, who are you? What's your name?
+Coach: I'm your coach today, and who are you?
+--------------------------------------------------
+User: اسمي إيان
+Coach: ما الذي ترغب في التركيز عليه اليوم؟
+--------------------------------------------------
+User: Nama saya Ian
+Coach: Ian, what would you like to focus on today?
+--------------------------------------------------
+User: Okay, I want to talk about my sleeping issue. I have terrible schedule. I don't wake up at normal time and sleep at normal time.
+Coach: Okay. If you are aware of the problem, why do you think that is?
+--------------------------------------------------
+User: What do you mean specifically? Why do I think of what?
+Coach: Could you tell me more about the problem?
+--------------------------------------------------
+User: okay so basically I sleep very late at night and wake up very early in the morning sometimes I just fall asleep at 9 p.m. and then I like auto wake up at 5 a.m. or 4 a.m. in the morning then I start to work and after a while I will feel very tired so I didn't go to sleep again like like 8 or 9 a.m. and yeah I didn't wake up again in the afternoon so it's really strange routine
+Coach: So you have a routine where you might fall asleep at 9 p.m., wake up at 4 or 5 a.m., do some work, and then potentially take a long nap from 8 to 9 a.m., resulting in a very irregular sleep schedule. Is that correct?
+--------------------------------------------------
+User: Yeah, you try the chest.
+Coach: Okay, so what do you want to do about this problem?
+--------------------------------------------------
+User: I want to be able to sleep as a normal person, sleep at like maybe before 12 p.m. at night and then wake up early in the morning like 7 a.m. and have an energetic and productive day.
+Coach: So you'd like to establish a regular sleep schedule, going to bed before midnight and waking up around 7 a.m. to have a productive day.
+--------------------------------------------------
+User: Correct. You've got a G stuff it.
+Coach: Ian, how would you say we have a productive session together today in terms of your sleeping issue?
+--------------------------------------------------
+User: Yeah, of course, I would like to do that, but I just don't know how to achieve that. I mean, it sounds easy, but it's just quite hard to me. I don't know why.
+Coach: It's easy to say, but you may have underlying reasons that make it difficult. Would it help if we explored together why it’s hard for you to change your sleep pattern?
+--------------------------------------------------
+User: For us, that would be helpful. I would like to do that.
+Coach: **Topic:**  Ian, you mentioned you want to change your sleep schedule. Can we dive into why that’s been difficult for you?  
+**Goal:**  How do you know we’ve been productive together in addressing your sleep issue?  
+**Reality:**  What’s been preventing you from sticking to a regular sleep schedule?  
+**Options:**  If you had to guess, what do you think stands in the way of changing your sleep routine?  
+**Way Forward:**  What’s one small step you can take towards your ideal sleep pattern this week?  
+--------------------------------------------------
+User: Qu'est-ce que vous m'attendez à dire?
+Coach: Ian, qu'est-ce que vous attendez de cette séance pour dire que nous avons été efficaces ensemble?
+--------------------------------------------------

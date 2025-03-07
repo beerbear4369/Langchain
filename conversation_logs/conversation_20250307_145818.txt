@@ -1,0 +1,56 @@
+User: Hello, I'm Yen. How are you?
+Coach: Good. I’m glad to see you again. Where do you want to focus today?
+--------------------------------------------------
+User: Okay, I let you talk about my sleeping issue. I have trouble sleeping good at night.
+Coach: “What outcome do you want from this conversation?”
+--------------------------------------------------
+User: Well, I'd like to have a more healthy sleeping schedule, I guess, like being able to sleep early and wake up early instead of staying quite late at night and unable to get up in the morning. It really hurts my productivity, and I feel it's not healthy as well, and I feel it's really not good. I really want to change this habit.
+Coach: “Why is it important to change this habit?”
+--------------------------------------------------
+User: Why is it important? I guess it is like sleep is a quite important thing, right? So with a good sleep, you're able to have more energy and with more energy, you can be more productive. You'll live a happy life. You'll generally be more, like, you'll be generally more healthy and you'll be able to, I don't know, live a normal life, live a good life. Like this is quite common, right, to every people. But it's just, I don't know why I cannot get it for myself. So I feel quite frustrated about it and I really want to solve this. It's like a chronic issue.
+Coach: Are you usually a healthy person, or are you more kind of productivity-driven normally?	
+--------------------------------------------------
+User: Well, I guess when it comes to the subject that I'm really interested in, for example, developing software, I will be more productivity-driven, so I'll just keep awake and work until I can get out and sleep on the sofa bed. It's hard for me to control myself, but also I want to be healthy, I want to live a healthy life because that is the sustainable way, right? Only in that way you're able to be sustainable and live longer and be more productive in long term rather than in the short sprint.
+Coach: “It sounds like both health and productivity matter to you. Do you agree?”
+--------------------------------------------------
+User: Yes, I agree with this.
+Coach: “Great. On a scale of 1 to 10, how would you rate your current satisfaction with your sleep?”
+--------------------------------------------------
+User: I would rate it as 5, it's like really disordered.
+Coach: “What would be the ideal number for you to feel the balance?”
+--------------------------------------------------
+User: Sorry, I don't get it. What do you mean? What is the addon number? What does it represent?
+Coach: The level that you feel balanced.
+--------------------------------------------------
+User: let's say if you are talking about sleep and health I mean like productivity and health both are quite important so it's like five to five I cannot sacrifice my health to work I cannot do it anymore I'm very young and I have experienced health issue doing that and if I don't work right just like recover I feel not good as well I want to be like having proper things to do like a real work real job so I mean if I only relax right I also don't get recovered much because of mentally feeling the stress I want to having an achievement so I think it's five for five
+Coach: What would be more ideal or more balanced point for you so that you feel healthy productive and enough?
+--------------------------------------------------
+User: Sorry I don't understand your question. Can you repeat? Can you ask in another way so that I can understand what you are asking?
+Coach: How I could put it? I meant a point that this is the balance for you between health and productivity—where you feel the balance.
+--------------------------------------------------
+User: Yeah, I want to find this balance. So it's like work-life balance still, right? So healthy, productive, that is my ideal way of living.
+Coach: How do you know you can get there, or can achieve this?
+--------------------------------------------------
+User: how do I know I can get there I don't know I mean that's why we have in the coaching session that I'm expect to having something from here
+Coach: how do you how do you know we're heading the right direction
+--------------------------------------------------
+User: I don't know. I guess now we are not heading to the right direction. It's like, I don't know the answer, that's why I talk to you, trying to explore what could be the potential reason of it, right?
+Coach: “Okay, I like to anchor the goal, is that alright?”
+
+
+--------------------------------------------------
+User: Okay, yeah, what is the goal?
+Coach: Sorry, I need to pause here.
+--------------------------------------------------
+User: Why you need to pause here?
+Coach: I’m kind of feeling I’m not coaching here.
+--------------------------------------------------
+User: Okay, so what do you feel? What is your feeling here?
+Coach: I think it’s hard in a role play to really anchor to your goal.
+--------------------------------------------------
+User: Okay, so what do you suggest? What do you think we should move forward from here?
+Coach: I need to work on my role-playing skills.
+--------------------------------------------------
+User: OK
+Coach: Yeah, I just feel quite confused right now. Where do you think we are right now?
+--------------------------------------------------

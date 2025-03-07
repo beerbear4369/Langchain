@@ -1,0 +1,15 @@
+User: Hello, I'm Ian. How are you?
+Coach: So Ian, do you know how to be coached?
+--------------------------------------------------
+User: I Don't know
+Coach: Well, you do coaching, right?
+--------------------------------------------------
+User: Yes.
+Coach: So Ian, you mentioned you don't know what coaching is. Would you like to learn more about it before we start?
+--------------------------------------------------
+User: I don't want to do that. Can we start directly?
+Coach: Ian, it's important for me to understand if you know what coaching is, especially since we might be working together in the future.
+--------------------------------------------------
+User: Okay, so how? Tell me more about coaching.
+Coach: Ian, you mentioned you don't know what coaching is. Would you like to learn more before we begin?
+--------------------------------------------------

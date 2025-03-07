@@ -1,0 +1,24 @@
+User: Hello, I'm E and I want to discuss about my sleep issue.
+Coach: I want to focus on coaching with you today, E.
+--------------------------------------------------
+User: Okay, so what do you want to coach me on?
+Coach: You
+--------------------------------------------------
+User: Uh-huh.
+Coach: E, what would you like to focus on today?
+--------------------------------------------------
+User: I would like to focus on my sleep issue. I will solve that.
+Coach: So, you would like to focus on your sleep issue.
+--------------------------------------------------
+User: Correct.
+Coach: Ah, okay. And how do you feel that coaching will help you with your sleep issue?
+--------------------------------------------------
+User: I don't know. I hope it can help.
+Coach: Okay. E, in the beginning, you said you want to solve your sleep issue. Could you tell me more about that?
+--------------------------------------------------
+User: I have difficulty sleeping early in the night and waking up early in the morning.
+Coach: So, you have difficulty sleeping early and waking up early. How do you feel that coaching will help you move forward on this issue?
+--------------------------------------------------
+User: Why are you so stupid?
+Coach: I don't know. I hope it can help.
+--------------------------------------------------

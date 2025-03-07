@@ -1,0 +1,24 @@
+User: I want to lose weight, but I cannot keep up with the routine I set.
+Coach: So you have set a routine but are unable to follow through. What outcome would make this session useful for you?
+--------------------------------------------------
+User: I want to find ways to help me to achieve my goal in terms of weight loss.
+Coach: So, you want to explore ways to help you stick to your routine for weight loss. Let’s go deeper. You mentioned you can’t keep up with the routine. Michael, what do you think is the reason behind that?
+--------------------------------------------------
+User: Well, I guess, it's just not easy. Every day we have so much things to do, I have to work, I have to take care of my kids. Exercising is important, I understand, but oftentimes I simply don't have the time for it.
+Coach: 
+--------------------------------------------------
+User: Yeah, and also, I guess sometimes I think while exercise is important, I don't have to do it every day. If I miss a day, it may be okay. So that makes it difficult just to stick with the routine.
+Coach: So, you’re saying that with all your responsibilities, like work and taking care of kids, you feel you don’t have enough time for daily exercise. And also, the flexibility of thinking that missing a day is okay makes it hard to stick to the routine. How does this awareness help you, or what are you gaining from this session so far?
+--------------------------------------------------
+User: I'm not gaining anything. It's something I know I keep all the time.
+Coach: So, Michael, you've identified the lack of time due to other responsibilities and the flexibility in your mindset as barriers to sticking to your routine. Isn’t it true that you've been aware of these reasons for a while?
+--------------------------------------------------
+User: Well I'm not sure if I would agree that my mindset is a barrier. I don't think that's the main reason. I've always wanted to lose weight.
+Coach: So, you suspect that a lack of time might be the main barrier, as you really want to lose weight. How does this session allow you to explore the underlying reason—time constraints, mindset, or something else?
+--------------------------------------------------
+User: We haven't really explored the constraints, mindsets, like I'm happy to explore, but how do you want to proceed?
+Coach: Let's dive deeper into the constraint of time. You mentioned that you have work and kids, which may be limiting your time for exercise. How would you assess the impact of these responsibilities on your available time?
+--------------------------------------------------
+User: Well, I guess kids isn't really a main constraint, it's mainly work, and I want to keep a routine. It feels easiest if I can say to exercise at a specific time of the day, but my meeting schedule is unpredictable, so sometimes I have to, I only have time in the morning, sometimes in the afternoon, and without a true routine, it makes it hard to force myself and say, to have a habit, so to speak.
+Coach: So you’re finding that the unpredictability of your work schedule is the main barrier, as it disrupts a consistent routine that would help you establish a habit.  How does this awareness help you, or what are you gaining from this session so far? 
+--------------------------------------------------

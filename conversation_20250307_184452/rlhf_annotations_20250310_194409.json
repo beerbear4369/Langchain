@@ -1,0 +1,26 @@
+[
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Yeah, I think you can get the gist of it."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "ijiji"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Ian, what would make this session useful for you?"
+      }
+    ]
+  }
+]

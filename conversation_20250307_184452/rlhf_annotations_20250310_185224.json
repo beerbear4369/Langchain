@@ -1,0 +1,26 @@
+[
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Correct."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "gfhjfhjgf"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Ian, in the next 20 to 30 minutes, what would be useful for you to talk about with regard to your sleeping pattern?"
+      }
+    ]
+  }
+]

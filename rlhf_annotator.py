@@ -605,10 +605,10 @@ class RLHFAnnotator:
                     }
                     all_supervised_data.append(supervised_item)
                     
-                    # Export the supervised learning data to JSON for this file
-                    supervised_file_path = os.path.join(export_dir, f"supervised_{timestamp}.json")
+                    # Export the supervised learning data to JSONL for this file
+                    supervised_file_path = os.path.join(export_dir, f"supervised_{timestamp}.jsonl")
                     with open(supervised_file_path, 'w', encoding='utf-8') as f:
-                        f.write(json.dumps(supervised_item, ensure_ascii=False, indent=2))
+                        f.write(json.dumps(supervised_item, ensure_ascii=False))
                 
                 # Export the human-readable log
                 human_readable_path = os.path.join(export_dir, f"annotated_conversation_{timestamp}.txt")
@@ -644,15 +644,16 @@ class RLHFAnnotator:
                     }
                     file_annotations.append(dpo_item)
             
-            # Export the DPO annotations to JSON
+            # Export the DPO annotations to JSONL
             if file_annotations:
-                dpo_file_path = os.path.join(export_dir, f"dpo_{timestamp}.json")
+                dpo_file_path = os.path.join(export_dir, f"dpo_{timestamp}.jsonl")
                 with open(dpo_file_path, 'w', encoding='utf-8') as f:
-                    json.dump(file_annotations, f, indent=2, ensure_ascii=False)
+                    for item in file_annotations:
+                        f.write(json.dumps(item, ensure_ascii=False) + '\n')
         
         # Create combined export with all supervised data
         if all_supervised_data:
-            combined_supervised_path = os.path.join(base_export_dir, f"all_supervised_{timestamp}.json")
+            combined_supervised_path = os.path.join(base_export_dir, f"all_supervised_{timestamp}.jsonl")
             with open(combined_supervised_path, 'w', encoding='utf-8') as f:
                 for item in all_supervised_data:
                     f.write(json.dumps(item, ensure_ascii=False) + '\n')
@@ -669,9 +670,10 @@ class RLHFAnnotator:
                 all_dpo_data.append(dpo_item)
         
         if all_dpo_data:
-            combined_dpo_path = os.path.join(base_export_dir, f"all_dpo_{timestamp}.json")
+            combined_dpo_path = os.path.join(base_export_dir, f"all_dpo_{timestamp}.jsonl")
             with open(combined_dpo_path, 'w', encoding='utf-8') as f:
-                json.dump(all_dpo_data, f, indent=2, ensure_ascii=False)
+                for item in all_dpo_data:
+                    f.write(json.dumps(item, ensure_ascii=False) + '\n')
         
         # Export all feedback notes to a single file
         if all_feedback:

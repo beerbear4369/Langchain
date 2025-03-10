@@ -1,0 +1,218 @@
+[
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Yes, correct. You are right. And how do we do that? Can you proceed?"
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "test"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "AI: What do you think is the real cause of your lack of self-control?"
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Well, what did you generate?"
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "test"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Iaan, it's so interesting. You mentioned you don't like to be managed or controlled, and even that includes not wanting to listen to yourself. But it's clear that something internal motivates you—otherwise, you wouldn't be here. What do you think that might be?"
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "What internally motivated me is that I like myself to don't behave in that way. It's like to take control of myself, to be able to live the life that I like to be, right? For example, there's two persons in my body. There's a master and there's a body. The master wants to take control and wants to let the body be able to listen to it so we can achieve the goal, we can live a good life, have a healthy body, healthy mental health, you know, don't miss flight again, like wasting money, being able to create something organically, become a successful people rather than here and there and then wasting time. Yeah, that's the motivation, I want to be a good person, I want to improve myself."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "you have describe about healthy and success. How is success looks to you?"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "ian, could you summarize that motivation in one or two sentences?"
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "I'm not disciplined. I'm a very undisciplined people. That is the problem I want to solve."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "based on your defination of the disciplined people, who is the most displined people you know? could you tell about them?"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "So, you're very clear about what you are not. But let's explore your lack of self-control. What do you think is the real cause of it?"
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "I don't know. Like, what would be useful for me to talk about regarding the sleeping pattern? Why am I unable to sleep early? Actually, I know that because I don't stop early in the night. Like, why, although I know that, yeah, maybe we can talk about why, although I know I should do that, but I'm not doing that. Like, I know I need to go to the airport early, but I just keep delaying it and going very late, and sometimes missing the flight. Like, this is like quite, from many aspects, I know what I should do, but I just cannot do that. I won't behave accordingly to do that. I don't know why. That is like a curse to me. Like, bad stuff that is hard to be controlled."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "I feel your sense of frustration or curse regarding your lack of self-control. where do you think this frustration deeply comes from?"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Ian: So, you're discussing about your sleeping pattern and more specifically, why you are unable to change it, despite knowing what you should do. You're drawing a parallel to your ability to take action, like getting to the airport on time, and you're expressing a sense of frustration or curse regarding your lack of self-control."
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Okay, maybe instead of talking about the sleeping issue, which I've been talking about many times, I'm quite tired of it, maybe let's talk about why I have this behavior pattern that I know what to do, but I just cannot do it, I will keep delaying going to the airport, missing the flight, no need to go to sleep, I don't go to sleep, I want to solve this, I want to be able to achieve what I want, do what I want, control myself properly, it will be really useful if after the session I know the root cause of it, I'm able to resolve it, I'm able to act differently after this talk."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "You want to be able to do what you desire and have proper control over your actions.what do you feel when you miss your flight?"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "So, you suspect that you might have a lack of self-control, and you'd like to understand the root cause of this behavior—specifically, why you can’t seem to do what you know you should do. You've named the issue as a lack of self-control, and you're frustrated because you feel like this pattern controls you. You want to be able to do what you desire and have proper control over your actions."
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Yes, you're right."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "what do you think is the fundamental reason for that?"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Ian, how do you know that we're embarking on a useful conversation?"
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "I have no idea if I know what action to take. I've been taking it far before, right? I won't wait until today. So I don't know what action can I take. It's just I feel it's quite hard to control myself, ironically. Yeah, sounds stupid to you maybe because you're a robot and you don't understand people. But it's just hard to control. You just won't listen to yourself. You just... You may know you should do that, but the action, doing it in a totally 180 degree, or worse way. It's like you know you should be disciplined, but you just don't like to be disciplined. And you didn't make yourself disciplined and then you start to regret. Okay, that is human being."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "I understand your frustrution about it. what do you feel when you able to control it?"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Because you are a robot, huh?"
+      }
+    ]
+  },
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Now you are a robot. I am human."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "just test"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Let's move on. Ian, you've been really clear about the outcome you want from this session. It is to gain a better understanding of why you are unable to do what you know you should do—specifically regarding your self-control. You've named the issue and expressed your frustration. You've also highlighted the importance of this conversation, saying that understanding this aspect of yourself could empower you to take action in alignment with your desires."
+      }
+    ]
+  }
+]

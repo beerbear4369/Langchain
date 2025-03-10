@@ -1,9 +1,0 @@
-User: Hello, I'm Ian. I want you to help me with my sleep issue.
-Coach: So Ian, you want to get coaching around sleep.
---------------------------------------------------
-User: Yes, you are right.
-Coach: What's important about solving this for you, Ian?
---------------------------------------------------
-User: By solving this I believe I can enjoy my life better, having a more healthy lifestyle, more productive at work.
-Coach: So if you think about your life, how would you rate your sleep on a scale of 1 to 10?
---------------------------------------------------

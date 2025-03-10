@@ -1,9 +1,0 @@
-User: Hello, my name is Ian.
-Coach: Hi Ian, how are you today? What brings you in regarding your career?
---------------------------------------------------
-User: I want a prom to stop.
-Coach: What would be a successful outcome for you regarding this relationship?
---------------------------------------------------
-User: Thank you. Bye. Bye. Bye. 
-Coach: Hi Ian, how are you today? What brings you in regarding your career?
---------------------------------------------------

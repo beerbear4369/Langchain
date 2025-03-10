@@ -1,0 +1,26 @@
+[
+  {
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "I don't know. Like, what would be useful for me to talk about regarding the sleeping pattern? Why am I unable to sleep early? Actually, I know that because I don't stop early in the night. Like, why, although I know that, yeah, maybe we can talk about why, although I know I should do that, but I'm not doing that. Like, I know I need to go to the airport early, but I just keep delaying it and going very late, and sometimes missing the flight. Like, this is like quite, from many aspects, I know what I should do, but I just cannot do that. I won't behave accordingly to do that. I don't know why. That is like a curse to me. Like, bad stuff that is hard to be controlled."
+        }
+      ],
+      "tools": [],
+      "parallel_tool_calls": true
+    },
+    "preferred_output": [
+      {
+        "role": "assistant",
+        "content": "what do you feel ian(testing)"
+      }
+    ],
+    "non_preferred_output": [
+      {
+        "role": "assistant",
+        "content": "Ian: So, you're discussing about your sleeping pattern and more specifically, why you are unable to change it, despite knowing what you should do. You're drawing a parallel to your ability to take action, like getting to the airport on time, and you're expressing a sense of frustration or curse regarding your lack of self-control."
+      }
+    ]
+  }
+]

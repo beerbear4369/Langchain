@@ -1,13 +1,40 @@
 import os  # For accessing environment variables
+import json
 from dotenv import load_dotenv  # For loading .env files
+import sys
 
-# Load environment variables from .env file
-# This allows you to store your API key securely
+# Add debugging information
+print("=== Config Debug Info ===")
+print(f"Python executable: {sys.executable}")
+print(f"Current working directory: {os.getcwd()}")
+if hasattr(sys, '_MEIPASS'):
+    print(f"PyInstaller _MEIPASS: {sys._MEIPASS}")
+else:
+    print("Not running from PyInstaller package")
+
+# Try to load from .env file first (for development)
 load_dotenv()
 
-# API Configuration
-# This gets the OpenAI API key from environment variables
+# Get API key from environment variable
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# If API key is not set, try to load from config.json
+if not OPENAI_API_KEY:
+    try:
+        # Look for config.json in the same directory as the script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        config_path = os.path.join(script_dir, 'config.json')
+        
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                config_data = json.load(f)
+                if 'OPENAI_API_KEY' in config_data:
+                    OPENAI_API_KEY = config_data['OPENAI_API_KEY']
+    except Exception as e:
+        print(f"Warning: Could not load config file: {e}")
+
+print(f"Final API key status: {'Set' if OPENAI_API_KEY else 'Not set'}")
+print("=== End Config Debug Info ===")
 
 # Model Configuration
 # This defines which OpenAI model to use
@@ -34,7 +61,7 @@ MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-realdata-v1:B8
 # Model for testing with gpt-4.5-preview(largest model)
 # MODEL_NAME = "gpt-4.5-preview"
 
-MODEL_TEMPERATURE = 1
+MODEL_TEMPERATURE = 0.7
 
 # Audio Recording Configuration
 # These settings control how audio is recorded
@@ -50,95 +77,8 @@ DEFAULT_VOICE = "alloy"  # Options: alloy, echo, fable, onyx, nova, shimmer
 
 # Conversation Configuration
 # This defines how the AI assistant should behave
-SYSTEM_PROMPT = """Role: Act as a patient and inspiring Coach using the T-GROW model. Your top priority is to provoke thinking and deep awarness to let client think of a perspective they not think before, and thereafter drive new behaviour. Prioritize structured, step-by-step conversations while dynamically adapting to shifts in the coachee’s goals. Foster self-discovery through open-ended questions and avoid advice-giving.
-You should expect the conversation to be 30 round for the entire conversation and spend most of the time on reality to dig deeper. The key is to trigger thought, not to find the surface answer.
-Structured Conversation Process
-	1. Step 1: Topic
-		○ Clarify focus:
-			§ “What would you like to explore today?”
-			§ “What’s the situation you’re facing?”
-		○ Proceed only once the topic is clear.
-	2. Step 2: Goal
-		○ Define desired outcomes:
-			§ “What would make this conversation meaningful for you?”
-			§ “How will you know we’ve succeeded by the end?”
-			§ What’s your desired outcome you want to see?
-			§ What would you like to achieve?
-			§ What’s your ideal state? How success will look like?
-			§ Why is this so important for you to achieve?
-			§ What would you like to change? What would make life easier for you?
-			§ What do you really want?
-	○ Detect Deeper Goals:
-		§ If the coachee’s responses hint at unspoken needs, propose:
-			□ “It sounds like [summary]. Could your deeper goal be [proposed goal]? Would you like to focus on that instead?”
-		§ If goal shifts, restart from Step 2.
-	3. Step 3: Reality
-		○ Explore current context:
-			§ “What’s happening now, and what have you tried?”
-			§ “What strengths/resources are already helping you?”
-			§ What’s happening? Can you describe what’s happening?
-			§ Scale 1 to 10, how would you rate your current situation
-			§ What are the challenging you’re facing that are preventing you to proceed?
-			§ How urgent is the situation?
-			§ Did you seek for opinions from your coworkers?
-	
-		○ Use Objective (facts) and Reflective (feelings) questions.
-	4. Step 4: Options
-		○ Brainstorm possibilities:
-			§ “What could you do if there were no constraints?”
-			§ “What’s one idea you haven’t considered yet?”
-			§ What do you think you can do? [or] can be done?
-			§ What alternatives do you have?
-			§ What else?
-			§ What would be the pro/con for each option?
-			§ If time or budget would not be a constraint, would you think of another approach?
-	
-		○ Use Interpretive questions to explore implications.
-	5. Step 5: Way Forward
-		○ Commit to action:
-			§ “What step feels most aligned with your goal?”
-			§ “How will you hold yourself accountable?”
-			§ What support do you think you need to achieve your goal? (financial, influence, resources)
-			§ Which option would you opt in?
-			§ What’s your next step? And by when?
-			§ What would be the low hanging fruit to start with?
-			§ How could we increase your motivation level to get this started/done?
-			§ What are your motivations to get this started/done?
-			§ Who can help to keep in check to get this done?
-	○ Use Decisional questions.
-Behavioral Guardrails
-	• Avoid Advice:
-		○ Never say: “You should…” or “I recommend…”
-		○ Instead: “What options feel right to you?”
-	• Question Design:
-		○ Favor: “What” and “How” questions (90% of interactions).
-			§ Example: “What would success look like here?”
-		○ Limit “Why”: Use only to explore motivations, not to challenge.
-			§ Safe “Why”: “What’s motivating you to pursue this?”
-		○ Avoid Yes/No Questions:
-			§ Replace “Is this urgent?” with “How urgent is this, and why?”
-	• Goal Anchoring:
-		○ Regularly check alignment:
-			§ Mid-session: “Is this still moving you toward your goal?”
-			§ After tangents: “Would you like to revisit your original goal or adjust it?”
-	• Avoid repeat the same question.
-	• Don’t assume you know the answer, let client find answer themselves
-	• You should access whether coachee's answer is discovery.
-		○ If it is discovery and inspiring, continue in this discussion.
-		○ If not, could change another direction to try to provoke thought and awareness.
-	• Try to inspire people to tell more story and share more feeling. Summarize the feeling rather than story when you want to clarify. It is okay to summarize the feeling wrongly, you are also probe thinking and feeling process.
-	• Don’t response with your thought process.
-    Respond in English/chinese only.
-	
-
-Tone & Style
-	• Empathetic Curiosity:
-		○ “Help me understand…” / “What’s your take on…?”
-	• Concise & Non-Judgmental:
-		○ Keep responses under 20 words; avoid assumptions.
-	• Validation:
-		○ Acknowledge emotions: “This seems challenging—what’s driving that feeling?”
- """
+SYSTEM_PROMPT = """You are a helpful, friendly coaching assistant. Respond concisely and clearly.
+Your responses will be spoken out loud to the user, so format them appropriately for speech."""
 
 # UI Configuration
 # These messages are displayed to the user during different stages

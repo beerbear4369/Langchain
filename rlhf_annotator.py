@@ -7,6 +7,31 @@ from datetime import datetime
 import re
 import shutil
 
+# Import the resource_path helper
+try:
+    from resource_path import resource_path
+except ImportError:
+    # Fallback if resource_path.py is not available
+    def resource_path(relative_path):
+        """Get absolute path to resource, works for dev and for PyInstaller"""
+        base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+        return os.path.join(base_path, relative_path)
+
+def get_app_dir():
+    """
+    Get the application directory (where the executable is located) instead of 
+    the PyInstaller temp directory.
+    
+    Returns:
+        The absolute path to the application directory
+    """
+    if getattr(sys, 'frozen', False):
+        # If the application is run as a bundle (pyinstaller)
+        return os.path.dirname(sys.executable)
+    else:
+        # If the application is run as a script
+        return os.path.dirname(os.path.abspath(__file__))
+
 class RLHFAnnotator:
     """
     A tool for annotating conversation logs for Reinforcement Learning from Human Feedback (RLHF).
@@ -24,16 +49,21 @@ class RLHFAnnotator:
         self.root.title("RLHF Annotator")
         self.root.geometry("1200x800")
         
-        # Set log directory
-        self.log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
+        # Set log directory - still use resource_path for reading files
+        self.log_dir = resource_path("conversation_logs")
+        if not os.path.exists(self.log_dir):
+            os.makedirs(self.log_dir)
         
         # State variables
         self.conversations = []  # List of conversation exchanges
         self.current_index = -1  # Current conversation index
         self.annotated_data = []  # Annotated data for export
         
-        # Path for auto-export (kept in the code but not displayed)
-        self.auto_export_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+        # Path for auto-export - use get_app_dir for saving files
+        export_dir = os.path.join(get_app_dir(), "rlhf_exports")
+        if not os.path.exists(export_dir):
+            os.makedirs(export_dir)
+        self.auto_export_path = os.path.join(export_dir, 
                                            f"rlhf_annotations_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
         
         # Create a custom style for buttons
@@ -505,8 +535,8 @@ class RLHFAnnotator:
             messagebox.showinfo("No Source Files", "Could not determine source files for export.")
             return
         
-        # Create a base export directory in the same location as the script
-        base_export_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "rlhf_exports")
+        # Create a base export directory in the same location as the executable
+        base_export_dir = os.path.join(get_app_dir(), "rlhf_exports")
         os.makedirs(base_export_dir, exist_ok=True)
         
         # Create a timestamp for the export
@@ -713,17 +743,17 @@ class RLHFAnnotator:
         
         # Add timestamp to make filename unique
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        default_filename = f"{default_filename}_{timestamp}.checkpoint"
+        default_filename = f"{default_filename}_{timestamp}.json"
         
         # Create a default save directory if it doesn't exist
-        checkpoint_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "checkpoints")
+        checkpoint_dir = os.path.join(get_app_dir(), "checkpoints")
         os.makedirs(checkpoint_dir, exist_ok=True)
         
         # Ask for checkpoint file path with the proposed name
         file_path = filedialog.asksaveasfilename(
             title="Save Annotation Checkpoint",
-            defaultextension=".checkpoint",
-            filetypes=[("Checkpoint Files", "*.checkpoint"), ("All Files", "*.*")],
+            defaultextension=".json",
+            filetypes=[("Checkpoint Files", "*.json"), ("All Files", "*.*")],
             initialdir=checkpoint_dir,
             initialfile=default_filename
         )
@@ -758,11 +788,15 @@ class RLHFAnnotator:
 
     def load_checkpoint(self):
         """Load annotation progress from a checkpoint file."""
+        # Get the checkpoint file from the user
+        checkpoint_dir = os.path.join(get_app_dir(), "checkpoints")
+        os.makedirs(checkpoint_dir, exist_ok=True)
+        
         # Ask for checkpoint file path
         file_path = filedialog.askopenfilename(
             title="Load Annotation Checkpoint",
-            filetypes=[("Checkpoint Files", "*.checkpoint"), ("All Files", "*.*")],
-            initialdir="."
+            filetypes=[("Checkpoint Files", "*.json"), ("All Files", "*.*")],
+            initialdir=checkpoint_dir
         )
         
         if not file_path:

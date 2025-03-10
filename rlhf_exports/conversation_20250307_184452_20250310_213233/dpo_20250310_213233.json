@@ -13,7 +13,7 @@
     "preferred_output": [
       {
         "role": "assistant",
-        "content": "what do you feel ian(testing)"
+        "content": "333"
       }
     ],
     "non_preferred_output": [
@@ -37,7 +37,7 @@
     "preferred_output": [
       {
         "role": "assistant",
-        "content": "you must be genius"
+        "content": "555"
       }
     ],
     "non_preferred_output": [

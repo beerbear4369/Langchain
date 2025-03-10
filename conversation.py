@@ -1,5 +1,5 @@
 from langchain.memory import ConversationBufferMemory  # For storing conversation history
-from langchain.chains import ConversationChain  # For managing conversation flow
+from langchain.chains.conversation.base import ConversationChain  # For managing conversation flow
 from langchain_openai import ChatOpenAI  # For connecting to OpenAI's models
 from langchain.prompts import PromptTemplate  # For creating prompt templates
 from config import OPENAI_API_KEY, SYSTEM_PROMPT, MODEL_NAME, MODEL_TEMPERATURE  # Import configuration
@@ -7,13 +7,11 @@ import os
 import json
 from datetime import datetime
 import sys
-import io
-import locale
+import subprocess
 
 # Fix console encoding for international characters
 if sys.platform == 'win32':
     # Instead of redirecting stdout/stderr, just set the console mode
-    import subprocess
     try:
         # Use Windows-specific command to set UTF-8 mode
         subprocess.run(['chcp', '65001'], shell=True, check=False)
@@ -128,7 +126,7 @@ class Conversation:
             return response
         except Exception as e:
             # Handle any errors that might occur during processing
-            print(f"Error in conversation processing: {e}")
+            safe_print(f"Error in conversation processing: {e}")
             return "I'm having trouble processing that request. Let's try again."
     
     def _log_exchange(self, user_input, response):
@@ -139,7 +137,7 @@ class Conversation:
                 f.write(f"Coach: {response}\n")
                 f.write("-" * 50 + "\n")
         except Exception as e:
-            print(f"Warning: Could not log conversation: {e}")
+            safe_print(f"Warning: Could not log conversation: {e}")
     
     def get_conversation_history(self):
         """

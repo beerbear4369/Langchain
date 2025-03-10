@@ -1,0 +1,15 @@
+---
+description: How I like cursor to code
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+
+- Do not touch code that is unrelated to the task
+- Write thorough tests for all major functionality
+- Avoid making major changes to patterns and crchitecture of how a feature works after it has shown to work well, unless explicitly instructed
+- Always think about what other methods and areas of code might be affected by code changes
+
+- You can @ files here
+- You can use markdown but dont have to

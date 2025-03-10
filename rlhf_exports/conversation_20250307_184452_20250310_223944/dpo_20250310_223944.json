@@ -13,7 +13,7 @@
     "preferred_output": [
       {
         "role": "assistant",
-        "content": "333"
+        "content": "I feel your sense of frustration or curse regarding your lack of self-control. where do you think this frustration deeply comes from?"
       }
     ],
     "non_preferred_output": [
@@ -37,7 +37,7 @@
     "preferred_output": [
       {
         "role": "assistant",
-        "content": "555"
+        "content": "You want to be able to do what you desire and have proper control over your actions.what do you feel when you miss your flight?"
       }
     ],
     "non_preferred_output": [

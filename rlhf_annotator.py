@@ -441,18 +441,12 @@ class RLHFAnnotator:
                     'file_path': conversation['file_path'],
                     'feedback': feedback,
                     'rating': rating,
-                    'annotation_time': datetime.now().isoformat()
+                    'annotation_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 }
             }
             
             # Add to data for export
             self.annotated_data.append(dpo_item)
-            
-            # Auto-export when selecting "No" with a preferred alternative
-            try:
-                self.auto_export()
-            except Exception as e:
-                messagebox.showwarning("Export Warning", f"Failed to auto-export: {str(e)}")
         
         # Highlight the selected button
         self._reset_button_styles()
@@ -468,49 +462,6 @@ class RLHFAnnotator:
         # Move to next conversation
         self.next_conversation()
     
-    def auto_export(self):
-        """Automatically export annotated data after clicking 'No'."""
-        if not self.conversations or self.current_index >= len(self.conversations):
-            return
-        
-        # Create a folder for export based on the original log file name
-        conversation = self.conversations[self.current_index]
-        log_file_path = conversation['file_path']
-        log_file_name = os.path.basename(log_file_path)
-        
-        # Create export directory name based on the original log file
-        export_dir_name = log_file_name.replace('.txt', '')  # Remove extension
-        export_dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), export_dir_name)
-        
-        # Create the directory if it doesn't exist
-        os.makedirs(export_dir_path, exist_ok=True)
-        
-        # Update export path to the new directory (no longer displayed but still used)
-        self.auto_export_path = os.path.join(export_dir_path, f"rlhf_annotations_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
-        
-        # Only export items with both preferred and non-preferred outputs
-        dpo_data = []
-        
-        for item in self.annotated_data:
-            if 'preferred_output' in item and 'non_preferred_output' in item:
-                dpo_item = {
-                    'input': item['input'],
-                    'preferred_output': item['preferred_output'],
-                    'non_preferred_output': item['non_preferred_output']
-                }
-                dpo_data.append(dpo_item)
-        
-        # Export the annotated data to JSON
-        with open(self.auto_export_path, 'w', encoding='utf-8') as f:
-            json.dump(dpo_data, f, indent=2, ensure_ascii=False)
-        
-        # Copy the original log file to the export directory
-        destination = os.path.join(export_dir_path, log_file_name)
-        if not os.path.exists(destination):
-            shutil.copy2(log_file_path, destination)
-        
-        self.status_var.set(f"Auto-exported {len(dpo_data)} annotations to {export_dir_path}")
-    
     def previous_conversation(self):
         """Go to the previous conversation."""
         if not self.conversations or self.current_index <= 0:
@@ -519,7 +470,7 @@ class RLHFAnnotator:
         # First validate the current state
         if not self._validate_better_response_usage():
             return
-        
+            
         # Save any changes to current conversation
         self._save_current_inputs()
         
@@ -534,7 +485,7 @@ class RLHFAnnotator:
         # First validate the current state
         if not self._validate_better_response_usage():
             return
-        
+            
         # Save any changes to current conversation
         self._save_current_inputs()
             
@@ -562,59 +513,198 @@ class RLHFAnnotator:
             messagebox.showinfo("No Data", "No annotated data to export.")
             return
         
-        # Ask for export file path
-        file_path = filedialog.asksaveasfilename(
-            title="Export Annotated Data",
-            defaultextension=".json",
-            filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")],
-            initialdir="."
-        )
+        # Get unique log files in the annotated data
+        log_files = set()
+        for item in self.annotated_data:
+            if 'metadata' in item and 'file_path' in item['metadata']:
+                log_files.add(item['metadata']['file_path'])
         
-        if not file_path:
+        if not log_files:
+            messagebox.showinfo("No Source Files", "Could not determine source files for export.")
             return
         
-        try:
-            # Get the directory for the export
-            export_dir = os.path.dirname(file_path)
+        # Create a base export directory in the same location as the script
+        base_export_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "rlhf_exports")
+        os.makedirs(base_export_dir, exist_ok=True)
+        
+        # Create a timestamp for the export
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        
+        # Collect all supervised learning data
+        all_supervised_data = []
+        
+        # Collect all feedback for the notes file
+        all_feedback = []
+        
+        # Process each log file
+        for log_file_path in log_files:
+            if not os.path.exists(log_file_path):
+                continue
             
-            # If it's a new directory, create it
-            if not os.path.exists(export_dir):
-                os.makedirs(export_dir, exist_ok=True)
+            # Get the log file name without extension to use as folder name
+            log_file_name = os.path.basename(log_file_path)
+            folder_name = log_file_name.replace('.txt', '')
             
-            # Format the data for DPO
-            dpo_data = []
+            # Create a folder for this conversation
+            export_dir = os.path.join(base_export_dir, f"{folder_name}_{timestamp}")
+            os.makedirs(export_dir, exist_ok=True)
             
-            for item in self.annotated_data:
-                # Only include items with both preferred and non-preferred outputs
-                if 'preferred_output' in item and 'non_preferred_output' in item:
-                    dpo_item = {
-                        'input': item['input'],
-                        'preferred_output': item['preferred_output'],
-                        'non_preferred_output': item['non_preferred_output']
+            # Copy the original log file to the export directory
+            destination = os.path.join(export_dir, log_file_name)
+            shutil.copy2(log_file_path, destination)
+            
+            # Filter annotations for this log file
+            file_annotations = []
+            
+            # Get all conversations for this file
+            file_conversations = [conv for conv in self.conversations if conv['file_path'] == log_file_path and conv['is_annotated']]
+            
+            # Sort conversations by their ID to maintain the original order
+            file_conversations.sort(key=lambda x: x['id'])
+            
+            # Create a single supervised learning item with all exchanges
+            if file_conversations:
+                # Build a multi-turn conversation
+                messages = []
+                
+                # Create human-readable annotated log
+                human_readable_log = []
+                human_readable_log.append(f"ANNOTATED CONVERSATION LOG: {log_file_name}")
+                human_readable_log.append(f"Exported on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                human_readable_log.append("=" * 80)
+                human_readable_log.append("")
+                
+                # Collect feedback from this file
+                file_feedback = []
+                
+                for i, conversation in enumerate(file_conversations):
+                    # Add user message
+                    messages.append({
+                        "role": "user",
+                        "content": conversation['user']
+                    })
+                    
+                    # Add assistant message with weight
+                    weight = 1 if conversation['annotation'] == 'good' else 0
+                    messages.append({
+                        "role": "assistant",
+                        "content": conversation['assistant'],
+                        "weight": weight
+                    })
+                    
+                    # Add to human-readable log
+                    human_readable_log.append(f"EXCHANGE #{i+1}")
+                    human_readable_log.append("-" * 80)
+                    human_readable_log.append(f"USER: {conversation['user']}")
+                    human_readable_log.append("")
+                    human_readable_log.append(f"ASSISTANT: {conversation['assistant']}")
+                    human_readable_log.append("")
+                    
+                    rating_text = "Yes (Good)" if conversation['annotation'] == 'good' else "Normal" if conversation['annotation'] == 'neutral' else "No (Needs Improvement)"
+                    human_readable_log.append(f"RATING: {rating_text} [weight={weight}]")
+                    
+                    if conversation['feedback']:
+                        human_readable_log.append(f"FEEDBACK: {conversation['feedback']}")
+                        # Add to feedback collections
+                        file_feedback.append(f"Exchange #{i+1}: {conversation['feedback']}")
+                        all_feedback.append(f"File: {log_file_name}, Exchange #{i+1}: {conversation['feedback']}")
+                    
+                    if conversation['alternative']:
+                        human_readable_log.append(f"BETTER RESPONSE: {conversation['alternative']}")
+                    
+                    human_readable_log.append("")
+                    human_readable_log.append("-" * 80)
+                    human_readable_log.append("")
+                
+                # Create the supervised learning item with all messages
+                if messages:
+                    supervised_item = {
+                        "messages": messages
                     }
-                    dpo_data.append(dpo_item)
+                    all_supervised_data.append(supervised_item)
+                    
+                    # Export the supervised learning data to JSON for this file
+                    supervised_file_path = os.path.join(export_dir, f"supervised_{timestamp}.json")
+                    with open(supervised_file_path, 'w', encoding='utf-8') as f:
+                        f.write(json.dumps(supervised_item, ensure_ascii=False, indent=2))
+                
+                # Export the human-readable log
+                human_readable_path = os.path.join(export_dir, f"annotated_conversation_{timestamp}.txt")
+                with open(human_readable_path, 'w', encoding='utf-8') as f:
+                    f.write('\n'.join(human_readable_log))
+                
+                # Export the feedback notes for this file
+                if file_feedback:
+                    feedback_path = os.path.join(export_dir, f"feedback_notes_{timestamp}.txt")
+                    with open(feedback_path, 'w', encoding='utf-8') as f:
+                        f.write('\n\n'.join(file_feedback))
             
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(dpo_data, f, indent=2, ensure_ascii=False)
+            # Create DPO format items for bad ratings
+            for conversation in file_conversations:
+                if conversation['annotation'] == 'bad' and conversation['alternative']:
+                    dpo_item = {
+                        'input': {
+                            'messages': [{
+                                'role': 'user',
+                                'content': conversation['user']
+                            }],
+                            'tools': [],
+                            'parallel_tool_calls': True
+                        },
+                        'preferred_output': [{
+                            'role': 'assistant',
+                            'content': conversation['alternative']
+                        }],
+                        'non_preferred_output': [{
+                            'role': 'assistant',
+                            'content': conversation['assistant']
+                        }]
+                    }
+                    file_annotations.append(dpo_item)
             
-            # Find unique log files in the annotated data
-            log_files = set()
-            for item in self.annotated_data:
-                if 'metadata' in item and 'file_path' in item['metadata']:
-                    log_files.add(item['metadata']['file_path'])
-            
-            # Copy each unique log file to the export directory
-            for log_file in log_files:
-                if os.path.exists(log_file):
-                    destination = os.path.join(export_dir, os.path.basename(log_file))
-                    if not os.path.exists(destination):
-                        shutil.copy2(log_file, destination)
-            
-            self.status_var.set(f"Exported {len(dpo_data)} annotations to {file_path}")
-            messagebox.showinfo("Export Complete", f"Successfully exported {len(dpo_data)} annotations.\nOriginal log files were also copied to the export directory.")
-        except Exception as e:
-            self.status_var.set(f"Error exporting data: {str(e)}")
-            messagebox.showerror("Export Error", f"Failed to export data: {str(e)}")
+            # Export the DPO annotations to JSON
+            if file_annotations:
+                dpo_file_path = os.path.join(export_dir, f"dpo_{timestamp}.json")
+                with open(dpo_file_path, 'w', encoding='utf-8') as f:
+                    json.dump(file_annotations, f, indent=2, ensure_ascii=False)
+        
+        # Create combined export with all supervised data
+        if all_supervised_data:
+            combined_supervised_path = os.path.join(base_export_dir, f"all_supervised_{timestamp}.json")
+            with open(combined_supervised_path, 'w', encoding='utf-8') as f:
+                for item in all_supervised_data:
+                    f.write(json.dumps(item, ensure_ascii=False) + '\n')
+        
+        # Also create a combined DPO export
+        all_dpo_data = []
+        for item in self.annotated_data:
+            if 'preferred_output' in item and 'non_preferred_output' in item:
+                dpo_item = {
+                    'input': item['input'],
+                    'preferred_output': item['preferred_output'],
+                    'non_preferred_output': item['non_preferred_output']
+                }
+                all_dpo_data.append(dpo_item)
+        
+        if all_dpo_data:
+            combined_dpo_path = os.path.join(base_export_dir, f"all_dpo_{timestamp}.json")
+            with open(combined_dpo_path, 'w', encoding='utf-8') as f:
+                json.dump(all_dpo_data, f, indent=2, ensure_ascii=False)
+        
+        # Export all feedback notes to a single file
+        if all_feedback:
+            all_feedback_path = os.path.join(base_export_dir, f"all_feedback_{timestamp}.txt")
+            with open(all_feedback_path, 'w', encoding='utf-8') as f:
+                f.write('\n\n'.join(all_feedback))
+        
+        self.status_var.set(f"Exported annotations to {base_export_dir}")
+        messagebox.showinfo(
+            "Export Complete", 
+            f"Successfully exported annotations to separate folders in:\n{base_export_dir}\n\n"
+            f"Total supervised conversations: {len(all_supervised_data)}\n"
+            f"Total DPO examples: {len(all_dpo_data)}\n"
+            f"Total feedback entries: {len(all_feedback)}"
+        )
 
 def main():
     """Main entry point for the application."""

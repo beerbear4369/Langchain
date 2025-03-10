@@ -19,16 +19,18 @@ class RLHFAnnotator:
     """
     
     def __init__(self, root):
+        """Initialize the annotator."""
         self.root = root
-        self.root.title("RLHF Annotation Tool")
+        self.root.title("RLHF Annotator")
+        self.root.geometry("1200x800")
         
-        # Set fixed window size that fits all components
-        self.root.geometry("800x700")
+        # Set log directory
+        self.log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
         
         # State variables
-        self.conversations = []
-        self.current_index = 0
-        self.annotated_data = []
+        self.conversations = []  # List of conversation exchanges
+        self.current_index = -1  # Current conversation index
+        self.annotated_data = []  # Annotated data for export
         
         # Path for auto-export (kept in the code but not displayed)
         self.auto_export_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
@@ -43,15 +45,17 @@ class RLHFAnnotator:
                       foreground=[('active', 'black'), ('!active', 'black')],
                       background=[('active', '#90EE90'), ('!active', '#90EE90')])
         
+        # Set flag for tracking unsaved changes
+        self.has_unsaved_changes = False
+        
         # Create the UI
         self.create_ui()
         
-        # Default log directory
-        self.log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "conversation_logs")
+        # Set initial status
+        self.status_var.set("Ready. Please load a conversation log file.")
         
-        # Auto-load logs if directory exists
-        if os.path.exists(self.log_dir):
-            self.load_logs_from_directory(self.log_dir)
+        # Register window close handler
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
     
     def create_ui(self):
         """Create the user interface."""
@@ -64,8 +68,9 @@ class RLHFAnnotator:
         control_frame.pack(fill=tk.X, pady=(0, 3))
         
         ttk.Button(control_frame, text="Open Log File", command=self.open_log_file).pack(side=tk.LEFT, padx=3)
-        ttk.Button(control_frame, text="Open Log Directory", command=self.open_log_directory).pack(side=tk.LEFT, padx=3)
         ttk.Button(control_frame, text="Export Annotated Data", command=self.export_data).pack(side=tk.LEFT, padx=3)
+        ttk.Button(control_frame, text="Save Checkpoint", command=self.save_checkpoint).pack(side=tk.LEFT, padx=3)
+        ttk.Button(control_frame, text="Load Checkpoint", command=self.load_checkpoint).pack(side=tk.LEFT, padx=3)
         
         self.status_var = tk.StringVar(value="Ready")
         ttk.Label(control_frame, textvariable=self.status_var).pack(side=tk.RIGHT, padx=3)
@@ -150,9 +155,9 @@ class RLHFAnnotator:
         self.next_button.pack(side=tk.LEFT, padx=3, pady=2)
     
     def open_log_file(self):
-        """Open a single log file."""
+        """Open a log file."""
         file_path = filedialog.askopenfilename(
-            title="Select Log File",
+            title="Open Conversation Log",
             filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")],
             initialdir=self.log_dir if os.path.exists(self.log_dir) else "."
         )
@@ -160,66 +165,35 @@ class RLHFAnnotator:
         if file_path:
             self.load_log_file(file_path)
     
-    def open_log_directory(self):
-        """Open a directory of log files."""
-        dir_path = filedialog.askdirectory(
-            title="Select Log Directory",
-            initialdir=self.log_dir if os.path.exists(self.log_dir) else "."
-        )
-        
-        if dir_path:
-            self.load_logs_from_directory(dir_path)
-    
-    def load_logs_from_directory(self, dir_path):
-        """Load all log files from a directory."""
-        log_files = [f for f in os.listdir(dir_path) if f.endswith('.txt') and f.startswith('conversation_')]
-        
-        if not log_files:
-            self.status_var.set(f"No log files found in {dir_path}")
-            return
-        
-        self.conversations = []
-        for file_name in log_files:
-            file_path = os.path.join(dir_path, file_name)
-            self.load_log_file(file_path, append=True)
-        
-        self.status_var.set(f"Loaded {len(self.conversations)} exchanges from {len(log_files)} files")
-        self.current_index = 0
-        self.display_current_conversation()
-    
-    def load_log_file(self, file_path, append=False):
+    def load_log_file(self, file_path):
         """Load a single log file."""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
             # Parse the conversation
-            conversation_id = os.path.basename(file_path).replace('conversation_', '').replace('.txt', '')
             exchanges = self.parse_conversation_log(content)
             
-            if not append:
-                self.conversations = []
+            if not exchanges:
+                self.status_var.set("No valid conversation exchanges found in the file.")
+                return
             
-            if exchanges:
-                # Split into individual exchanges instead of grouping by conversation
-                for i, exchange in enumerate(exchanges):
-                    self.conversations.append({
-                        'id': f"{conversation_id}_{i}",
-                        'file_path': file_path,
-                        'user': exchange['user'],
-                        'assistant': exchange['assistant'],
-                        'is_annotated': False,
-                        'annotation': None,  # Track which annotation was selected
-                        'alternative': "",   # Store alternative response
-                        'feedback': ""       # Store feedback
-                    })
-                
-                if not append:
-                    self.status_var.set(f"Loaded {len(exchanges)} exchanges from {file_path}")
-                    self.current_index = 0
-                    self.display_current_conversation()
+            # Reset current data
+            self.conversations = []
+            self.current_index = 0
+            self.annotated_data = []
+            
+            # Add file path to each conversation
+            for exchange in exchanges:
+                exchange['file_path'] = file_path
+                self.conversations.append(exchange)
+            
+            self.status_var.set(f"Loaded {len(exchanges)} exchanges from {os.path.basename(file_path)}")
+            self.display_current_conversation()
+            
         except Exception as e:
-            self.status_var.set(f"Error loading {file_path}: {str(e)}")
+            self.status_var.set(f"Error loading file: {str(e)}")
+            messagebox.showerror("Load Error", f"Failed to load log file: {str(e)}")
     
     def parse_conversation_log(self, content):
         """Parse the conversation log content."""
@@ -227,7 +201,7 @@ class RLHFAnnotator:
         sections = content.split('-' * 50)
         
         exchanges = []
-        for section in sections:
+        for i, section in enumerate(sections):
             section = section.strip()
             if not section:
                 continue
@@ -241,8 +215,13 @@ class RLHFAnnotator:
                 coach_message = coach_match.group(1).strip()
                 
                 exchanges.append({
+                    'id': f"{i+1}",
                     'user': user_message,
-                    'assistant': coach_message
+                    'assistant': coach_message,
+                    'is_annotated': False,
+                    'annotation': None,
+                    'alternative': "",
+                    'feedback': ""
                 })
         
         return exchanges
@@ -461,6 +440,9 @@ class RLHFAnnotator:
         
         # Move to next conversation
         self.next_conversation()
+        
+        # Mark that we have unsaved changes
+        self.has_unsaved_changes = True
     
     def previous_conversation(self):
         """Go to the previous conversation."""
@@ -705,6 +687,150 @@ class RLHFAnnotator:
             f"Total DPO examples: {len(all_dpo_data)}\n"
             f"Total feedback entries: {len(all_feedback)}"
         )
+        
+        # Reset unsaved changes flag since we've exported
+        self.has_unsaved_changes = False
+
+    def save_checkpoint(self):
+        """Save the current annotation progress to a checkpoint file."""
+        if not self.conversations:
+            messagebox.showinfo("No Data", "No conversations to save.")
+            return
+        
+        # Generate a default filename based on the conversation file (if available) and timestamp
+        default_filename = "annotation_checkpoint"
+        
+        # If we have conversations and they have a file path, use that filename
+        if self.conversations and self.current_index >= 0 and self.current_index < len(self.conversations):
+            conversation = self.conversations[self.current_index]
+            if 'file_path' in conversation and conversation['file_path']:
+                # Extract the base filename without extension
+                base_name = os.path.basename(conversation['file_path'])
+                base_name = os.path.splitext(base_name)[0]
+                default_filename = f"{base_name}_checkpoint"
+        
+        # Add timestamp to make filename unique
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        default_filename = f"{default_filename}_{timestamp}.checkpoint"
+        
+        # Create a default save directory if it doesn't exist
+        checkpoint_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "checkpoints")
+        os.makedirs(checkpoint_dir, exist_ok=True)
+        
+        # Ask for checkpoint file path with the proposed name
+        file_path = filedialog.asksaveasfilename(
+            title="Save Annotation Checkpoint",
+            defaultextension=".checkpoint",
+            filetypes=[("Checkpoint Files", "*.checkpoint"), ("All Files", "*.*")],
+            initialdir=checkpoint_dir,
+            initialfile=default_filename
+        )
+        
+        if not file_path:
+            return
+        
+        try:
+            # Create a checkpoint dictionary with all necessary state
+            checkpoint = {
+                'current_index': self.current_index,
+                'conversations': self.conversations,
+                'annotated_data': self.annotated_data
+            }
+            
+            # Save the current inputs for the current conversation
+            self._save_current_inputs()
+            
+            # Serialize and save the checkpoint
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(checkpoint, f, indent=2, ensure_ascii=False)
+            
+            self.status_var.set(f"Checkpoint saved to {file_path}")
+            messagebox.showinfo("Checkpoint Saved", f"Annotation progress saved to:\n{file_path}")
+            
+            # Reset unsaved changes flag since we've saved
+            self.has_unsaved_changes = False
+            
+        except Exception as e:
+            self.status_var.set(f"Error saving checkpoint: {str(e)}")
+            messagebox.showerror("Save Error", f"Failed to save checkpoint: {str(e)}")
+
+    def load_checkpoint(self):
+        """Load annotation progress from a checkpoint file."""
+        # Ask for checkpoint file path
+        file_path = filedialog.askopenfilename(
+            title="Load Annotation Checkpoint",
+            filetypes=[("Checkpoint Files", "*.checkpoint"), ("All Files", "*.*")],
+            initialdir="."
+        )
+        
+        if not file_path:
+            return
+        
+        try:
+            # Load the checkpoint file
+            with open(file_path, 'r', encoding='utf-8') as f:
+                checkpoint = json.load(f)
+            
+            # Restore state from checkpoint
+            self.current_index = checkpoint.get('current_index', 0)
+            self.conversations = checkpoint.get('conversations', [])
+            self.annotated_data = checkpoint.get('annotated_data', [])
+            
+            # Validate current_index
+            if self.current_index >= len(self.conversations):
+                self.current_index = 0 if self.conversations else -1
+            
+            # Update the UI
+            self.display_current_conversation()
+            
+            self.status_var.set(f"Loaded {len(self.conversations)} conversations from checkpoint")
+            messagebox.showinfo(
+                "Checkpoint Loaded", 
+                f"Loaded {len(self.conversations)} conversations from checkpoint.\n"
+                f"Current position: {self.current_index + 1}/{len(self.conversations)}"
+            )
+            
+        except Exception as e:
+            self.status_var.set(f"Error loading checkpoint: {str(e)}")
+            messagebox.showerror("Load Error", f"Failed to load checkpoint: {str(e)}")
+
+    def _has_unsaved_annotations(self):
+        """Check if there are any unsaved annotations."""
+        # Check if we have any annotated data
+        if not self.conversations:
+            return False
+            
+        # Check if any conversations are annotated
+        annotated_count = sum(1 for conv in self.conversations if conv.get('is_annotated', False))
+        
+        # Consider changes unsaved if annotations exist but no checkpoint was saved
+        # or if has_unsaved_changes flag is set (which happens when users make new annotations)
+        return annotated_count > 0 and self.has_unsaved_changes
+    
+    def on_close(self):
+        """Handle window close event with validation for unsaved changes."""
+        if self._has_unsaved_annotations():
+            # Ask user if they want to save before closing
+            response = messagebox.askyesnocancel(
+                "Unsaved Annotations", 
+                "You have unsaved annotations. Would you like to save your progress before closing?\n\n"
+                "• Click 'Yes' to save a checkpoint\n"
+                "• Click 'No' to exit without saving\n"
+                "• Click 'Cancel' to return to the application"
+            )
+            
+            if response is True:  # Yes - save and then exit
+                self.save_checkpoint()
+                # Only exit if save was successful (check if dialog was cancelled)
+                if not self.has_unsaved_changes:
+                    self.root.destroy()
+            elif response is False:  # No - exit without saving
+                self.root.destroy()
+            else:  # Cancel - don't exit
+                return
+        else:
+            # No unsaved changes, just exit
+            self.root.destroy()
 
 def main():
     """Main entry point for the application."""

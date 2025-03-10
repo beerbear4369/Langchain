@@ -7,7 +7,7 @@
     {
       "role": "assistant",
       "content": "So, you would like to discuss your sleeping pattern and the difficulty you have in changing it, am I right?",
-      "weight": 1
+      "weight": 0
     },
     {
       "role": "user",
@@ -25,7 +25,7 @@
     {
       "role": "assistant",
       "content": "Ian: So, you're discussing about your sleeping pattern and more specifically, why you are unable to change it, despite knowing what you should do. You're drawing a parallel to your ability to take action, like getting to the airport on time, and you're expressing a sense of frustration or curse regarding your lack of self-control.",
-      "weight": 1
+      "weight": 0
     },
     {
       "role": "user",
@@ -43,15 +43,6 @@
     {
       "role": "assistant",
       "content": "So, you suspect that you might have a lack of self-control, and you'd like to understand the root cause of this behavior—specifically, why you can’t seem to do what you know you should do. You've named the issue as a lack of self-control, and you're frustrated because you feel like this pattern controls you. You want to be able to do what you desire and have proper control over your actions.",
-      "weight": 0
-    },
-    {
-      "role": "user",
-      "content": "Yes, you're right."
-    },
-    {
-      "role": "assistant",
-      "content": "Ian, how do you know that we're embarking on a useful conversation?",
       "weight": 0
     }
   ]

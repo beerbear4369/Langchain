@@ -59,8 +59,17 @@ def debug_conversation_memory(conversation):
         # This helps verify the history is included in prompts
         try:
             test_input = "This is a test."
-            prompt = conversation.conversation.prep_prompts([{"input": test_input}])[0]
-            print(f"\nPrompt that would be sent to OpenAI:\n{prompt}")
+            # In the new approach, we need to use different methods to see the prompt
+            # First we need to create the input values
+            input_values = {"input": test_input}
+            # Then we can get the prompt messages
+            prompt_value = conversation.conversation.prompt.invoke(
+                {"input": test_input, "chat_history": conversation.memory.chat_memory.messages}
+            )
+            print(f"\nPrompt that would be sent to OpenAI:\n")
+            # Print each message in the prompt to clearly show the structure
+            for i, message in enumerate(prompt_value.messages):
+                print(f"Message {i+1} [{message.type}]: {message.content[:100]}..." if len(message.content) > 100 else message.content)
         except Exception as e:
             print(f"Error preparing prompt: {e}")
 

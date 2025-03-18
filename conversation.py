@@ -1,7 +1,12 @@
 from langchain.memory import ConversationBufferMemory  # For storing conversation history
-from langchain.chains.conversation.base import ConversationChain  # For managing conversation flow
+from langchain.chains import ConversationChain  # For managing conversation flow
 from langchain_openai import ChatOpenAI  # For connecting to OpenAI's models
-from langchain.prompts import PromptTemplate  # For creating prompt templates
+from langchain_core.messages import SystemMessage  # For structured system messages
+from langchain_core.prompts import (  # For creating structured prompts
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    MessagesPlaceholder,
+)
 from config import OPENAI_API_KEY, SYSTEM_PROMPT, MODEL_NAME, MODEL_TEMPERATURE  # Import configuration
 import os
 import json
@@ -66,17 +71,16 @@ class Conversation:
         
         # Step 2: Set up conversation memory to store dialogue history
         # This allows the AI to remember previous parts of the conversation
-        self.memory = ConversationBufferMemory(return_messages=True)
+        # Using a dedicated memory key for clarity
+        self.memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         
-        # Step 3: Create the prompt template
-        # This defines the format of prompts sent to the language model
-        # It includes the system prompt, conversation history, and current input
-        template = f"{SYSTEM_PROMPT}\n\n{{history}}\nHuman: {{input}}\nAI:"
-        
-        prompt = PromptTemplate(
-            input_variables=["history", "input"],  # Variables to fill in
-            template=template,  # The template string
-        )
+        # Step 3: Create the prompt template with clear role separation
+        # This makes it easier for the model to understand who is speaking
+        prompt = ChatPromptTemplate.from_messages([
+            SystemMessage(content=SYSTEM_PROMPT),  # System prompt clearly labeled
+            MessagesPlaceholder(variable_name="chat_history"),  # Dedicated placeholder for chat history
+            HumanMessagePromptTemplate.from_template("{input}")  # Clear human input
+        ])
         
         # Step 4: Create the conversation chain
         # This connects the language model, memory, and prompt template

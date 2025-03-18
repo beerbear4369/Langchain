@@ -1,0 +1,30 @@
+User: Hello, how are you?
+Coach: I'm great, thanks for asking!
+--------------------------------------------------
+User: My name is Ian. What is your name?
+Coach: Hi, Ian. I don't have a name, but I'm here to help you.
+--------------------------------------------------
+User: Okay, so let's start, what shall we do?
+Coach: Let's begin by identifying what you'd like to focus on today.
+--------------------------------------------------
+User: Maybe we can talk about the problem that I am doing business and I find it hard to balance the time I spend on my traditional business with the time I spend on this AI adventure.
+Coach: That sounds challenging. What would a healthy balance look like for you?
+--------------------------------------------------
+User: Wow, I don't know, maybe the construction business can just go in without my attention at all. It just self-run and generate my cash flow, and I can spend all my time on the AI things that I'm interested in.
+Coach: That sounds ideal. What steps could you take to move closer to that scenario?
+--------------------------------------------------
+User: To delegate more jobs to my staff, you know, like in China, my parents are running about that way, and most likely they don't need to do much things, just like motivating people, and somehow they are able to do that, but still she's not spending a lot of time to comfort her partner. Another thing would be, I guess, like, I don't know, whenever there's something, I don't need to go to meet customers, I don't need to do anything, I can delegate out to my staff, they know what to do and they do it automatically.
+Coach: That sounds like a great plan! What steps will you take to make sure it happens?
+--------------------------------------------------
+User: I have adjusted my strategy to give my sales staff more KPI and make them more self-drive to close the business. So now I see they are able to do sales survey by themselves and they are able to close deals sometimes, so that is a good sign. Then the second part is the delivery. So for the delivery, now I need to arrange for the logistics every time, this one I think after it is more stable, should be able to dedicate it out. Then it is about the site arrangement. So if say every time there is a project, someone can fly in down and just arrange everything, set everything, then it would be more ideal for me. But we don't have this resource because of the manpower issue. Because the guy I do for this role is really old and about to retire, and I feel they are reluctant to come to Southeast Asia to do job, and yeah, that's the key things I guess.
+Coach: It sounds like you're taking significant steps toward your ideal balance. How does this make you feel about your business journey?
+--------------------------------------------------
+User: I don't know. It's like now I still need to get involved, right, when there's a big project, especially. And I need to get the cash flow. So sometimes I feel it really drags me away from the AI adventure. I like the AI adventure, but it's like I'm also not sure if the AI adventure is able to really come true and generate profit. Till now it's still like a sad task, so it's like a game, you know, like a hobby, like a small escape after the long day of construction business. So I'm afraid it slows me down, but I also still need that cash flow. And actually I need more, so that I have more bullet to live longer, to be self-sustained.
+Coach: It sounds like you have a clear vision of how you want to balance your businesses.
+--------------------------------------------------
+User: Thank you.
+Coach: You're welcome, Ian.
+--------------------------------------------------
+User: Goodbye.
+Coach: Goodbye, Ian.
+--------------------------------------------------

@@ -20,7 +20,7 @@ if exist __pycache__ rmdir /s /q __pycache__
 rem Ensure required directories exist
 echo Ensuring required directories exist...
 if not exist checkpoints mkdir checkpoints
-if not exist conversation_logs mkdir conversation_logs
+if not exist conversation_logs mkdir ..\conversation_logs
 if not exist rlhf_exports mkdir rlhf_exports
 
 rem Create executable with PyInstaller
@@ -29,7 +29,7 @@ pyinstaller --name "RLHF_Annotator" ^
     --onefile ^
     --windowed ^
     --add-data "checkpoints;checkpoints" ^
-    --add-data "conversation_logs;conversation_logs" ^
+    --add-data "..\conversation_logs;conversation_logs" ^
     --add-data "rlhf_exports;rlhf_exports" ^
     rlhf_annotator.py
 

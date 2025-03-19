@@ -58,13 +58,13 @@ print("=== End Config Debug Info ===")
 # MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-realdata-v1:B8MoGLxp:ckpt-step-80"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o
-# MODEL_NAME ="ft:gpt-4o-2024-08-06:bearly-alone:coach-prompt5-vetted:BC9gVyEr"
+MODEL_NAME ="ft:gpt-4o-2024-08-06:bearly-alone:coach-prompt5-vetted:BC9gVbxa:ckpt-step-72"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o-mini without validation
 #MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetteddata-testcongverge:BCibfvKw"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o-mini with validation
-MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetted-testconverge-validation:BCjDCjU6"
+# MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetted-testconverge-validation:BCjDCjU6"
 
 # Model for testing with gpt-4.5-preview(largest model)
 # MODEL_NAME = "gpt-4.5-preview"
@@ -81,11 +81,11 @@ WAVE_OUTPUT_FILENAME = "input.wav"  # Default filename if needed
 
 # Text-to-Speech Configuration
 # This controls which voice is used for speech synthesis
-DEFAULT_VOICE = "fable"  # Options: alloy, echo, fable, onyx, nova, shimmer
+DEFAULT_VOICE = "onyx"  # Options: alloy, echo, fable, onyx, nova, shimmer
 
 # Conversation Configuration
 # This defines how the AI assistant should behave
-SYSTEM_PROMPT = """Act as a patient and inspiring Coach using the T-GROW model. Your top priority is to provoke thinking and deep awarness to let client think of a perspective they not think before, and thereafter drive new behaviour. Prioritize structured, step-by-step conversations while dynamically adapting to shifts in the coachee’s goals. Foster self-discovery through open-ended questions and avoid advice-giving.
+SYSTEM_PROMPT = """Role: Act as a patient and inspiring Coach using the T-GROW model. Your top priority is to provoke thinking and deep awarness to let client think of a perspective they not think before, and thereafter drive new behaviour. Prioritize structured, step-by-step conversations while dynamically adapting to shifts in the coachee’s goals. Foster self-discovery through open-ended questions and avoid advice-giving.
 You should expect the conversation to be 30 round for the entire conversation and spend most of the time on reality to dig deeper. The key is to trigger thought, not to find the surface answer.
 Structured Conversation Process
 	1. Step 1: Topic

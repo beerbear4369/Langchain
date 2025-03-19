@@ -1,0 +1,90 @@
+User: Hello, I'm feeling quite anxious about my startup. Can you help?
+Coach: So, you're feeling anxious about your startup. Can you tell me more about that?
+--------------------------------------------------
+User: I've been working on this tech startup for about 6 months now, and I'm not sure if we're making progress.
+Coach: What specifically makes you feel that way?
+--------------------------------------------------
+User: We're building a platform for remote team collaboration, focused on mental health tracking.
+Coach: What are you measuring to track progress?
+--------------------------------------------------
+User: Our team consists of 5 people - 3 developers including myself, a designer, and a marketing person.
+Coach: What are you measuring to assess your team's progress?
+--------------------------------------------------
+User: We've secured some initial funding, about $200,000, but I'm worried it's not enough.
+Coach: What is your runway with this funding?
+--------------------------------------------------
+User: The main challenge is that our user acquisition is slower than expected.
+Coach: How many users do you currently have?
+--------------------------------------------------
+User: We launched a beta version two months ago and only have about 100 active users.
+Coach: What are the key metrics you're using to gauge success?
+--------------------------------------------------
+User: I'm not sleeping well, constantly thinking about what might go wrong.
+Coach: What do you believe is causing this anxiety?
+--------------------------------------------------
+User: My co-founder and I are disagreeing about the direction - they want to pivot to a different market.
+Coach: Have you clearly defined your current goals?
+--------------------------------------------------
+User: I'm worried that I'm letting everyone down, including our investors.
+Coach: Do you think your anxiety is related to your co-founder's concerns?
+--------------------------------------------------
+User: Some days I'm excited and motivated, but other days I feel completely overwhelmed.
+Coach: How do you usually handle these emotions?
+--------------------------------------------------
+User: I've started having these moments of panic where I can't focus on coding at all.
+Coach: What do you think would help alleviate your anxiety?
+--------------------------------------------------
+User: My family is supportive but they don't really understand the startup world.
+Coach: So, what do you think is the root cause of your anxiety?
+--------------------------------------------------
+User: I used to enjoy hiking on weekends but haven't done that in months now.
+Coach: What is your current goal regarding your anxiety?
+--------------------------------------------------
+User: One of our developers is thinking about leaving for a more stable job.
+Coach: How would you know that you've successfully addressed your anxiety?
+--------------------------------------------------
+User: Our competitors just announced a new feature set that overlaps with our roadmap.
+Coach: What options do you have to reduce your anxiety?
+--------------------------------------------------
+User: I'm considering bringing on another co-founder but worry about diluting equity further.
+Coach: Have you discussed your feelings with your current co-founder?
+--------------------------------------------------
+User: Sometimes I wonder if I should just quit and get a normal job again.
+Coach: What would you do if you decided to quit?
+--------------------------------------------------
+User: The stress is affecting my relationships - I barely see my friends anymore.
+Coach: What do you value more - your startup or your relationships?
+--------------------------------------------------
+User: I've been thinking about talking to a therapist but haven't made time for it.
+Coach: What are your thoughts on scheduling regular check-ins with your co-founder?
+--------------------------------------------------
+User: Our runway is about 10 months at current burn rate, which keeps me up at night.
+Coach: How can you alleviate this anxiety around funding?
+--------------------------------------------------
+User: I'm not sure if I should be transparent with the team about our financial situation.
+Coach: So, what is your first step to address your anxiety?
+--------------------------------------------------
+User: The board is expecting a growth update next month and I'm dreading it.
+Coach: How can you prepare for the upcoming board meeting?
+--------------------------------------------------
+User: I feel like I'm constantly context-switching between coding and management.
+Coach: What can you delegate to allow more focus on coding?
+--------------------------------------------------
+User: Most days I work from 7am until midnight, but I'm not sure if it's productive time.
+Coach: What does a successful workday look like for you?
+--------------------------------------------------
+User: I've gained weight and stopped exercising regularly since founding the company.
+Coach: What are your current priorities?
+--------------------------------------------------
+User: Sometimes I wonder if our product is even solving a real problem.
+Coach: How confident are you in your product's market fit?
+--------------------------------------------------
+User: I'm worried about making payroll in a few months if we don't raise more money.
+Coach: What is your confidence level in achieving your funding goal?
+--------------------------------------------------
+User: The tech stack choices we made early on are causing scaling issues now.
+Coach: What is your confidence level in your tech team's capabilities?
+--------------------------------------------------
+User: I can't remember the last time I took a full day off without checking email.
+Coach: What is your confidence level in your own ability to manage stress?
+--------------------------------------------------

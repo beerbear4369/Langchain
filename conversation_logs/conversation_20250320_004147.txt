@@ -1,0 +1,15 @@
+User: Hello, how are you doing?
+Coach: I'm doing well, thank you. How about you?
+--------------------------------------------------
+User: Oh, great. Like, super, super good.
+Coach: Great.
+--------------------------------------------------
+User: Yeah, so what shall we talk about today?
+Coach: Well, before we dive into our coaching topic, I’d love for you to really check in with yourself. Are you feeling grounded and ready to get started?
+--------------------------------------------------
+User: I'm ready to get started and I'm so excited to see how this is going.
+Coach: Great.
+--------------------------------------------------
+User: Okay, so yeah, let's kick start.
+Coach: So, what's on your mind today?
+--------------------------------------------------

@@ -1,0 +1,18 @@
+User: Hello, I want to discuss about my progress of developing the AI coaching assistant.
+Coach: Thank you for sharing that. What would you like to talk about?
+--------------------------------------------------
+User: Maybe we can discuss about the speed, you know, like recently we have found out that it's the best to just launch the MVP and then can resolve many of my doubts because after that I will have more clarity, I will be able to see some progressive results and validate the idea and then they will know what to move on, you know.
+Coach: But for today's session, what would you like to focus on?
+--------------------------------------------------
+User: I would like to focus on how can we really make sure that it happens, how could we really make sure the MVP is being shipped out on time. I think that is a really interesting thing to discuss.
+Coach: And how would you know you have achieved your goal at the end of the session?
+--------------------------------------------------
+User: Well, I guess if there is an actionable plan at the end of the day that is feasible, implementable to me, I feel it's a quite successful session.
+Coach: And what would you like to get out of today?
+--------------------------------------------------
+User: I would like to get out of the pen.
+Coach: And why is this important for you?
+--------------------------------------------------
+User: Oh, you know, it's really important to me, because having a plan, having a real good plan, actionable, it's like you have a clear road map, which means that normally it's easier for you to make a decision, right? Otherwise, you don't know what to expect, you don't know what to do, it becomes easier.
+Coach: And what would you like to achieve?
+--------------------------------------------------

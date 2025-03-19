@@ -81,7 +81,7 @@ WAVE_OUTPUT_FILENAME = "input.wav"  # Default filename if needed
 
 # Text-to-Speech Configuration
 # This controls which voice is used for speech synthesis
-DEFAULT_VOICE = "onyx"  # Options: alloy, echo, fable, onyx, nova, shimmer
+DEFAULT_VOICE = "nova"  # Options: alloy, echo, fable, onyx, nova, shimmer
 
 # Conversation Configuration
 # This defines how the AI assistant should behave

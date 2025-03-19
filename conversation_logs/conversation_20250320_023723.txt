@@ -1,0 +1,135 @@
+User: Hello, I want to discuss about my progress of developing an AI application.
+Coach: What’s a successful outcome for today’s session?
+--------------------------------------------------
+User: Well, I guess the successful outcome would be I am able to have a more clear picture of what to expect in the coming two weeks because I plan to finish the MVP in the coming two weeks. But I also see some uncertainty because, you know, like I'm not sure I'm able to do that. There's many things pumping over time.
+Coach: So you would like to have a clearer picture of what to expect in the next two weeks.
+--------------------------------------------------
+User: correct correct you can say something like that
+Coach: What’s motivating you to pursue this goal?
+--------------------------------------------------
+User: What's motivating me, well I guess, what's motivating me is the fact that, it is the fact that I'm more, I really want to see the MVP myself and want to finish this stage and move to the next stage, where the teams can commit more, reach out to the market more, to have some more feedback, rather than I just be myself, developing the things with my own happiness, you know, right? So I want to really launch to mass market and get some feedback, and achieve that is important to me. Second is like, now I'm basically, both my other commitment and this AI commitment is quite high, so I'm a bit of struggling to manage both, and I hope to finish this time ASAP, so that we can move forward, right, having a more clear focus. Now it is the uncertainty about whether this will work or this will not work, holding back, so I want to end this period as soon as possible, and from another session, I feel that in two weeks time we should be able to do that, you know, like now we are doing it, so I think it is really important to do that.
+Coach: So you are saying that you want to launch the MVP to the mass market to get feedback and you also want to manage your commitments better, is that right?
+--------------------------------------------------
+User: Uh, correct.
+Coach: So how will you know by the end of the conversation that you have achieved your goal?
+--------------------------------------------------
+User: I think you keep asking a really similar question, well I guess I can feel it if I have the strategy to manage my uncertainty better, I think I can feel that.
+Coach: What’s creating the uncertainty for you?
+--------------------------------------------------
+User: Like, for example, the commitment from the construction business, like sometimes you just receive email calls about a project and sometimes this is a big one, right? But you're not sure about how real is that. So for example, two weeks back, just all of a sudden I have a call saying that there's a big project and I need to do mocap and through the mocap we were able to get the project very fast. And I think, oh, okay, so we should run for that, right? After the project, basically I can rest for the year and focus on my AI project. So we fly down and do the mocap, but it turns out it's not that fast, there are other things happening and it may not be that smooth. So all this kind of ad hoc event is happening every day, that brings uncertainty to me.
+Coach: So if I hear you correctly, the uncertainty is coming from the ad hoc events that are happening every day.
+--------------------------------------------------
+User: Yes, you are right.
+Coach: So how can you manage these ad hoc events better?
+--------------------------------------------------
+User: Well, I guess one of the strategies is to block myself from all other events, for example I wake up really early in the morning, just work on the AI project, or stay late at night just work on the AI project, just forget about other things. So that can make sure we have some commitment and progress on the AI things, right? But other than that, it's like I'm quite in a key position to manage the business, right? So I need to respond fast, and I need to, because I don't want to be the stopper, to block the team from moving forward, to block the things. So I need to respond immediately, for many cases. So basically I can just block out some time for myself, for the deep mode, and then allow the ad hoc happen on daytime. That is the possible strategy I can think of.
+Coach: So if I hear you correctly, one strategy is to block out time for the AI project in the early morning or late at night.
+--------------------------------------------------
+User: Yes, correct.
+Coach: What else could you do to manage the uncertainty?
+--------------------------------------------------
+User: But I guess maybe we can try to like standardize edge masking as possible. For example, those price occurring, I can come up with a price list and make sure the team knows how to code. So once these projects just come out, they also can code independently. Right, so it's reduced the events comes to me. Yeah, and delegate the task to team and make sure they know what to do. Right, yeah, and if there's any customer coming in, just give it to one of my team to handle. But it is not easy, because sometimes I give out, they also will keep asking me any questions, and I may just do it myself.
+Coach: So you are saying that you can standardize and delegate tasks to your team.
+--------------------------------------------------
+User: Yes, correct.
+Coach: What else could you do to manage the uncertainty?
+--------------------------------------------------
+User: Those two are the main things I can think of, please don't ask me the same question again and again.
+Coach: I will try to avoid that.
+--------------------------------------------------
+User: OK, then let's continue.
+Coach: So what do you think is the key to manage the uncertainty?
+--------------------------------------------------
+User: What is the difference between this question and your previous question, can you explain?
+Coach: I would like to explore what you think is the most important thing to manage the uncertainty.
+--------------------------------------------------
+User: I think the most important thing is to like because it is uncertainty right so it is hard to manage actually so I think in contrast the most important thing is to control what you can control so yourself right so instead of wake up late work half a day and then struggling between allocating the half day time to different project become early you know work more and block time for the task that you really interested to do I think that is the key I think that like I just try to standardize and set the rules clearly so that other people know what to do without my guidance right I think these two are the key
+Coach: So if I hear you correctly the key is to control what you can control and standardize and delegate tasks to your team is that right?
+--------------------------------------------------
+User: You're right.
+Coach: So what will you do after this session?
+--------------------------------------------------
+User: Well, I guess after the session... I don't know, I think after the session, I will be more stringent about wake up early or sleep late so that I can block undisrupted time. I have to prioritize to MMP but with a clear cut-off time. Otherwise, I will be just doing this and let other things drop, which is also not good. So I need to be really more disciplined after the session, to discipline, to manage myself in clear mode rather than let the interest, let the flow drive me into stop whenever I need to stop and work on other business. Because sometimes it's like after you pass a time, after you add it to do this, it accumulates and it's getting more. But actually if you just handle it immediately, it's not much of a thing.
+Coach: So you will be more disciplined to manage yourself and block undisrupted time for the AI project, is that right?
+--------------------------------------------------
+User: you can see that yeah I think that is the right action I could take
+Coach: What else could you do?
+--------------------------------------------------
+User: Nothing much else, I like trying to do the other videos faster, more decisive way, maybe, and just try to pack everything and do it one shot, asap, more efficient, I think that is what I can do.
+Coach: So what support do you need to do that?
+--------------------------------------------------
+User: What's the point of wanting to do that? What's the point of wanting to do that? What's the point of wanting to do that? What's the point of wanting to do that? What's the point of wanting to do that? What's the point of wanting to do that?
+Coach: So what support do you need to be more disciplined?
+--------------------------------------------------
+User: um i guess like a positive influence from other people is quite useful to me if when when i'm back home right for example my wife is also a startup people so she really work hard and it influenced me to work hard as well so i have a good progress when i'm back home other support uh i guess health because um if you're not healthy you cannot be disciplined you will just be really angry and forget about everything else and just coping and just rest you know
+Coach: so you are saying that you need a positive influence from other people and also you need to take care of your health is that right?
+--------------------------------------------------
+User: It's a better price than money. So, correct me if I'm wrong but, and I don't have that evidence to prove what you just asked me which was that дух Downey so much and that's what I want to deliver. It's hard to say but I'm pretty sure that's right. So, the U.S. education program and the letters you just referred and the FDA and the scenario are just an overview of how 2015 and 2018 did not really go. A-ha. It was unfair on people when Theència came out with instruction which the insight I gave pretty much said we need to change our economy and save our economies and look to the US for what is needed to make this good in the world a better place to work with students from all those ages all over the world and based on their knowledge and their responsibility to do better in our lives and in education and this is a sign of effective system so go I Like He knew I Loved You but he walked off throwing you down with your feet up for nothing but a thank you for being a friend of the school of management and of the community and that these pawns will have to earn his tithes so that your team can derive from that you took a few years to understand how important education is to people like you so I do believe that the people who play a major role in public and private public safety needs are as failure as failure as failure hard as failure as a failure as a failure of a manager or a  and management person in this XL area than quality education for your students and families  attest for their personal responsibility for suspending police patrols and property th
+Coach: The human reflects on their motivation to complete their AI application MVP and express a desire to manage uncertainty better. They mention focusing on what they can control, such as waking up early and being more disciplined. They also discuss the importance of standardizing tasks and delegating to their team. The AI asks the human about the support they need to be more disciplined, and the human mentions positive influence from others and maintaining good health.
+--------------------------------------------------
+User: Yes, that's a good summary, but I think we are wrong. We should continue with our coaching.
+Coach: Thank you for your feedback.
+--------------------------------------------------
+User: So, what should we discuss now? What is the topic of the day?
+Coach: I think the topic we are discussing is how to manage the uncertainty and be more disciplined to focus on the AI project.
+--------------------------------------------------
+User: yeah you're right all right so I guess we know the answer now right like the way to manage uncertainty is to do my part properly just forget about uncertainty and allocate fixed time to do the project hmm isn't that's the best I can do and besides that just delegate more generalize more to make this uncertain event happens
+Coach: so I hear you say the key is to focus on what you can control what you can control and standardize and delegate tasks to your team is that right
+--------------------------------------------------
+User: Correct.
+Coach: So on a scale of 1 to 10, how confident are you that you can manage the uncertainty?
+--------------------------------------------------
+User: 아마... 아마... 5명밖에 없을 것 같아요
+Coach: 5명밖에 없을 것 같아요 I think it's hard to be disciplined so I'm not really confident about that
+--------------------------------------------------
+User: I mean, I think only 5, I'm not so confident that I could be disciplined. Because I just, I don't look like a disciplined people, like I want to wake up early, exercise, eat good food right, but I'm just not doing it, and I somehow give up on that.
+Coach: So you mentioned that you are not disciplined, but you want to be disciplined. What do you think is preventing you from being disciplined?
+--------------------------------------------------
+User: okay that's a good question I guess it is like inherently the little change you know like I know every time I'm more disciplined but I managed to go to work to exercise I feel better but still I think there really needs some energy to do that and maybe it's because I don't have a job that I need to attend to in the morning maybe because I don't have a boss you know so there's no much constraint for me to be undisciplined only the like for example if you're a staff there is a reward and punishment for me there's no punishment and the reward is like I feel happy I feel better about myself I'm more disciplined but punishment be I feel I'm ashamed right but there's no other constraint that could be the reason preventing me from disciplined and I think I'm not strong enough not tough enough to be disciplined
+Coach: so what do you think you can do to be more disciplined
+--------------------------------------------------
+User: I guess I can try many things like hiring a staff right so that I have to go to work but that's really too costly. I'm making them happy, making them happy. Be more grown up, I know that you need to be a good and healthy person deeply. And to the time arrangement specifically, sleep when it's late rather than continue until you cannot and then you fall into a bad loop. Just go to bed after a certain time, that could help, that could really help. When you wake up early, it's energy, right? Second thing is like be more, have better awareness of time. I think I have this issue, like I often estimate the time wrongly, think oh we have enough time to do many things but actually you may just able to do one thing and then you feel you are losing the day because you didn't accomplish enough as you designed, then you like totally give up, nevermind, I don't want to discipline because it's a failure. I think that also contributes to that.
+Coach: so basically you are saying that you need to set up some constraints for yourself and also have a better awareness of time is that right
+--------------------------------------------------
+User: Correct, I see you got the gist.
+Coach: So what do you think you can do to have a better awareness of time?
+--------------------------------------------------
+User: I think it's all by practice, so, you know, it's quite funny, like, sometimes, like, I know I could be late, but I'm still just, like, doing other things, and pretend that I won't be late, until it's really close, like 10 minutes, 20 minutes, then I realize, oh, I'm really late, so I need to tell them, tell them the story again, again, and again. I don't know what's a good strategy, to be more awareness of time, like, practice, maybe, because I really hate to waste time, to arrive early and waiting other people, although it may even be 1 minute, 2 minutes, but it makes me feel really bad. I will start to call them to don't let them waste my time. So, one thing could happen is, actually, don't value my time that much, allow some time to be wasted, the way to waiting people. I think that's the key issue about the time.
+Coach: So you are saying that you need to allow some time to be wasted, and not to value time that much.
+--------------------------------------------------
+User: Yes, I think if I am able to do that, I will be able to buffer more time for everything, there will be more time. And if I am more on time, I will also be more on time for myself, right? So I will be able to go to bed, able to wake up, able to exercise, able to be more disciplined.
+Coach: So what do you think is the punishment of being late?
+--------------------------------------------------
+User: There's a lot, like you lose trust to people, and sometimes I really miss my flight, so I really need to pay for that, and because I'm the boss, I don't look good, and make me look so stupid, make other people don't respect me. Yeah, and it's like a small thing that I really want to change, but I just fail to change every time. It's a shame enough as a punishment.
+Coach: So I hear you that the punishment is that you lose trust and you miss your flight, and it's a shame for you, right?
+--------------------------------------------------
+User: Oh
+Coach: So how do you think you can remind yourself of the punishment to make yourself on time in the future?
+--------------------------------------------------
+User: I mean, this is psychology, it's quite complicated. I know this and I remind myself every time for example, I have a flight. I will just, you know, for example, I know that I should reach the airport two hours early, but I will just wait until there's two hours, ten minutes before the flight and then really rush to the airport. It's like a habit. I don't know why I have this habit. The remain of this punishment is not useful, I guess.
+Coach: So what do you think could be useful for you to change this habit?
+--------------------------------------------------
+User: I really don't know, like, I know it is bad and I know how good is it if I don't have this issue, right? So I know the importance of it. I know the importance of don't do this. So knowing that it's not helpful, like having someone really annoying, really chasing me all the time is helpful. Like just maybe three hours before, for example, my mother, she's like, oh, you need to go. And then she will really force you to go. So never miss a flight with her.
+Coach: So maybe have someone to remind you, is that right?
+--------------------------------------------------
+User: Yep.
+Coach: Is it possible to have that person?
+--------------------------------------------------
+User: I cannot think of my wife is too busy to do this and If someone able to wake up early in the morning and go home it will help.
+Coach: If you think that person could help you, what do you think you can do to have that person help you?
+--------------------------------------------------
+User: No, I cannot think of anyone who can help me on this.
+Coach: Okay, so you mentioned that you have this issue, but you don't have anyone who can help you. What do you think you can do to help yourself?
+--------------------------------------------------
+User: She becomes moreнесherred and they become more and less and less connected to the guy. So I think that, those two things alone I truly think are, truly are the power. But not only those two things. That I feel like are laughing through my teeth that's actually, true to the inside. And to take a step forward and to go somewhere different, to a different visibility to a different culture. And to take a step near becoming a conflict of interest within my own ceremonies. And the theory and all the intrigue is that all of them never knew those things. So they founded such a complex and that culture And that I did not recognize anything inside that culture. So I don't feel to say that they are� Because they are not feeling everything these days. I am tired! Let's wrap up and go to sleep.
+Coach: Okay, so let's do a quick summary. You mentioned that you have this issue, but you don't have anyone who can help you. What do you think you can do to help yourself?
+--------------------------------------------------
+User: Nothing I can think of.
+Coach: Okay, so let's do a quick summary. You mentioned that you have this issue, but you don't have anyone who can help you. What do you think you can do to help yourself?
+--------------------------------------------------
+User: Why you keep asking the repetitive question? I said... I said I... I don't know.
+Coach: Okay, I have no further questions.
+--------------------------------------------------
+User: Okay, goodbye.
+Coach: Bye.
+--------------------------------------------------

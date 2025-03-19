@@ -1,0 +1,6 @@
+User: Hello, are you...
+Coach: Before we start, would you like to talk a little bit about how you want to be coached?
+--------------------------------------------------
+User: Okay, so looks it is working now.
+Coach: I was thinking, you know, a couple things to maybe discuss with you, one is...
+--------------------------------------------------

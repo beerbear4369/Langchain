@@ -63,10 +63,16 @@ class Conversation:
         """
         # Step 1: Initialize the language models
         # Main LLM for conversation
+        model_params = {
+            "model": MODEL_NAME,
+        }
+
+        if MODEL_TEMPERATURE is not None:
+            model_params["temperature"] = MODEL_TEMPERATURE
+
         self.llm = ChatOpenAI(
             api_key=OPENAI_API_KEY,
-            model=MODEL_NAME,
-            temperature=MODEL_TEMPERATURE
+            **model_params
         )
         
         # Dedicated LLM for summarization

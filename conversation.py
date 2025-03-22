@@ -7,6 +7,7 @@ from langchain_core.prompts import (  # For creating structured prompts
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
     MessagesPlaceholder,
+    PromptTemplate,
 )
 from config import OPENAI_API_KEY, SYSTEM_PROMPT, MODEL_NAME, MODEL_TEMPERATURE  # Import configuration
 import os
@@ -79,19 +80,75 @@ class Conversation:
         # Using GPT-3.5-turbo which has proven reliability for summarization tasks
         self.summary_llm = ChatOpenAI(
             api_key=OPENAI_API_KEY,
-            model="gpt-3.5-turbo",  # Changed from GPT-4o-mini to GPT-3.5-turbo
+            model="gpt-3.5-turbo",  
             temperature=0.3,  # Lower temperature for more consistent summaries
-            request_timeout=15  # Add timeout to prevent hanging
+            request_timeout=20  # Increased timeout for more thorough summarization
         )
         
-        # Step 2: Set up conversation memory to store dialogue history
-        # Using ConversationSummaryBufferMemory to maintain a summary of older messages
-        # while keeping recent messages in full detail
+        # Step 2: Set up conversation memory to store dialogue history with custom summarization
+        # Create a custom summarization prompt that focuses on conversation history
+        CUSTOM_SUMMARY_PROMPT = PromptTemplate.from_template(
+            """Analyze the following coaching conversation using the T-GROW model framework and create a structured summary that captures:
+
+1. TOPIC (T): The main focus area or issue the client wants to discuss
+2. GOAL (G): The specific outcomes or objectives discussed (if covered in conversation)
+3. REALITY (R): Current situation, context, and challenges discussed (if covered)
+4. OPTIONS (O): Possible approaches or strategies that have been explicitly discussed (if covered)
+5. WAY FORWARD (W): Any committed actions or next steps that have been decided (if covered)
+
+<PREVIOUS_CONVERSATION_SUMMARY>
+{summary}
+</PREVIOUS_CONVERSATION_SUMMARY>
+
+<NEW_CONVERSATION_ADDITIONS>
+{new_lines}
+</NEW_CONVERSATION_ADDITIONS>
+
+IMPORTANT GUIDELINES:
+- Only include T-GROW stages that have actually been covered in the conversation
+- Do NOT create content for stages that haven't been discussed yet
+- Preserve the exact language and key points shared by the client
+- Note any shifts in focus during the conversation
+- Accurately summarize what has been discussed in each stage
+- Do not invent options or way forward steps that haven't been explicitly mentioned
+- Remember that the summary represents PREVIOUS conversations, not the current dialog
+
+SUMMARY FORMAT:
+Your summary must start with exactly "Summary of earlier dialog:" 
+
+<TOPIC>
+[Main focus area]
+</TOPIC>
+
+<GOAL>
+[Specific outcomes desired - only if discussed]
+</GOAL>
+
+<REALITY>
+[Current situation and challenges - only if discussed]
+</REALITY>
+
+<OPTIONS>
+[Strategies and alternatives considered - only if discussed]
+</OPTIONS>
+
+<WAY_FORWARD>
+[Committed actions and next steps - only if discussed]
+</WAY_FORWARD>
+
+<PROGRESS>
+[Brief assessment of conversation progression]
+</PROGRESS>
+"""
+        )
+        
+        # Initialize memory with custom prompt
         self.memory = ConversationSummaryBufferMemory(
-            llm=self.summary_llm,  # Use dedicated summarization model
+            llm=self.summary_llm,
             memory_key="chat_history",
-            max_token_limit=1500,  # Further reduced to ensure summarization happens more quickly
+            max_token_limit=500,  # Increased to retain more context
             return_messages=True,
+            prompt=CUSTOM_SUMMARY_PROMPT,
             verbose=True  # Make summarization process visible in console output
         )
         
@@ -191,10 +248,12 @@ class Conversation:
             with open(self.summary_log_file, "a", encoding="utf-8") as f:
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 f.write(f"\n=== Summary Update at {timestamp} ===\n")
-                f.write("Previous summary:\n")
+                f.write("<PREVIOUS_SUMMARY>\n")
                 f.write(f"{old_summary}\n")
-                f.write("New summary:\n")
+                f.write("</PREVIOUS_SUMMARY>\n\n")
+                f.write("<UPDATED_SUMMARY>\n")
                 f.write(f"{new_summary}\n")
+                f.write("</UPDATED_SUMMARY>\n")
                 f.write("-" * 50 + "\n")
                 
             # Create a flag file to indicate summarization has occurred
@@ -213,6 +272,63 @@ class Conversation:
         except Exception as e:
             safe_print(f"Warning: Error accessing summary: {e}")
             return ""
+            
+    def analyze_conversation_progression(self):
+        """
+        Analyze the conversation progression through the T-GROW coaching model.
+        
+        Returns:
+            dict: Analysis of conversation progression through T-GROW stages
+        """
+        try:
+            # Get current summary and recent messages
+            summary = self._safe_get_summary()
+            history = self.get_conversation_history()
+            recent_messages = history[-min(10, len(history)):]
+            
+            # Create analysis prompt
+            progression_prompt = f"""
+            Analyze this coaching conversation through the T-GROW model framework and provide a summary of:
+            
+            1. COACHING PROGRESSION:
+               - Which T-GROW stages (Topic, Goal, Reality, Options, Way Forward) have been covered so far
+               - Which stages have been discussed thoroughly vs. superficially
+               - What might be the next logical stage to explore
+            
+            2. KEY INSIGHTS:
+               - Main topics and challenges discussed
+               - Important realizations or breakthroughs
+               - Areas that have generated meaningful discussion
+            
+            3. COACHING NEXT STEPS:
+               - Areas that need deeper exploration
+               - Potential questions to ask to advance the conversation
+               - How to move forward in the T-GROW framework
+            
+            <PREVIOUS_CONVERSATION_SUMMARY>
+            {summary}
+            </PREVIOUS_CONVERSATION_SUMMARY>
+            
+            <RECENT_CONVERSATION_MESSAGES>
+            {recent_messages}
+            </RECENT_CONVERSATION_MESSAGES>
+            
+            Provide a structured analysis of how the conversation has progressed through the T-GROW coaching framework:
+            """
+            
+            # Get analysis
+            analysis = self.summary_llm.predict(progression_prompt)
+            
+            return {
+                'progression_analysis': analysis,
+                'summary': summary
+            }
+        except Exception as e:
+            safe_print(f"Warning: Could not analyze conversation progression: {e}")
+            return {
+                'progression_analysis': "Error analyzing conversation progression",
+                'summary': self._safe_get_summary()
+            }
             
     def process_input(self, user_input):
         """
@@ -369,13 +485,13 @@ class Conversation:
             safe_print(f"Current buffer size: {results['buffer_size_before']}")
             
             # Add a dummy message to force summarization
-            dummy_message = "This is a long message to help trigger summarization. " * 20
+            dummy_message = "This is a test message to trigger summarization. Let's discuss our progress on the project goals, particularly focusing on topic continuity and development. We need to make sure we maintain focus on the main topics we've been discussing." * 5
             safe_print(f"Adding dummy message of length {len(dummy_message)}")
             
             # Add directly to memory
             self.memory.save_context(
                 {"input": dummy_message}, 
-                {"output": "Response to help trigger summarization. " * 10}
+                {"output": "I understand the importance of maintaining topic continuity and development in our conversation. Let's ensure we stay focused on our key goals while making progress in our discussion." * 3}
             )
             
             # Get updated state

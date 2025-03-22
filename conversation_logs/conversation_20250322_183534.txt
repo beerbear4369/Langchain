@@ -1,0 +1,54 @@
+User: Hello, I want to talk about my progress of building an AI chatbot.
+Coach: What specifically about the progress of the chatbot would you like to discuss?
+--------------------------------------------------
+User: wow I would like to explore the you know like actually I'm not so sure about it
+Coach: That's okay, it's a complex situation. Let's take a step back.
+--------------------------------------------------
+User: I feel the progress. It's like when I zoom in, the whole day working on it, I feel it is fast, because the feedback is really in real time, so I can feel the progress. But I do feel that maybe I'm just rewinding the wheel, because sometimes it's like I'm not an expert in this, and I could be just making so many obvious mistakes, I don't know. It's like previously, the big jump from previous progress is that when I start to see the output of the code to the LLM, and I feel the format is somehow wrong. And just with identifying that issue, I can fix it. It will improve the performance quite a lot. And honestly saying, the effort before that could be stupid. We also tried many things, working with different models, and getting more data. So in that perspective, the progress is slow. For myself, it's like a learning journey. As far as I'm able to learn, I'm quite happy. I can feel the progress. But to the absolute scale, maybe it's actually progress quite slow.
+Coach: So it seems like you're assessing the speed of progress from two different angles. One is your own subjective feeling of the day-to-day evolution, and the other is a more objective assessment of the overall timeline. Is that a correct summary?
+--------------------------------------------------
+User: Okay, I would rate the progress of five, because I need to keep distracted from the other business. So it's not that fast, we haven't been able to build more team to work on it. The people I work with also do it like a set hassle, so once there is something more urgent, everyone will put this aside.
+Coach: So it sounds like the distraction from other business is a key factor in the speed of progress. Would you like to explore that more?
+--------------------------------------------------
+User: I guess the fundamental reason is that we are doing this at part-time, so if you consider the progress versus the amount of energy and time you invest in, it's fast. But if you see the entire progress, I think it's slow. After one or two months, I started to think about this from last year, and I met my partner for the AI coaching assistant for more than a month, and from there to now, we haven't yet published the MVP, so it's not that fast, actually, if you consider it against a full-time team.
+Coach: So it sounds like you have a couple of different ways to assess the speed of progress. One is more of an absolute scale, where you think it's slow, and the other is relative to the amount of time and energy you invest, where you think it's fast.
+--------------------------------------------------
+User: Well, if I can work full-time on this, it will definitely be faster because I'll be fully indulged in it, and I won't get distracted. You know, it's like sometimes, being distracted, getting back to this topic, I cannot find the files. I forget where I put those information, and it's taken me a while to get back, you know. There's like scientifically results that if you're shifting from topic, you need to mentally reconstruct to go back to the, I don't know how to describe, the stage, okay? And having a full-time team working on it, of course, is even better, but it's like even me as a founder is working part-time on this, right? So how could I get a full-time team working on it unless I take the lead to really step out of my business, which I don't look easy as of now, because like next week I need to go to Vietnam to meet some customers as well. Yeah, so it's really like a sad hustle project now.
+Coach: So it sounds like the part-time commitment is a key factor here. If we take that as a given, how would you like to measure the speed of progress?
+--------------------------------------------------
+User: I will rate it as 5 and you have asked this question already.
+Coach: Okay, so with that rating of 5, how do you feel about the overall progress so far?
+--------------------------------------------------
+User: Okay, that's a good question. I guess I would like to prioritize the AIChat project, the AIChatbot, because I'm really interested in doing it, but I'm saying this is much more uncertainty, right? I still need the cash flow, I still need money. So when there is a project from the other business, the construction business, I'll be more prioritized to doing that. But when there's no business, when there's basically a free time, the time that's available for me to decide on what to do, I'm actually fully dedicated to the AIChatbot. Right now, what I'm doing right now, yeah.
+Coach: So it sounds like the distraction is a double-edged sword. On one hand, it limits the time you can devote to the project, but on the other hand, it ensures that you have the resources to keep the project going.
+--------------------------------------------------
+User: I guess it's like 50-50 when in Singapore I have fully control of my time I do more on air transport but when I'm in Vietnam, when I'm on business trip, I'm mainly doing that business things yeah so I feel it's about 50-50 at the moment but sometimes the consulting business have a higher priority because that is earning cash right like AI business is more like interest and there's totally no cash flow at the moment it's just like a interest project so when there is a request from the main business, I will drop my progress for AI transport and doing the consulting business yeah so a good priority to that
+Coach: So the consulting business is the top priority and the AI chatbot is more of an interest project.
+--------------------------------------------------
+User: Well, that's a good question. Ideally, I just like to do one meeting on Monday and all the necessary things finish on Monday. Then the rest six days on the AI chatbot project. Yeah, that's the ideal way. Then it would be like six out of seven. If we convert it by percentage, how much is the percentage?
+Coach: So about 90% on the AI chatbot and 10% on the consulting business?
+--------------------------------------------------
+User: Yeah, so around 85%.
+Coach: Alright, so with that 85% commitment, how do you rate the overall progress on the AI chatbot project?
+--------------------------------------------------
+User: I don't understand the question. Can you expand it?
+Coach: So the AI chatbot project is still being rated as a 5 out of 10, correct?
+--------------------------------------------------
+User: If I'm able to work 85% of the time, I think it goes much faster and it's much better continuity. Like keep iterating, release new features, and I'll be more in the mood to talk to everyone, to get results, to move things faster. Like move things faster, I think it's like a motivation, it's like make you feel it's moving forward and you become more active, like it's like a positive feedback loop and make it even better because it feels good, you work more, you see progress, and because you see progress, you work even more, it's like a rewarding loop. And if you work less, if progress is slow, then you'll be lazy to work because you don't see the real progress and there's no feedback, so this is like a punishment.
+Coach: So there's a motivation cycle here that drives progress. So if we keep that motivation cycle going, where do you think the speed of progress would be?
+--------------------------------------------------
+User: I don't understand
+Coach: So with that motivation, what would be the speed of progress if we can keep it going?
+--------------------------------------------------
+User: I still don't understand, what would you mean, would you read, you mean to read my current progress and assume that I have spent 85% of the energy?
+Coach: Correct.
+--------------------------------------------------
+User: If let's say the real physical progress is basically I, for example, I train three models these two days, right? If I spend 85% of the time, it would be too slow, I'm saying it would be too slow because basically I do only two days' work, it's like two days of work, diluting to maybe like six days, right? So it would be really slow.
+Coach: So if we keep the motivation going, the speed of progress would be what?
+--------------------------------------------------
+User: Correct. You're wrong. I guess it's like a scale from zero to ten, right? So currently I'm rating it as five, I would say if I can work full time, it would be seven or eight, because I still think it would be too slow, you know?
+Coach: So you think the speed of progress, if you're fully committed, would be at least seven or eight?
+--------------------------------------------------
+User: I guess it is the commitment that I have to contribute to my construction business, like things that I have to work on.
+Coach: So you are saying the speed of progress would be at least a seven or eight, but because of the consulting business, you're only at a five.
+--------------------------------------------------

@@ -1,0 +1,63 @@
+User: Hello, my name is Ian. Maybe we can talk about our progress of developing an AI coaching assistant.
+Coach: Okay, Ian, that sounds like a good topic. I know this is a big topic, and I like to be specific. Could you narrow it down a little bit?
+--------------------------------------------------
+User: Yeah, great. It's like, I mean, like, I think we could totally start to talk about the progress to building this AI chatting bot. It's like, now, along the way, well, still talking to my AI coaching assistant that I've developed, I turned to, because I think it's really starting to work. So every time I'm talking to it, so I have some reflection, and then I have some new idea. So it keeps having new idea, new product idea, coming out. On the other side, it is also basically distract me from the main progress. Like, I think, oh, I can also do this and do that. Then it's like, make the progress sometimes also slow, because we just keep having new idea and keep doing new things. And this become, I'm going to add. It's like good and bad, like a sweet thing, huh?
+Coach: Okay. So I hear two things from you. One is that you are excited about the new ideas, and it is very inspiring. But on the other hand, it is also distracting you from the main goal. Am I correct?
+--------------------------------------------------
+User: Yes, you are right. It also distracts me from the main goal and sometimes I feel it's like actually I have three ideas all I want to do but I know I can only do one at a time otherwise I'll be standing nowhere and I already work until like 3 a.m. in the morning so I really need to think about a way to solve this otherwise I'll be just like keep don't sleep and everything is wrong.
+Coach: So you mentioned that you actually have three ideas and you need to focus on one. What is the main goal that you want to focus on right now?
+--------------------------------------------------
+User: Well, I guess maybe the main goal is like this session to get clear which one to focus on. Actually, I know which one to focus on. The problem is like, you know, in day one I already said, okay, this is the thing I'm going to do. I'm going to launch my MVP for this product in two weeks, but then all of a sudden there's a new project coming out, like doing a AIGC chatbot for the movie, you know. But with this idea, this is a great idea, is having a time-out, because the launching of it is in one month's time, so that means I, I think it's really a good opportunity and something interesting that I really want to do, but that means I need to squeeze and trying to finish that in one week, sorry, in one month, and it's coming back to how about the AI assistant, AI control assistant, do I still do that, do I still push to launch it in two weeks, because it would be a conflict of time, so what should I do, right?
+Coach: Okay, I hear two things from you. One is that you are very excited about the new idea, which is the AIGC chatbot for the movie, and you want to pursue that, but you also make a commitment to the AI coaching assistant and you need to launch that in two weeks. So your goal for this session is to figure out how to balance these two things, am I correct?
+--------------------------------------------------
+User: You're right.
+Coach: Okay. And if we are successful at the end of this session, how would you know that you have achieved that goal?
+--------------------------------------------------
+User: Well, if we are successful at the end of the session, if there is a plan, a day-to-day plan on how to do it, and a roadmap, like a real detailed plan on how to achieve both target or how to prioritize, then I think it's a successful session, then I know we have achieved the goal. Because basically, it's like I don't know how to balance, and at the end of the session, if I have the plan to balance or have the priority sought out, that I know which to focus and which to leave aside, I think that's the result I'd like to see.
+Coach: Okay. So let me summarize. You mentioned that your goal is to come up with a detailed plan on how to balance these two things, and if we are successful at the end of this session, you would have that detailed plan. Is that correct?
+--------------------------------------------------
+User: Yes, you are right. You are super smart.
+Coach: Thank you. So how do you feel about having that detailed plan at the end of the session?
+--------------------------------------------------
+User: I think having that detailed plan at the end of the session, it makes me feel really relaxed and confident, because both of these I want to have and I don't want to drop one for the other, but I know it's really hard and I don't want to let go of a good opportunity, right? So if I have that detailed plan by the end of the day, that means I will be so free and that's something that I can rely on. That I do this APC, I will be able to achieve the target. So I don't need to worry, I don't need to be afraid that I miss something.
+Coach: Okay, so it sounds like having that plan will help you to ease your anxiety and be more relaxed. Yeah.
+--------------------------------------------------
+User: True. That's right.
+Coach: Okay, Ian. You mentioned that you are currently facing a dilemma. You are very excited about the movie chatbot, but you are also committed to the AI coaching assistant and you need to launch that in two weeks. So you are facing this dilemma. I am curious, what is the source of this dilemma?
+--------------------------------------------------
+User: I think the source of dilemma is that I only have limited time to commit on building something. And I think both projects do need quite a bit of time and commitment to make it work. And you know I also have another construction business, which also takes my time, and sometimes it's just, the things just pop out, right? So it's like all of a sudden, there's too many things in my plate, and I really need to balance out to make sure it goes fast enough, otherwise if it's too slow, then it's bad. And basically, the construction business is a stepping back for the AI business, the AI start-up. We already contribute a lot of time to the AI start-up, but now I have two product ideas, and these two are equally important to me, so I don't want to let go of any of it. I just feel like the time is just one piece, but you need to finish two pieces of work, so how to manage that, you know?
+Coach: So it sounds like the source of the dilemma is that you have limited time resources, but you have too many things that you want to pursue.
+--------------------------------------------------
+User: Yes, I think you can summarize it like that.
+Coach: Okay. And how is this dilemma making you feel?
+--------------------------------------------------
+User: Well, it makes me feel, it's a complicated feeling, it's like for right-handed it's good because like I have more ideas, more things to do, it's always good, right? It's like showing that I'm in the right track, I'm like, you know, it's like I'm, it's, you can feel the energy and the living out of it, like I can sense that we are on the right track, right direction, and these good ideas are really good. And for the consulting business, I feel happy because I'm not actively looking for business, so when I'm busy, it means their business is actively looking for me, and that is the potential of earning some cash flow, right? So I'm happy. But on the other side, it's like, it also makes me feel, sometimes when I see the progress of my AI chatbot is slow, I will feel that I'm unhappy, I feel, hey, today there's no progress at all, I promised myself to have some progress every day, but it's just, some things come in and make me feel to do that, I'm quite unhappy with that, it's like, oh no, it's slow, we cannot launch this into a week, right? It makes me feel bad, and AIGC is like, yeah, it's such a brilliant idea, but like, I totally don't have time to debate for that. I was thinking like, maybe I just wrap up the AI coaching things, and then I can move on to the AIGC movie chatbot thing, but you know, it's like, I feel, like, because we will do it, like, new problems just keep coming in, keep coming in, and I feel, it's really hard for me to finish it with a considerably good quality, and then it's blocking me from moving on to the next things that I'm super interested to do.
+Coach: So I hear that you have mixed feelings about this dilemma. On one hand, you feel excited about the new things, and you feel that this is a sign that you are on the right track. But on the other hand, you also feel frustrated because you feel that the progress is slow, and that is making you feel unhappy. Am I capturing that correctly?
+--------------------------------------------------
+User: Yep, correct. Yeah, super right.
+Coach: Okay. And what do you really want in this situation?
+--------------------------------------------------
+User: What do I want? I want that I'm like a superman, have 48 hours a day so that I can accomplish all the things. Like I said, I want to be free from the construction business, but when there's a big project, I still pretty much want to get that big project. And that means I still commit a lot of time to it. Unavoidable. Like today, I basically commit all the day time to that business. Unavoidable. Okay. So, yeah. I know I'm confused, like, you know, like as an average human. I can only do things step by step. But I really hope it can go faster, and I can accomplish more things. And having a strong team that work together with me faster to keep launching new features, keep launching new projects, that would be ideal.
+Coach: Okay. So it sounds like, yeah, you want to have more time, you want to have more resources, you want to go faster, and you want to have a strong team that can support you.
+--------------------------------------------------
+User: ನಾಗಲಪದಿತದರಣಾಗಟಾನದವರನಿ ಅಪರನಸದರನರನಾಗಟಾನದವರನನಾದವರನನಾಗಟಾನದರಕಿತದರನನಾಗಿತದರನಾದರನಾ� ಅಪರನಸದರನನಾಗಟಾನವರನನಂ ಆಗಳವರನನಿ ವರಕರಟಾನಗಳವನನನಾಗನರಲ ಅಪರಪླྀದರನಾಗಡಸಡಾಕಟಾಚಿಂಗತರನನದರ ಶಾಹತಂ ಸಗಳವರರನನಾಗಟಾನಗಳವನನನಾಗಟಾಚಿಂಗತರನನನನನನನಟಾಯನಹಿಂಗತರರನನದರರನನನನನನಔಗರಹರನನದರರ� ಟೇರಾವದಟರನಾಗಟಾನಿತಧದಗ಩ರನ? ಇಊಚವился ಆಟಿತಿ ಎದಡರಭನಾಗರಿಕತํತ ಈಗರವರನagę ಅದರ.
+Coach: So what do you think is the solution to this dilemma?
+--------------------------------------------------
+User: I don't know, I think there's no solution, like I already work like 24-7 and try to minimize the time being wasted, like going out, having dinner, right, but still there's like limit and to get a teammate, to do all these things also take time, so I don't have the luxury of such time, unfortunately.
+Coach: Okay. So it sounds like you are telling me that there is no solution to this dilemma.
+--------------------------------------------------
+User: Yes, I feel I don't see a clear solution to this dilemma.
+Coach: Okay. So let me ask you, do you want to have a solution to this dilemma?
+--------------------------------------------------
+User: Yes, of course I want to have the solution to this dilemma.
+Coach: But it sounds like you are telling me there is no solution.
+--------------------------------------------------
+User: yes you're right and that's why I'm talking to you
+Coach: So is it possible that however, you might be able to find a way to work around this dilemma?
+--------------------------------------------------
+User: Yeah, I mean that's what I expect from this composition, right? I want to have this flow here so that I can walk around the standard line.
+Coach: Okay. So what do you think we can do in this session to help you to find a way to work around this dilemma?
+--------------------------------------------------
+User: วัดเดียว ห้อง ตอนตา นิวลกา, ศาลา, เดียว ปลารง, ทามทา ลิมก, พาหาร, ทารง, รายทาหาา, หาาายทารง, ทารง, ศาลา, ทา บรรยายธรรมอิสลามครูแอ อ.อิสมาแอล วิสุทธิปราณี
+Coach: Ian, you are very resourceful, so I'm sure you have a lot of ideas.
+--------------------------------------------------

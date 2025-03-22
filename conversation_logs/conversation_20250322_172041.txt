@@ -1,0 +1,222 @@
+User: Hello, how are you?
+Coach: I'm well, thank you. How are you?
+--------------------------------------------------
+User: Bagus, terima kasih.
+Coach: So, what do you want to talk about today?
+--------------------------------------------------
+User: Maybe let's talk about the journey of building my AI chatbot, yeah, I think we can discuss about that.
+Coach: Okay, so the journey of building your AI chatbot. What's the situation around that?
+--------------------------------------------------
+User: Yeah, so basically I had some partner to work with me, we have a team of three, and this is all like a set project, and I'm the initiator, and I'm also quite interested in doing this, so I spent a lot of time developing it, but somehow I found that other people maybe don't contribute as much, like I have another teammate show interest in joining it, but after we did a session with him, talked about a lot of things, and put him in, I feel that he is actually quite reluctant to code, to develop the things, or contribute, and while I tried to look for him, it's like, oh, I'm busy, so pushing him back, yeah, so it's like, kind of discouraged me.
+Coach: So, it sounds like you are feeling discouraged because you are not seeing the same level of commitment from your partners.
+--------------------------------------------------
+User: Yeah, I can conclude like that. I think it's an accurate way to say that.
+Coach: So, if you think about that feeling of discouragement, how would you describe it?
+--------------------------------------------------
+User: The feeling is like, sometimes I feel I'm like a joke, because on one side I feel like hey, this is a really good idea and we are changing the world, we are making something really brilliant. But sometimes, you know, I spend a lot of time and effort to develop something and cannot get the feedback or the ideal feedback from the other teammates, that makes me feel I'm like a little joke, maybe I'm too optimistic, too naive, and I just don't want to see the reality and keep having an unrealistic dream, you know? So yeah.
+Coach: So, on one hand, you feel like you are building something great, but on the other hand, the lack of feedback and commitment from your partners makes you feel like a joke, like what you are building is not real.
+--------------------------------------------------
+User: Yeah, correct. You're right.
+Coach: What would you like to achieve in this conversation?
+--------------------------------------------------
+User: Well, I guess, you keep asking this question, I guess I want to, what I want to achieve is feeling better in this current circumstance, like make me feel better, or make me see the reality better.
+Coach: So, if we fast forward the clock 30 minutes, what would make you feel better?
+--------------------------------------------------
+User: okay I guess if you fast-forward 30 minutes after that then I have a more clear mind about like like if say after 30 minutes I know how to offend the right people to be crazy together with this or how to make them as crazy as I am that would be maybe feels better you know it's like because like I don't become I drive and there are no moment is discouraging I want to kick him out already
+Coach: So, if we talk about these partners, the partner that you already have and the new one that you brought in, is there a specific partner that you want to address in this conversation?
+--------------------------------------------------
+User: Yes, it is a specific person.
+Coach: So, in 30 minutes, you want to have more clarity on how to engage this specific partner.
+--------------------------------------------------
+User: Correct, either how to engage this specific partner, or if he's not a suitable one, maybe I should just kick him out and then get a new one, get a right one, but I feel it's quite hard to get the right one that's as crazy as me, you know ideally it should be a crazy developer, just so fascinated by the idea and just sit down and develop day and night like me. If I have another person, that's me right, we're in the same room, develop like crazy, and that's like the thing I want to do.
+Coach: So, I heard two things, you want to either engage this partner to be as crazy as you, or if he is not the right one, you want to find someone else who is as crazy as you.
+--------------------------------------------------
+User: Yes, all right.
+Coach: So, let's talk about this specific partner. You mentioned that you have been feeling discouraged because he has not been contributing as much. How do you think he feels about the project?
+--------------------------------------------------
+User: Um, well, I think, because like we, I initiated this, right, and he's like more interested in the technology side, and he have the session experience that, and I think he feel that this is hard to achieve. I think he feel that with the current technology, we cannot roll this out. I think he's not so confident in the capability of us to roll this out. Second is like, he feel, um, like we are a joke maybe, we think that we are naive on the market and it's hard to penetrate people. Yeah.
+Coach: So, you think that he feels like a joke too?
+--------------------------------------------------
+User: Yeah, I guess maybe he feels this is like a joke.
+Coach: So, he feels like a joke, and that might be why he is not contributing as much?
+--------------------------------------------------
+User: yeah probably I guess probably that's the reason that he didn't contribute much
+Coach: If you think about the situation, what do you think is the real reason for his lack of contribution?
+--------------------------------------------------
+User: okay so like number one is probably um um like he have a busy day-to-day job to cover so he can't have enough flexibility to control his to contribute number two is like he's like also not a developer but interested in that but like a bit hesitating his capability to do it i guess so i think he's trying to avoid the development work right and number three is like i think he hard for him to find something that he can do because it's either not the domain not the resource able to contribute on the data side or go to market which this is out of his domain or it could be like developing the things on technical side but he's also like only good at theory maybe not really handsome so i guess that's the reason but like he also trying to refuse to meet me make me feel maybe he just like totally think this is like a toy project and don't waste his time
+Coach: So, you think he is not contributing because he has a day job, because he is not confident in his ability to code, and because he is not sure where he can contribute?
+--------------------------------------------------
+User: Yeah, correct.
+Coach: So, if you think about this partner, do you want a partner who is really all in, who can contribute 100% and really believes in the project?
+--------------------------------------------------
+User: Of course, I am diving on this kind of partner and also capable and also believe in this and also contributing as much as I do.
+Coach: And do you think this partner is that kind of partner?
+--------------------------------------------------
+User: Maybe not, maybe he, you know when people are more day to day, they tend to become like don't, like they don't have a really good faith, good belief in a certain future, maybe he's not so optimistic. But on the other side, I also see he's eager to do some sad hustle project, right, to just try to do something. Ideally, he should be like young and naive, like just graduated from school, just so crazy about the idea and naive, and don't concern about anything, just want to try it out. That is the kind of person, but I don't know anyone like that, or able to leverage anyone like that.
+Coach: So, what do you think is more important for a partner in this project? Believing in the project or having the ability to code?
+--------------------------------------------------
+User: I think both attributes are quite important. If you ask me, believing in the project is more important, because nowadays, if you want, you can always learn, and it's not that hard to code, right? I'm this kind of person, just have a strong belief, and I just want to try. So I study, and I learn, and then try out, then that's it. I'm having some progress. So I think attitude is the key thing. Of course, if someone is a really good developer, able to code much faster, it's also important. But if you don't believe in it, it doesn't work.
+Coach: So, if you think about this partner, on a scale of 1 to 10, how much do you think he really believes in the project?
+--------------------------------------------------
+User: 頭甲勾起來,臀部甲提起來。 緊迫的放鬆雙手掌開, 腰掌身臀部的尖端向的保持掌起的。 �ient:"買下!無所謂!" 然後就活蹦亂跳上去, 醒弱得要死了。 怎麼了! 嗯?! 即便你大腿發癲, never mind! 這下慘, 那麼玫瑰玫瑰的玲珑 我們先載進去 我們先在 B doctor的穴位發生 這個習慣還算強吧! 避免了 嗨嗨嗨 惡搞! 這個乙肝 天拿來被咬了! I get pet peeve. 我們 squirrels 生漏了 隱藏在大肚 сл� 看見玲珑 還在湊個大家 Adjusting a record Doubting my life 再忙就應該放就放 Be in my position Made my decision River River Perseverance Perseverance Perseverant A little more 少許
+Coach: So, if you think about this partner, on a scale of 1 to 10, how much do you think he really believes in the project?
+--------------------------------------------------
+User: Bye.
+Coach: So, if you think about this partner, on a scale of 1 to 10, how much do you think he really believes in the project?
+--------------------------------------------------
+User: Now I'm saying, I guess he believes in the project on the scale of 5, 1, 2, 3, 4, 5 to 5.
+Coach: And what do you think is the reason for that 5?
+--------------------------------------------------
+User: Number one is like, I think he's a bit not so optimistic, he's like, he's not like the startup people, you know, he's just like working for a long time in the corporate world and want to try something new because of this new wave, right? So you see someone is doing something great, also want to be part of it. But on the other side, like they are like just don't believe in new things. I think it's like that. Number two is that maybe he also feel like I'm not, I'm not like, because I'm not like a developer myself, so they feel that, oh, I'm just like, do this for interest. It's just like a play a game, you know, they don't also don't have faith in me, I feel.
+Coach: So, if you think about this partner, on a scale of 1 to 10, how much do you think he really believes in the project?
+--------------------------------------------------
+User: As a side, it will be 5, while you keep asking this question.
+Coach: Okay, okay.
+--------------------------------------------------
+User: Both sides should be equal sections at the beginning, the top and bottom. Fold the bottom-left side to the centre line. Do the same with the other side these two corners are going to flip-side
+Coach: And how do you think this will impact the project in the future?
+--------------------------------------------------
+User: Like it's discouraging me, cause make me feel I'm a little joke, right? So I think it's negatively affecting the project. Like if they're not able to contribute, at least be able to encourage me, think that oh we are on the right track, it's helpful, but he's like totally on another direction. So I think it's negatively affecting the project, maybe I should get someone else.
+Coach: So, what do you think is the ideal level for a partner to believe in the project?
+--------------------------------------------------
+User: 10. If they don't believe it, don't do it.
+Coach: Yeah, you're right.
+--------------------------------------------------
+User: yeah so but like people it's hard like I'm not so convincing people hmm so it's like sales right it's like if you're a good sale good CEO is like a good sales they sell the dream and every believing and then they devote their time to it I'm a bad CEO I just don't do that that much well you know actually even for myself I also sometimes not 100% believe in it
+Coach: When you say you're not 100% what do you mean by that?
+--------------------------------------------------
+User: At some time I also self-doubt, like I'm a little joke, we just re-interviewed, and actually the things that I spend day and night to do, that took me 24 hours, only took other people one hour to do maybe.
+Coach: So, if you think about yourself, how much do you believe in the project?
+--------------------------------------------------
+User: 8, I guess 8.
+Coach: So, what do you think is the gap between 8 and 10?
+--------------------------------------------------
+User: 这就是我最后一次的试用 如果您的手机有问题,请与我联系 如果您的手机有问题,请与我联系 如果您的手机有问题,请与我联系 如果您的手机有问题,请与我联系 我 kilowatts juego 苏联人向前趨向 苏联人向前趨向 我最新的游戏正在上传 我最新的游戏正在上传 我最新的游戏正在上传 我最新的游戏正在上传 我最新的游戏正在上传 我最新的游戏正在上传 我最新的游戏正在上传 我最新的游戏正在上传 我最新的游戏正在上传
+Coach: So, what do you think is the gap between 8 and 10?
+--------------------------------------------------
+User: As a side, there is no real market feedback, only my self-feeling, and when I show to other people, they don't see it as good as I see, they are not so proud of it as I am. This aid is organic, it's from myself, I just blindly believe in myself and believe in the technology, and believe that there is a market for that, but sometimes this organic belief also will be consumed by the reality, by the feedback from the world.
+Coach: So, from your perspective, if the partner's belief is at 5, and your belief is at 8, how do you think we can close the gap?
+--------------------------------------------------
+User: like after I see the good progress I think they will have more faith in that and also probably we should meet more often, have more engagement, have more moving because now we are just like do these things at our own end and it's like actually nobody need to do anything it's just do for fun right so they may also don't know like how much effort I have come into it
+Coach: So, how often do you think you should meet to have more engagement?
+--------------------------------------------------
+User: And this one's a week, online or offline, maybe.
+Coach: Yeah, I think it's also important for me to have some external pressure to push me to do something.
+--------------------------------------------------
+User: ماذا تعني؟
+Coach: So, to summarize, in order to build your partner's belief from 5 to 10, you have three actions. The first one is to meet more frequently, at least once a week. The second one is to show more progress to build their confidence. The third one is to have some external pressure to motivate yourself.
+--------------------------------------------------
+User: Yeah, I think you are right. It's not pressure. Like I'm the pressure to motivate everyone. But sometimes I just feel my energy also will dry.
+Coach: Yeah, you are like the battery, right? You need to be charged.
+--------------------------------------------------
+User: Correct. I need to be charged. I hope the team can charge me, not always discharge me. Sometimes I feel when I'm talking to my chatbot, it really charges me. I think that's where I get my energy. Because it's getting better, you know.
+Coach: So, who else do you think can help you with the charging?
+--------------------------------------------------
+User: Sorry, what is the goal we have for this conversation and what is the topic we are discussing?
+Coach: We are aligned and we are making progress.
+--------------------------------------------------
+User: No, what is the goal? Can you tell me what is the goal again?
+Coach: The goal is to build your partner's belief from 5 to 10.
+--------------------------------------------------
+User: No, I think the goal is to save me from the situation that I'm getting discharged, now able to be charged. If he's just like the 5th person, right, maybe we should just find another one.
+Coach: So, do you want to change your partner?
+--------------------------------------------------
+User: This option is one of the options.
+Coach: Okay, let's put this on the table. So, in order to build your partner's belief from 5 to 10, one option is to change your partner.
+--------------------------------------------------
+User: Yes, I just change to someone who is naturally more crazy about the product, as I do more stronger belief in the technology, more hands-on, able to develop something. I don't believe that I am the only this kind of person, just I don't know where to find them and how to team up with them to do something crazy together.
+Coach: So, if you are to change your partner, what else do you need to do?
+--------------------------------------------------
+User: I'd like to find more people, talk to them, invite them to join our journey, and at the same time, actually I want to launch this MAP so I can have someone to show to them then they can really see the progress and really believe in what we can do, right? So people are like this, if you are strong, you are big, they want to join you. If you are small, you are like a start-up, they are laughing at you. People are all like this.
+Coach: So, if you are to summarize, in order to build your partner's belief from 5 to 10, you have four actions. The first one is to find a new partner. The second one is to launch the MAP so that you can show the progress. The third one is to meet more frequently, at least once a week. And the fourth one is to have some external charge for yourself.
+--------------------------------------------------
+User: Yeah, you can see so, although I think it's like the objective is not to improve my pandas to live from 5 to 10, I think that is a wrong summarization.
+Coach: Yeah, I think the goal is for you to feel charged.
+--------------------------------------------------
+User: Yeah, I think so.
+Coach: So, how do you feel now?
+--------------------------------------------------
+User: I feel discharged. I feel out of energy. I feel no energy now when I'm describing this situation to you. You know, it's really quite frustrating and I feel I could just be a little joke, jumping here and there, making many noise. I feel sad for myself. I could be just wasting my time. Why don't I just relax, you know? Have some drink, read some book. Why don't I just have this naive belief that I can make something great? Maybe they're right and I'm a joke.
+Coach: So, what is the source of this feeling?
+--------------------------------------------------
+User: The source is that I didn't receive great feedback from the team. No, this is a good direction, good progress. And they just like, somehow they're just like, not really active in the scenes. And my family members also, seeing that I'm just playing, just want to try, have fun. Nobody is like, I will face it, besides myself, I guess.
+Coach: So, if you are to rate your energy level, how would you rate it now?
+--------------------------------------------------
+User: Maybe two.
+Coach: So, what do you think you can do to get to the level of eight?
+--------------------------------------------------
+User: Launch the MMP successfully, and get some applause from the market, people say hey this is a great product, I like to use it, it helps me, team members say hey, we have some good progress, it's great, it's really working, I need this positive feedback to feel better, and if there's another person able to do it together with me, let's solve technical issues together, I feel better, now I feel I'm all alone.
+Coach: So, you need to get the feedback, the positive feedback from the market, and you also need to have a partner, right?
+--------------------------------------------------
+User: All right.
+Coach: So, how do you feel about your partner now?
+--------------------------------------------------
+User: I'd just take this as something good to have, let's try to never take this seriously, to prioritize other things and make this secondary.
+Coach: So, it's fine if he doesn't show up?
+--------------------------------------------------
+User: No.
+Coach: So, you mentioned that you need the positive feedback, you need a partner, right? So, how do you feel about the idea of changing your partner?
+--------------------------------------------------
+User: Like if there is someone who is really in this field as crazy, I will straight away embark on new people and work together and just ignore the previous people and show them the result that we can do something great, we have such a great progress. I think they are like a citizen pastor, like kind of free rider, one is quite good is like thinking about it, getting feedback and trying to contribute, others is like cannot find a way to contribute maybe, make me feel he is more like a free rider.
+Coach: So, you mentioned that your partner is like a free rider.
+--------------------------------------------------
+User: currently it's like that, it's not doing nothing
+Coach: And how does that make you feel?
+--------------------------------------------------
+User: Maybe he feels so sad. Maybe he feels that I should really talk to him and see what he can do. If he cannot contribute, just kick him out.
+Coach: So, you feel that you actually need to talk to him, right?
+--------------------------------------------------
+User: Right, but after I have some progress, it's just that I don't have faith, right? And I'm willing to contribute to the uncertainty.
+Coach: So, you mentioned that you need to get the feedback and you need a partner, right?
+--------------------------------------------------
+User: correct
+Coach: And how do you feel about your family members?
+--------------------------------------------------
+User: My family members are all startup people, they see the future that other people don't see and they really believe in it, they devote their time, their energy to it, day and night. But somehow they also don't, they are not as optimistic about my idea, maybe, they could think I'm on the right direction as well, it's a part, but they don't believe in me.
+Coach: And how does that make you feel?
+--------------------------------------------------
+User: like on one hand I feel appreciate for their support and give me the freedom to just try something out. On the other side I feel like somehow they also they discourage me like I don't believe it as much as I believe they also believe in it I could get more energy right I don't know why it's like I feel so drained now like a stupid kid climbing a mountain has some team but they also not so sure and say okay you can go but they don't believe you can reach the top I feel it's like a lonely journey
+Coach: Yeah, so you mentioned that you need the feedback from the market and you need a partner and you also need some support from your family members, right?
+--------------------------------------------------
+User: Correct.
+Coach: And you mentioned that your partner is like a free rider, your family members are not giving you enough support and feedback.
+--------------------------------------------------
+User: No, like my family members do support me, but they don't believe in the project I'm doing. That is the downside. My partner also tried to contribute, but he cannot find a way, maybe. So he apparently appears like a free rider, but I believe he doesn't want to be a free rider as well. I don't know. 
+Coach: Yeah, so you mentioned that your partner is like a free rider and your family members are not giving you enough support.
+--------------------------------------------------
+User: Okay, yes.
+Coach: So, how do you feel?
+--------------------------------------------------
+User: É que é só, né?
+Coach: So, do you think you can get the feedback from the market and also get a partner if you do not take your current partner seriously?
+--------------------------------------------------
+User: Yeah, I think I just try to push for them, maybe launch it and see how it goes. It could be they are not wrong, but I'm wrong, right? It's just a joke. I cannot blame them on that. They would have their own view of everything. Maybe I'm just being unrealistic. So just get out MMP and see how it goes. Don't count so much on it, but just finish it first.
+Coach: So, you mentioned that you need to launch the MMP to see how it goes.
+--------------------------------------------------
+User: Yes, I guess that's the most important thing now
+Coach: So, I'm just curious, how do you think your family members would react if you actually change your partner and get someone who is very serious and very committed?
+--------------------------------------------------
+User: I guess they will have more faith in these things as well, because if there's strong people believe in it, it boosts the confidence of everyone, right? Then they start to have faith in it, then it becomes true, and I guess it might change their own view of the things. Last time when I showed a progress to my wife, I let my child talk to her, I can feel her feeling of surprise, it's already much different from the first time I gave them the damp app.
+Coach: So, you mentioned that your family members are actually supportive and encouraging.
+--------------------------------------------------
+User: Yes, you're right, I have a great family member, but they also need a source of confidence to boost their confidence. Yes, you're right, I have a great family member, but they also need a source of confidence to boost their confidence. Yes, you're right, I have a great family member, but they also need a source of confidence to boost their confidence.
+Coach: So, based on what we discussed today, what do you think is the best way forward?
+--------------------------------------------------
+User: So I just do my best to launch the fucking MVP and then show it to the world, show it to everyone. Show it to more people, if they believe in this, join me, if they don't believe in it, just kick them off. And also then I can show myself, like, what is the real reality, am I capable or I'm just like a daydreamer.
+Coach: Yeah, and do you feel that you actually have a clear action plan for this next step?
+--------------------------------------------------
+User: I'm going to lunch in two weeks.
+Coach: So, you mentioned that you are going to launch in two weeks.
+--------------------------------------------------
+User: MBC 뉴스 이덕영입니다.
+Coach: So, how do you feel after today's session?
+--------------------------------------------------
+User: I feel just like, honestly, when I explore this and speak out all the issues, I feel a bit down, right? Maybe that feeling is not that strong before you realize it, but when you dig into it, or think about what you feel, you may feel really sad, but I also feel it's like a relief at the end of the day, after the session, so we just launch the fucking MVP, based on the current results that I have, and then see how it goes. If you're strong, you're a winner, you're a leader, people follow you. If you're not, people abandon you. Humans are like that, no one can escape from it, you need to show the world what you're capable of. Yeah, just fucking do it!
+Coach: Yeah, I really like your energy. So, is there anything you want to ask or share with me before we end the session?
+--------------------------------------------------
+User: No, that's all I think that's all so let's end the session. Thank you very much today
+Coach: Okay, thank you.
+--------------------------------------------------
+User: Summarize the conversation.
+Coach: Today's session, we started off with your main challenge of not having enough support and belief from your family and your co-founder. And by the end of the session, you actually came up with a concrete action plan of launching your MVP in two weeks. How do you feel about this session?
+--------------------------------------------------

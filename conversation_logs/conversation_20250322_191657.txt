@@ -1,0 +1,15 @@
+User: Hello, I want to talk about my progress of building an AI chatbot.
+Coach: What specifically about the progress would you like to discuss?
+--------------------------------------------------
+User: wow I would like to explore the you know like actually I'm not so sure about it
+Coach: Okay, what specifically around the progress around building the AI chatbot do you want to talk about?
+--------------------------------------------------
+User: I feel the progress. It's like when I zoom in, the whole day working on it, I feel it is fast, because the feedback is really in real time, so I can feel the progress. But I do feel that maybe I'm just rewinding the wheel, because sometimes it's like I'm not an expert in this, and I could be just making so many obvious mistakes, I don't know. It's like previously, the big jump from previous progress is that when I start to see the output of the code to the LLM, and I feel the format is somehow wrong. And just with identifying that issue, I can fix it. It will improve the performance quite a lot.
+Coach: So it sounds like you have some confidence because the feedback is fast, but you also are a little unsure because it seems like you might be spinning your wheels. Am I hearing that correctly?
+--------------------------------------------------
+User: Okay, I would rate the progress of five, because I need to keep distracted from the other business. So it's not that fast, we haven't been able to build more team to work on it. The people I work with also do it like a set hassle, so once there is something more urgent, everyone will put this aside.
+Coach: So if you were able to focus on it more, and the rest of the team were able to focus on it more, what would you say the progress would be then?
+--------------------------------------------------
+User: I guess the fundamental reason is that we are doing this at part-time, so if you consider the progress versus the amount of energy and time you invest in, it's fast.
+Coach: But if you were able to dedicate more time, what do you think the progress would be at then?
+--------------------------------------------------

@@ -1,0 +1,15 @@
+User: Hello, I want to talk about my progress of building an AI chatbot.
+Coach: Okay, so you're talking about your AI chatbot project. What do you want to explore specifically?
+--------------------------------------------------
+User: wow I would like to explore the you know like actually I'm not so sure about it
+Coach: That's okay, you know sometimes we come into a call thinking one thing but discover something different. What do you feel like is the most on your mind about this chatbot project?
+--------------------------------------------------
+User: I feel the progress. It's like when I zoom in, the whole day working on it, I feel it is fast, because the feedback is really in real time, so I can feel the progress. But I do feel that maybe I'm just rewinding the wheel, because sometimes it's like I'm not an expert in this, and I could be just making so many obvious mistakes, I don't know. It's like previously, the big jump from previous progress is that when I start to see the output of the code to the LLM, and I feel the format is somehow wrong. And just with identifying that issue, I can fix it. It will improve the performance quite a lot.
+Coach: It seems like on one hand, you feel like you're making rapid progress and getting good feedback. But on the other hand, you feel like maybe you're not an expert and could be making obvious mistakes. How are you reconciling those two feelings?
+--------------------------------------------------
+User: Okay, I would rate the progress of five, because I need to keep distracted from the other business. So it's not that fast, we haven't been able to build more team to work on it. The people I work with also do it like a set hassle, so once there is something more urgent, everyone will put this aside.
+Coach: So you feel like you're able to make progress, but there are also distractions from other priorities.
+--------------------------------------------------
+User: I guess the fundamental reason is that we are doing this at part-time, so if you consider the progress versus the amount of energy and time you invest in, it's fast.
+Coach: So what would you consider a successful outcome for this conversation today?
+--------------------------------------------------

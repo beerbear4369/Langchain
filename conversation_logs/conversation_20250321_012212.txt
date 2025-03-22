@@ -1,0 +1,30 @@
+User: Hi, I'm Ian. I've been working on building an AI chatbot and want to ship the MVP within 2 weeks.
+Coach: Hi Ian, thanks for sharing. What would you like to explore most at this moment regarding your MVP journey?
+--------------------------------------------------
+User: I'm making good progress but facing challenges with time management due to other business responsibilities.
+Coach: I understand you're juggling competing priorities. Can you describe a typical day balancing your business tasks and your chatbot development?
+--------------------------------------------------
+User: The interruptions really affect my focus. I find myself constantly shifting attention which impacts productivity.
+Coach: Thanks for sharing that. What do you notice about your mindset immediately after an interruption?
+--------------------------------------------------
+User: Yesterday I found my focus slipping because of all these external distractions.
+Coach: Can you describe which specific interruption affected your flow the most yesterday, and how did it shift your focus?
+--------------------------------------------------
+User: I find I work best at night when there are no interruptions, compared to daytime when I'm dealing with my flooring sales company.
+Coach: It sounds like nighttime offers you a focused environment. What conditions are you experiencing at night that you could replicate during the day?
+--------------------------------------------------
+User: I'm thinking about blocking time during the day for deep focus sessions, maybe using Do Not Disturb mode.
+Coach: What is one small step you can take to block off a deep focus session, and how will you notice it's working?
+--------------------------------------------------
+User: There are benefits to focused time blocks but also challenges with delaying communication and managing mental energy.
+Coach: What strategies could you experiment with to balance timely communication and deep focus sessions without draining your energy?
+--------------------------------------------------
+User: I think I'll experiment with a routine that has deep focus sessions in both morning and evening.
+Coach: That sounds like a thoughtful approach. What signals will tell you if this routine is working, and how will you track its impact?
+--------------------------------------------------
+User: I'll measure progress through daily feature releases to see if this new approach is working.
+Coach: What specific actions will you commit to right now to start your morning and evening deep focus sessions, and how will you handle any interruptions that arise?
+--------------------------------------------------
+User: Tomorrow I'm going to wake up at 7 AM and track how many hours I spend on the AI development.
+Coach: That’s a clear action step, Ian. What preparations can help ensure you start 7 AM on track, and how might you address unexpected distractions?
+--------------------------------------------------

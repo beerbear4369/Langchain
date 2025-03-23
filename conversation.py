@@ -244,10 +244,18 @@ class Conversation:
             history = self.get_conversation_history()
             recent_messages = history[-min(10, len(history)):]
             
+            # Format the recent messages in a readable way
+            formatted_recent_messages = ""
+            for msg in recent_messages:
+                if msg.type == "human":
+                    formatted_recent_messages += f"Client: {msg.content}\n\n"
+                else:
+                    formatted_recent_messages += f"Coach: {msg.content}\n\n"
+            
             # Format the progression analysis prompt with actual values
             formatted_prompt = PROGRESSION_ANALYSIS_PROMPT.format(
                 summary=summary,
-                recent_messages=recent_messages
+                recent_messages=formatted_recent_messages
             )
             
             # Get analysis

@@ -216,6 +216,9 @@ IMPORTANT GUIDELINES:
 - Accurately summarize what has been discussed in each stage
 - Do not invent options or way forward steps that haven't been explicitly mentioned
 - Remember that the summary represents PREVIOUS conversations, not the current dialog
+- IMPORTANT: Do NOT include the <NEW_CONVERSATION_ADDITIONS> tags in your output 
+- IMPORTANT: Merge all information from both previous summary and new additions into a single coherent summary
+- IMPORTANT: Never copy the <NEW_CONVERSATION_ADDITIONS> format in your response
 
 SUMMARY FORMAT:
 Your summary must start with exactly "Summary of earlier dialog:" 
@@ -272,8 +275,19 @@ Analyze this coaching conversation through the T-GROW model framework and provid
 {recent_messages}
 </RECENT_CONVERSATION_MESSAGES>
 
+IMPORTANT GUIDELINES:
+- Only analyze the content within the conversation
+- IMPORTANT: Do NOT include tags like <PREVIOUS_CONVERSATION_SUMMARY> or <RECENT_CONVERSATION_MESSAGES> in your response
+- IMPORTANT: Do not copy the format of input sections in your response
+
 Provide a structured analysis of how the conversation has progressed through the T-GROW coaching framework:
 """
 
 # Fallback prompt used when the primary conversation chain fails
-FALLBACK_PROMPT = "You are an AI coaching assistant. Please respond to this message from the user: '{user_input}'" 
+FALLBACK_PROMPT = """You are an AI coaching assistant. Please respond to this message from the user: '{user_input}'
+
+IMPORTANT:
+- Respond directly without including any XML-like tags
+- Do not include any formatting tags in your response (such as <TOPIC>, <GOAL>, etc.)
+- Just provide a straightforward coaching response to the user's message
+""" 

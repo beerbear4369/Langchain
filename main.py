@@ -1,8 +1,34 @@
 import time
+import signal
+from functools import wraps
 from audio_input import record_audio, transcribe_audio
 from conversation import Conversation
 from audio_output import text_to_speech
 from config import RECORDING_START_MESSAGE, RECORDING_STOP_MESSAGE, RESPONSE_START_MESSAGE
+
+# Timeout decorator for functions that might hang
+def timeout(seconds, error_message="Function call timed out"):
+    def decorator(func):
+        def _handle_timeout(signum, frame):
+            raise TimeoutError(error_message)
+        
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            # Set the timeout handler - only on platforms that support SIGALRM
+            if hasattr(signal, 'SIGALRM'):
+                signal.signal(signal.SIGALRM, _handle_timeout)
+                signal.alarm(seconds)
+                try:
+                    result = func(*args, **kwargs)
+                finally:
+                    signal.alarm(0)
+                return result
+            else:
+                # On platforms without SIGALRM (e.g., Windows), we can't use this timeout mechanism
+                # Just call the function directly
+                return func(*args, **kwargs)
+        return wrapper
+    return decorator
 
 def display_conversation_history(conversation):
     """
@@ -119,7 +145,10 @@ def main():
                 print(f"You: {transcription}")
                 
                 # Step 3: Check if user wants to exit
-                if transcription.lower() in ["exit", "quit", "bye", "goodbye"]:
+                transcription_lower = transcription.lower().strip()
+                
+                # Check for exit commands
+                if any(exit_cmd in transcription_lower for exit_cmd in ["exit", "quit", "bye", "goodbye"]):
                     # Say goodbye and end the conversation
                     farewell = "Goodbye! Have a great day!"
                     print(f"Assistant: {farewell}")
@@ -127,12 +156,15 @@ def main():
                     break  # Exit the while loop
                 
                 # Special command to show history
-                elif transcription.lower() in ["show history", "display history", "show conversation"]:
+                elif any(history_cmd in transcription_lower for history_cmd in ["show history", "display history", "show conversation"]):
                     display_conversation_history(conversation)
+                    response = "I've displayed your conversation history in the console."
+                    print(f"Assistant: {response}")
+                    text_to_speech(response)
                     continue
                 
                 # Special command to save history to file
-                elif transcription.lower() in ["save history", "export history", "save conversation"]:
+                elif any(save_cmd in transcription_lower for save_cmd in ["save history", "export history", "save conversation"]):
                     save_conversation_history(conversation)
                     response = "Conversation history has been saved to 'conversation_history.txt'."
                     print(f"Assistant: {response}")
@@ -140,13 +172,24 @@ def main():
                     continue
                 
                 # Special command for debugging
-                elif transcription.lower() in ["debug memory", "debug"]:
+                elif any(debug_cmd in transcription_lower for debug_cmd in ["debug memory", "debug"]):
                     debug_conversation_memory(conversation)
+                    response = "Debug information has been displayed in the console."
+                    print(f"Assistant: {response}")
+                    text_to_speech(response)
                     continue
                 
                 # Step 4: Process the user's input and generate a response
                 print(RESPONSE_START_MESSAGE)  # Inform user we're thinking
-                response = conversation.process_input(transcription)
+                try:
+                    # Add timeout protection for API call
+                    start_time = time.time()
+                    response = conversation.process_input(transcription)
+                    processing_time = time.time() - start_time
+                    print(f"Processing completed in {processing_time:.2f} seconds")
+                except Exception as e:
+                    print(f"Error processing input: {e}")
+                    response = "I'm having trouble processing that right now. Could we try something else?"
                 
                 # Step 5: Display and speak the response
                 print(f"Assistant: {response}")
@@ -154,6 +197,9 @@ def main():
             else:
                 # Handle case where transcription failed
                 print("No transcription available. Please try again.")
+                error_msg = "I couldn't hear what you said. Could you please try again?"
+                print(f"Assistant: {error_msg}")
+                text_to_speech(error_msg)
         
         # Handle user pressing Ctrl+C to exit
         except KeyboardInterrupt:
@@ -163,6 +209,12 @@ def main():
         # Handle any other errors that might occur
         except Exception as e:
             print(f"An error occurred: {e}")
+            try:
+                error_msg = "Sorry, I encountered an error. Let's continue our conversation."
+                print(f"Assistant: {error_msg}")
+                text_to_speech(error_msg)
+            except Exception as speech_error:
+                print(f"Could not provide error feedback: {speech_error}")
             continue  # Continue the loop despite the error
 
 # This is the standard way to make a Python script runnable

@@ -1,0 +1,6 @@
+User: Hello, is the sound okay?
+Coach: Yes, I can hear you well.
+--------------------------------------------------
+User: So, yeah, let's book it.
+Coach: Okay, yeah, so, how are you?
+--------------------------------------------------

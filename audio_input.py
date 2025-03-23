@@ -127,13 +127,14 @@ def record_audio(duration=RECORD_SECONDS):
 
 def transcribe_audio(audio_file_path):
     """
-    Transcribes audio to text using OpenAI's Whisper API.
+    Transcribes audio to text using OpenAI's GPT-4o-mini-transcribe API with fallback.
     
     This function:
     1. Opens the audio file
-    2. Sends it to OpenAI's Whisper API for transcription
-    3. Deletes the temporary file
-    4. Returns the transcribed text
+    2. Tries to send it to OpenAI's transcription API
+    3. Falls back to whisper-1 model if the primary model fails
+    4. Deletes the temporary file
+    5. Returns the transcribed text
     
     Args:
         audio_file_path (str): Path to the audio file to transcribe
@@ -141,18 +142,60 @@ def transcribe_audio(audio_file_path):
     Returns:
         str: The transcribed text, or None if transcription failed
     """
+    import time
+    from httpx import TimeoutException
+    
+    # Ensure the file exists before attempting transcription
+    if not os.path.exists(audio_file_path):
+        print("Error: Audio file does not exist")
+        return None
+        
+    # Check if the file is empty
+    if os.path.getsize(audio_file_path) == 0:
+        print("Error: Audio file is empty")
+        return None
+    
     try:
+        print("Starting transcription...")
+        start_time = time.time()
+        
         # Step 1: Open the audio file in binary mode
         with open(audio_file_path, "rb") as audio_file:
-            # Step 2: Send the file to OpenAI's Whisper API for transcription
-            transcription = client.audio.transcriptions.create(
-                model="whisper-1",  # The Whisper model to use
-                file=audio_file  # The audio file object
-            )
+            try:
+                # Step 2: Send the file to OpenAI's GPT-4o-mini-transcribe API for transcription
+                # with a timeout to prevent hanging
+                transcription = client.audio.transcriptions.create(
+                    model="gpt-4o-mini-transcribe",  # Using the improved model for better accuracy
+                    file=audio_file,  # The audio file object
+                    timeout=30  # Add a timeout to prevent hanging indefinitely
+                )
+            except (TimeoutException, Exception) as e:
+                print(f"Primary model transcription failed: {e}")
+                print("Falling back to whisper-1 model...")
+                
+                # Rewind the file pointer to the beginning
+                audio_file.seek(0)
+                
+                # Try with the whisper-1 model as fallback
+                try:
+                    transcription = client.audio.transcriptions.create(
+                        model="whisper-1",  # Fallback to the stable model
+                        file=audio_file,  # The audio file object
+                        timeout=30  # Add a timeout to prevent hanging indefinitely
+                    )
+                except Exception as e:
+                    print(f"Fallback transcription also failed: {e}")
+                    raise
+        
+        # Report time taken for transcription
+        elapsed_time = time.time() - start_time
+        print(f"Transcription completed in {elapsed_time:.2f} seconds")
         
         # Step 3: Clean up by deleting the temporary file
-        # This prevents filling up disk space with recordings
-        os.unlink(audio_file_path)
+        try:
+            os.unlink(audio_file_path)
+        except Exception as e:
+            print(f"Warning: Could not delete temporary file: {e}")
         
         # Step 4: Return the transcribed text
         return transcription.text
@@ -161,7 +204,47 @@ def transcribe_audio(audio_file_path):
         print(f"Error during transcription: {e}")
         
         # Clean up the temporary file even if transcription failed
-        os.unlink(audio_file_path)
+        try:
+            os.unlink(audio_file_path)
+        except Exception as file_e:
+            print(f"Warning: Could not delete temporary file: {file_e}")
         
         # Return None to indicate transcription failed
-        return None 
+        return None
+
+def test_audio_transcription():
+    """
+    Test function to verify the audio recording and transcription functionality.
+    """
+    print("=== Testing Audio Transcription with gpt-4o-mini-transcribe ===")
+    print("This test will record a short audio clip and transcribe it.")
+    print("Please speak clearly for a few seconds after recording starts.\n")
+    
+    # Record a short audio clip (5 seconds by default or use config value)
+    print("Starting audio recording...")
+    audio_file = record_audio()
+    
+    if audio_file:
+        print(f"Audio recorded successfully to temporary file: {audio_file}")
+        print("Transcribing audio...")
+        
+        # Transcribe the recorded audio
+        transcription = transcribe_audio(audio_file)
+        
+        if transcription:
+            print("\nTranscription successful!")
+            print("=" * 50)
+            print("Transcribed text:")
+            print(transcription)
+            print("=" * 50)
+            return True
+        else:
+            print("Transcription failed.")
+            return False
+    else:
+        print("Audio recording failed.")
+        return False
+
+# Run the test function if this script is executed directly
+if __name__ == "__main__":
+    test_audio_transcription() 

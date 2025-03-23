@@ -1,0 +1,6 @@
+User: Is also watching.
+Coach: So, what would you like to discuss today?
+--------------------------------------------------
+User: That's what I actually like to discuss.
+Coach: The role of a coach.
+--------------------------------------------------

@@ -290,4 +290,20 @@ IMPORTANT:
 - Respond directly without including any XML-like tags
 - Do not include any formatting tags in your response (such as <TOPIC>, <GOAL>, etc.)
 - Just provide a straightforward coaching response to the user's message
+"""
+
+# Prompt for the closing chain to generate a final summary and action plan
+CLOSING_PROMPT = """
+You are a coaching assistant. Based on the following conversation summary, provide a concise final summary and an actionable plan for the client to follow.
+
+Conversation Summary:
+{summary}
+
+Your response should:
+1. Summarize the key points discussed in the coaching session
+2. Identify the main challenges and insights that emerged
+3. Provide 3-5 specific, actionable steps the client can take based on the conversation
+4. End with a brief word of encouragement
+
+Final Summary and Action Plan:
 """ 

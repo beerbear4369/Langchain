@@ -1,0 +1,42 @@
+User: Hello, how are you? Actually I don't know what to talk about today.
+Coach: So, you don't have anything in mind yet, Kuku?
+--------------------------------------------------
+User: My name is Ian.
+Coach: Sorry, it's Ian, right?
+--------------------------------------------------
+User: Yes, esmer.
+Coach: So, Ian, you don't have anything in mind yet. Is there any topic that you want to discuss?
+--------------------------------------------------
+User: Well, yeah, maybe let's discuss about work. You know, like recently I have a big project. We are tendering for the big project and we spend a lot of effort to go to Vietnam to do the mock-up. Yeah, but I stress out the mock-up result is not so good. It's actually not the mock-up result is not so good. It's like the way the customer evaluate the mock-up result is not scientific enough. Basically they are just say it in the wrong way. And somehow that is in favor of one of my competitors. And it's like I'm not having a very high chance to lose the deal. Which I think is really stupid because they didn't test it correctly. They tested it the wrong way and the result is becoming wrong. And now we are trying to talk to their management in China to try to get things back to win over the game. It's really a big project and an important project to me and to the team. So yeah, if we can think of any potential better way to deal with that, I guess that would be quite meaningful.
+Coach: So, Ian, you mentioned that you are working on a big project and you are facing some challenges with the mock-up result. And you think that if we can come up with a better way to deal with the situation, that would be quite meaningful. Is that right?
+--------------------------------------------------
+User: Right.
+Coach: So, as a coach, I would like to ask you a few questions to help you think through the situation. How would you know that we have a meaningful discussion by the end of the session?
+--------------------------------------------------
+User: Yeah, I keep asking this question. I guess if say by end of the session I can come up with like action plan and like a real life something that I never thought of to save us from losing the deal, it would be so meaningful to me, it would be super meaningful. So a plan, actionable plan or like some way to resolve the situation that I never thought of, that would be super meaningful. And if we cannot achieve that, if say we able to have some recap like what's the root cause of this failure and if we're able to make it clear so we can avoid making the same mistake that we possibly made next time, it's also very meaningful.
+Coach: So, Ian, for this session, would you prefer to focus on coming up with an actionable plan to resolve the situation or to identify the root cause of the issue?
+--------------------------------------------------
+User: I would prefer to focus on coming up with an actionable plan to resolve the situation.
+Coach: Got it. So, in order to come up with an actionable plan to resolve the situation, what do you think would be a good starting point?
+--------------------------------------------------
+User: I don't know. Like maybe actually I have to tell you about the situation. And currently what we are doing, what we try to rescue the game is we trying to get the management's contact by all means. Like we search online, we ask the friends in that industry, trying to get a number. And then we plan to let people in China to call them, trying to explain to them. But it's also like just try luck, right? If they don't pick up, then we don't have a chance. Or if they pick up, don't care, we also don't have a chance. So it's like this is totally on other people's hands. And that is currently what we can think of to do at the moment.
+Coach: Yeah, yeah, yeah.
+--------------------------------------------------
+User: Ja, so ich denke, das ist dann klar.
+Coach: Okay, Ian, so I heard that you and your team are currently trying to contact the management team in China to explain the situation. But the outcome is out of your control. And you mentioned that the actions you are taking are based on luck. So based on this, how would you rate the current situation on a scale of 1 to 10?
+--------------------------------------------------
+User: OK, if to rate the current situation, I guess it's five, right? Because if say we got content and then their interest, I think we got a quite high chance of interest to talk to us because we are also like a Chinese supplier and they are Chinese customer, Chinese main client and our price is even better, right? And the true result could also be good, right? So that's the winning side. But on the other side, it could be we just totally unable to really reach out to them or it don't provoke their interest or they just say, OK, we already decided we don't want to trouble ourselves to consider this again. I think my team has done a great job. Just that we will just totally lose the chance. And then I think there's nothing else we can do. But only then the competitor will know us within this project, which I guess the competitor didn't even do much things, but we have committed a lot trying to win the game, but we didn't manage that due to our one really small mistake.
+Coach: So, Ian, I heard that if you are able to reach out to the management team and they are willing to hear you out, your chance of winning the project is quite high. But on the other hand, if they refuse to talk to you or they don't care, your chance is quite low. So you rate the current situation as a five. Is that right?
+--------------------------------------------------
+User: I read the current situation.
+Coach: And how urgent is this situation?
+--------------------------------------------------
+User: Wow, this is super urgent. This is going to be decided in these two days. It's actually already been decided. And just now they haven't finalized the contract yet. So I think that is our chance of window. And if it is closed, then no one can get it back. I think it's really hard. I just regret that I never talked to them a little bit earlier, but waiting for the response. Actually, before I even come back, so one week before, right, they say that that supplier looks better. I tried to explain to them, but then he didn't say much things. So if you think about that, actually, he hinted, right, that is the preferred one already. But I just ignored that. I should have just go to the site, see the situation, and then work out something else. Or like talking to the people, right, rather than did nothing and waiting for the result. Yeah, I mean, other thing, I think it's like I'm really stupid in some key action, key strategy. Oh my god, I didn't realize that before I talk it through. But after I realized this, I really so regret I didn't do it.
+Coach: So, Ian, I heard that if the management team finalize the contract, you cannot win back the project. So it's very urgent. And on a scale of 1 to 10, how confident do you feel about the actions you are taking to resolve the situation?
+--------------------------------------------------
+User: I guess five is like because we are already late. And basically we just beg them to consider it again. So it's really hard. But I think we should try to do something still rather than just let it loose, right? We still need to be more proactive to try to save us from the situation. But that's all what I can think of to do.
+Coach: So, Ian, you mentioned that you are currently just begging them to listen to you. And that's all you can do. So you rate your confidence as a five. Is that right?
+--------------------------------------------------
+User: Yep, let's carry on our conversation.
+Coach: So, Ian, based on the current situation, the urgency and your confidence level, what do you think would be a good next step for us to come up with an actionable plan to resolve the situation?
+--------------------------------------------------

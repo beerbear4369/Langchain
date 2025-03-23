@@ -33,6 +33,13 @@ def simulate_conversation():
     
     # Process each message and get responses
     print("\nSimulating conversation...\n")
+    
+    # Track session data
+    session_start = time.time()
+    turn_counter = 0
+    max_turns = 25
+    wrap_up_attempted = False
+    
     for i, message in enumerate(messages):
         print(f"Message {i+1}: {message[:50]}..." if len(message) > 50 else f"Message {i+1}: {message}")
         
@@ -43,49 +50,141 @@ def simulate_conversation():
         short_response = response[:100] + "..." if len(response) > 100 else response
         print(f"Response: {short_response}")
         
+        # Increment turn counter
+        turn_counter += 1
+        
         # Check for summary updates after each exchange
         summary_info = conv.get_conversation_summary()
         print(f"Buffer length: {summary_info['buffer_length']}")
         print(f"Summary length: {len(summary_info['summary'])}")
-        print("---")
         
+        # Check for wrap-up conditions
+        elapsed_time = time.time() - session_start
+        should_wrap_up = conv.should_wrap_up()
+        print(f"Should wrap up: {should_wrap_up}, Turn counter: {turn_counter}, Elapsed time: {elapsed_time:.2f}s")
+        
+        # Check wrap-up conditions (similar to main.py)
+        if (turn_counter >= max_turns or should_wrap_up or elapsed_time >= 30*60) and not wrap_up_attempted:
+            wrap_up_attempted = True
+            
+            # Choose the appropriate wrap-up prompt based on what triggered it
+            if should_wrap_up:
+                # Content-based wrap-up (detected Way Forward content)
+                wrap_prompt = "It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize."
+            else:
+                # Time or message count based wrap-up
+                wrap_prompt = "I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize."
+            
+            print("\n" + "="*50)
+            print(f"WRAP-UP PROMPT: {wrap_prompt}")
+            print("="*50)
+            
+            # Simulate user confirmation response
+            # For testing purposes, let's use a valid confirmation
+            confirmation = "Yes, please wrap up and summarize"
+            print(f"\nUser confirmation: {confirmation}")
+            
+            # Check for explicit wrap-up commands or affirmative responses with context
+            confirmation_lower = confirmation.lower()
+            explicit_commands = ["wrap up and summarize", "wrap up", "summarize", "end session"]
+            has_explicit_command = any(cmd in confirmation_lower for cmd in explicit_commands)
+            
+            affirmative_with_context = (
+                ("yes" in confirmation_lower or "yeah" in confirmation_lower or "sure" in confirmation_lower) and
+                ("summary" in confirmation_lower or "wrap" in confirmation_lower or "end" in confirmation_lower)
+            )
+            
+            print(f"Has explicit command: {has_explicit_command}")
+            print(f"Has affirmative with context: {affirmative_with_context}")
+            
+            if has_explicit_command or affirmative_with_context:
+                # Generate closing summary
+                print("\nGenerating closing summary...")
+                try:
+                    closing_summary = conv.generate_closing_summary()
+                    print("\nCLOSING SUMMARY:")
+                    print("="*50)
+                    print(closing_summary)
+                    print("="*50)
+                    
+                    # Save to file for inspection
+                    with open("test_closing_summary.txt", "w", encoding="utf-8") as f:
+                        f.write("FINAL SUMMARY AND ACTION PLAN\n")
+                        f.write("="*50 + "\n\n")
+                        f.write(closing_summary)
+                    print("Final summary saved to 'test_closing_summary.txt'")
+                    
+                    # End the session
+                    print("\nEnding session.")
+                    break
+                except Exception as e:
+                    print(f"Error generating final summary: {e}")
+            else:
+                print("\nUser declined to wrap up, continuing conversation.")
+        
+        print("---")
         # Short pause between messages
         time.sleep(1)
     
     # Force a final summarization to make sure everything is processed
-    print("\nForcing final summarization...")
-    conv.debug_summarization()
+    if not wrap_up_attempted:
+        print("\nForcing final summarization...")
+        conv.debug_summarization()
+        
+        # Get final conversation analysis
+        print("\nFinal conversation analysis:")
+        progression = conv.analyze_conversation_progression()
+        
+        # Test wrap-up detection at the end of all messages
+        should_wrap_up_final = conv.should_wrap_up()
+        print(f"\nFinal should_wrap_up check: {should_wrap_up_final}")
+        
+        if should_wrap_up_final:
+            print("\nWrap-up conditions met at the end of all messages.")
+            print("Generating final closing summary...")
+            
+            try:
+                closing_summary = conv.generate_closing_summary()
+                print("\nCLOSING SUMMARY:")
+                print("="*50)
+                print(closing_summary)
+                print("="*50)
+                
+                # Save to file for inspection
+                with open("test_final_summary.txt", "w", encoding="utf-8") as f:
+                    f.write("FINAL SUMMARY AND ACTION PLAN\n")
+                    f.write("="*50 + "\n\n")
+                    f.write(closing_summary)
+                print("Final summary saved to 'test_final_summary.txt'")
+            except Exception as e:
+                print(f"Error generating final summary: {e}")
     
-    # Get final conversation analysis
-    print("\nFinal conversation analysis:")
-    progression = conv.analyze_conversation_progression()
-    
-    print("\nFinal summary (raw):")
-    print("=" * 80)
-    print(progression['summary'])
-    print("=" * 80)
-    
-    # Print formatted summary with XML tags
-    print("\nFinal summary (formatted):")
-    summary = progression['summary']
-    
-    # Define sections to look for
-    sections = ['TOPIC', 'GOAL', 'REALITY', 'OPTIONS', 'WAY_FORWARD', 'PROGRESS']
-    
-    # Extract and print each section
-    for section in sections:
-        pattern = f"<{section}>(.*?)</{section}>"
-        match = re.search(pattern, summary, re.DOTALL)
-        if match:
-            content = match.group(1).strip()
-            print(f"\n{section}:")
-            print("-" * 40)
-            print(content)
-    
-    print("\nProgression analysis:")
-    print("-" * 80)
-    print(progression['progression_analysis'])
-    print("-" * 80)
+        print("\nFinal summary (raw):")
+        print("=" * 80)
+        print(progression['summary'])
+        print("=" * 80)
+        
+        # Print formatted summary with XML tags
+        print("\nFinal summary (formatted):")
+        summary = progression['summary']
+        
+        # Define sections to look for
+        sections = ['TOPIC', 'GOAL', 'REALITY', 'OPTIONS', 'WAY_FORWARD', 'PROGRESS']
+        
+        # Extract and print each section
+        for section in sections:
+            pattern = f"<{section}>(.*?)</{section}>"
+            match = re.search(pattern, summary, re.DOTALL)
+            if match:
+                content = match.group(1).strip()
+                print(f"\n{section}:")
+                print("-" * 40)
+                print(content)
+        
+        print("\nProgression analysis:")
+        print("-" * 80)
+        print(progression['progression_analysis'])
+        print("-" * 80)
     
     print("\nSimulation completed!")
 

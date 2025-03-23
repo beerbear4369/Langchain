@@ -18,7 +18,8 @@ from config import (  # Import configuration
     CUSTOM_SUMMARY_PROMPT,
     PROGRESSION_ANALYSIS_PROMPT,
     FALLBACK_PROMPT,
-    CLOSING_PROMPT
+    CLOSING_PROMPT,
+    WRAP_UP_DECISION_PROMPT
 )
 import os
 import json
@@ -276,43 +277,97 @@ class Conversation:
             
     def should_wrap_up(self):
         """
-        Determine if the session should be wrapped up based on conversation progression.
-        Uses:
-          - Total message count (e.g., > 25 messages)
-          - Analysis of "Way Forward" content in the progression analysis
-          - Detection of concluding statements or action plans
+        Determine if the session should be wrapped up based on LLM analysis of the conversation.
+        
+        Uses an LLM to analyze the entire conversation history and determine if it has reached 
+        a natural conclusion point according to the T-GROW coaching model.
+        
         Returns:
-          bool: True if session should be wrapped up.
+          bool: True if session should be wrapped up, False otherwise.
         """
+        # Get conversation history and summary
         history = self.get_conversation_history()
-        # Only check for wrap-up if we have enough conversation history
-        if len(history) >= 25:
-            analysis = self.analyze_conversation_progression().get('progression_analysis', '')
+        
+        # Add debug print statements
+        print("\n--- DEBUG CONVERSATION HISTORY ---")
+        print(f"History length: {len(history)}")
+        # Print the entire conversation history instead of just the last 3 messages
+        for i, msg in enumerate(history):
+            # Handle both dict and Message objects
+            if hasattr(msg, 'type') and hasattr(msg, 'content'):
+                # It's a Message object
+                msg_type = msg.type
+                msg_content = msg.content
+            else:
+                # It's a dict
+                msg_type = msg.get('type', 'unknown')
+                msg_content = msg.get('content', '')
             
-            # Check for meaningful "Way Forward" content
-            way_forward_indicators = [
-                # Look for "Way Forward:" followed by substantive content
-                "way forward:" in analysis.lower() and len(analysis.lower().split("way forward:")[1].split("\n")[0]) > 30,
-                # Look for action plans or next steps being described
-                "action plan" in analysis.lower() and "next steps" in analysis.lower(),
-                # Check if the coaching framework is described as complete
-                "framework is complete" in analysis.lower() or "coaching cycle complete" in analysis.lower(),
-                # Check for discussion about implementing solutions
-                "implementing" in analysis.lower() and "solutions" in analysis.lower()
-            ]
+            print(f"Message {i+1}: [{msg_type}] {msg_content[:100]}...")
+        print("--- END DEBUG ---\n")
+        
+        # Only check for wrap-up if we have enough conversation history (at least 20 messages/10 exchanges)
+        if len(history) < 10:
+            return False
             
-            # Check for completion indicators in the entire analysis
-            completion_indicators = [
-                "thoroughly discussed" in analysis.lower() and "next logical stage: way forward" in analysis.lower(),
-                "coaching next steps:" in analysis.lower() and "implementation" in analysis.lower(),
-                "session can be concluded" in analysis.lower() or "ready to conclude" in analysis.lower()
-            ]
-            
-            # If we have either clear Way Forward content or completion indicators, suggest wrap-up
-            if any(way_forward_indicators) or any(completion_indicators):
-                return True
+        try:
+            # Format conversation history for the LLM
+            formatted_history = ""
+            for msg in history:
+                if hasattr(msg, 'type') and hasattr(msg, 'content'):
+                    # It's a Message object
+                    msg_type = msg.type
+                    msg_content = msg.content
+                else:
+                    # It's a dict
+                    msg_type = msg.get('type', 'unknown')
+                    msg_content = msg.get('content', '')
                 
-        return False
+                # Add the message to the formatted history
+                if msg_type in ['human', 'user']:
+                    formatted_history += f"User: {msg_content}\n\n"
+                elif msg_type in ['ai', 'assistant']:
+                    formatted_history += f"Coach: {msg_content}\n\n"
+            
+            # Get the conversation summary
+            summary_data = self.get_conversation_summary()
+            summary = summary_data.get('summary', '')
+            
+            # Create a dedicated LLM for wrap-up decision
+            wrap_up_llm = ChatOpenAI(
+                api_key=OPENAI_API_KEY,
+                model="gpt-3.5-turbo",  # Using 3.5 turbo for efficiency
+                temperature=0.1  # Low temperature for more consistent decisions
+            )
+            
+            # Create prompt from WRAP_UP_DECISION_PROMPT template
+            wrap_up_template = PromptTemplate.from_template(WRAP_UP_DECISION_PROMPT)
+            
+            # Create the chain
+            wrap_up_chain = LLMChain(
+                llm=wrap_up_llm,
+                prompt=wrap_up_template,
+                verbose=False
+            )
+            
+            # Run the chain
+            response = wrap_up_chain.run({
+                'conversation_history': formatted_history,
+                'conversation_summary': summary
+            })
+            
+            # Clean up and parse the response
+            clean_response = response.strip().lower()
+            print(f"\n--- WRAP-UP DECISION ---\nLLM decision: '{clean_response}'\n--- END DECISION ---\n")
+            
+            # Return True if the LLM says "yes", False otherwise
+            return clean_response == "yes"
+            
+        except Exception as e:
+            # Log the error and fall back to the default behavior (no wrap-up)
+            print(f"Error in LLM-based wrap-up decision: {e}")
+            print("Falling back to default behavior: no wrap-up")
+            return False
             
     def process_input(self, user_input, timeout_seconds=60):
         """

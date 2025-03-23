@@ -153,15 +153,15 @@ def main():
                 transcription_lower = transcription.lower().strip()
                 
                 # Check for exit commands
-                if any(exit_cmd in transcription_lower for exit_cmd in ["exit", "quit", "bye", "goodbye"]):
-                    # Say goodbye and end the conversation
-                    farewell = "Goodbye! Have a great day!"
-                    print(f"Assistant: {farewell}")
-                    text_to_speech(farewell)
-                    break  # Exit the while loop
+            #    if any(exit_cmd in transcription_lower for exit_cmd in ["exit", "quit", "bye", "goodbye"]):
+            #        # Say goodbye and end the conversation
+            #        farewell = "Goodbye! Have a great day!"
+            #        print(f"Assistant: {farewell}")
+            #        text_to_speech(farewell)
+            #        break  # Exit the while loop
                 
                 # Special command to show history
-                elif any(history_cmd in transcription_lower for history_cmd in ["show history", "display history", "show conversation"]):
+                if any(history_cmd in transcription_lower for history_cmd in ["show history", "display history", "show conversation"]):
                     display_conversation_history(conversation)
                     response = "I've displayed your conversation history in the console."
                     print(f"Assistant: {response}")
@@ -206,8 +206,15 @@ def main():
                 # Check if the conversation should be wrapped up
                 elapsed_time = time.time() - session_start
                 if turn_counter >= max_turns or conversation.should_wrap_up() or elapsed_time >= 30*60:  # 30 min session limit
-                    # Ask the user if they want to wrap up
-                    wrap_prompt = "We've covered a lot today. Would you like to wrap up our session with a final summary and action plan?"
+                    # Choose the appropriate wrap-up prompt based on what triggered it
+                    wrap_prompt = ""
+                    if conversation.should_wrap_up():
+                        # Content-based wrap-up (detected Way Forward content)
+                        wrap_prompt = "It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize."
+                    elif turn_counter >= max_turns or elapsed_time >= 30*60:
+                        # Time or message count based wrap-up
+                        wrap_prompt = "I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize."
+                    
                     print(f"\nAssistant: {wrap_prompt}")
                     text_to_speech(wrap_prompt)
                     
@@ -220,7 +227,19 @@ def main():
                     if confirmation:
                         print(f"You: {confirmation}")
                         
-                        if any(confirm_cmd in confirmation.lower() for confirm_cmd in ["yes", "yeah", "sure", "wrap up", "end", "ok", "okay"]):
+                        # More stringent confirmation commands
+                        confirmation_lower = confirmation.lower()
+                        # Check for explicit wrap-up commands
+                        explicit_commands = ["wrap up and summarize", "wrap up", "summarize", "end session"]
+                        has_explicit_command = any(cmd in confirmation_lower for cmd in explicit_commands)
+                        
+                        # Check for affirmative responses with context
+                        affirmative_with_context = (
+                            ("yes" in confirmation_lower or "yeah" in confirmation_lower or "sure" in confirmation_lower) and
+                            ("summary" in confirmation_lower or "wrap" in confirmation_lower or "end" in confirmation_lower)
+                        )
+                        
+                        if has_explicit_command or affirmative_with_context:
                             # Get the current conversation summary
                             summary_data = conversation.get_conversation_summary()
                             summary = summary_data.get('summary', 'No summary available.')
@@ -260,6 +279,9 @@ def main():
                 error_msg = "I couldn't hear what you said. Could you please try again?"
                 print(f"Assistant: {error_msg}")
                 text_to_speech(error_msg)
+                
+                # Add a delay to prevent immediate retry loop
+                time.sleep(1.5)  # Give the user 1.5 seconds to prepare before next recording
         
         # Handle user pressing Ctrl+C to exit
         except KeyboardInterrupt:

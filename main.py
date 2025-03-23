@@ -113,7 +113,7 @@ def main():
        - Converts response to speech
        - Repeats until user exits
     """
-     # Print welcome information to the console
+    # Print welcome information to the console
     print("Voice-Enabled Coaching Assistant")
     print("Say 'exit' or 'quit' to end the conversation.")
     print("Press any key to stop recording when you're done speaking.")
@@ -122,6 +122,11 @@ def main():
     # Create a new conversation instance
     # This sets up the language model and memory
     conversation = Conversation()
+    
+    # Record session start time and initialize a turn counter
+    session_start = time.time()
+    turn_counter = 0
+    max_turns = 15  # After 15 exchanges, propose wrapping up
     
     # Define and speak a welcome message to the user
     welcome_message = "Hello! I'm your AI coaching assistant. How can I help you today?"
@@ -194,6 +199,61 @@ def main():
                 # Step 5: Display and speak the response
                 print(f"Assistant: {response}")
                 text_to_speech(response)  # Convert text to spoken audio
+                
+                # Increment turn counter after each exchange
+                turn_counter += 1
+                
+                # Check if the conversation should be wrapped up
+                elapsed_time = time.time() - session_start
+                if turn_counter >= max_turns or conversation.should_wrap_up() or elapsed_time >= 30*60:  # 30 min session limit
+                    # Ask the user if they want to wrap up
+                    wrap_prompt = "We've covered a lot today. Would you like to wrap up our session with a final summary and action plan?"
+                    print(f"\nAssistant: {wrap_prompt}")
+                    text_to_speech(wrap_prompt)
+                    
+                    # Record user's confirmation response
+                    print(RECORDING_START_MESSAGE)
+                    confirm_audio = record_audio()
+                    print(RECORDING_STOP_MESSAGE)
+                    confirmation = transcribe_audio(confirm_audio)
+                    
+                    if confirmation:
+                        print(f"You: {confirmation}")
+                        
+                        if any(confirm_cmd in confirmation.lower() for confirm_cmd in ["yes", "yeah", "sure", "wrap up", "end", "ok", "okay"]):
+                            # Get the current conversation summary
+                            summary_data = conversation.get_conversation_summary()
+                            summary = summary_data.get('summary', 'No summary available.')
+                            
+                            try:
+                                # Generate the final summary and action plan using the closing chain
+                                print("Generating final summary and action plan...")
+                                final_message = conversation.generate_closing_summary()
+                                print(f"Assistant: {final_message}")
+                                text_to_speech(final_message)
+                                
+                                # Save the conversation and final summary
+                                save_conversation_history(conversation)
+                                with open("final_summary.txt", "w", encoding="utf-8") as f:
+                                    f.write("FINAL SUMMARY AND ACTION PLAN\n")
+                                    f.write("="*50 + "\n\n")
+                                    f.write(final_message)
+                                print("Final summary saved to 'final_summary.txt'")
+                                
+                                # End the session
+                                break
+                            except Exception as e:
+                                print(f"Error generating final summary: {e}")
+                                error_response = "I had trouble creating a final summary. Let's continue our conversation."
+                                print(f"Assistant: {error_response}")
+                                text_to_speech(error_response)
+                        else:
+                            # User doesn't want to wrap up
+                            reminder = "Okay, let's continue our conversation."
+                            print(f"Assistant: {reminder}")
+                            text_to_speech(reminder)
+                            # Reset turn counter to avoid immediate re-prompting
+                            turn_counter = max(0, turn_counter - 5)
             else:
                 # Handle case where transcription failed
                 print("No transcription available. Please try again.")

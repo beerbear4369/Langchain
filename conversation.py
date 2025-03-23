@@ -3,6 +3,7 @@ from langchain.memory import ConversationSummaryBufferMemory  # For storing conv
 from langchain.chains import ConversationChain  # For managing conversation flow
 from langchain_openai import ChatOpenAI  # For connecting to OpenAI's models
 from langchain_core.messages import SystemMessage  # For structured system messages
+from langchain.chains import LLMChain  # For the closing chain
 from langchain_core.prompts import (  # For creating structured prompts
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
@@ -16,7 +17,8 @@ from config import (  # Import configuration
     MODEL_TEMPERATURE, 
     CUSTOM_SUMMARY_PROMPT,
     PROGRESSION_ANALYSIS_PROMPT,
-    FALLBACK_PROMPT
+    FALLBACK_PROMPT,
+    CLOSING_PROMPT
 )
 import os
 import json
@@ -272,6 +274,46 @@ class Conversation:
                 'summary': self._safe_get_summary()
             }
             
+    def should_wrap_up(self):
+        """
+        Determine if the session should be wrapped up based on conversation progression.
+        Uses:
+          - Total message count (e.g., > 25 messages)
+          - Analysis of "Way Forward" content in the progression analysis
+          - Detection of concluding statements or action plans
+        Returns:
+          bool: True if session should be wrapped up.
+        """
+        history = self.get_conversation_history()
+        # Only check for wrap-up if we have enough conversation history
+        if len(history) >= 20:
+            analysis = self.analyze_conversation_progression().get('progression_analysis', '')
+            
+            # Check for meaningful "Way Forward" content
+            way_forward_indicators = [
+                # Look for "Way Forward:" followed by substantive content
+                "way forward:" in analysis.lower() and len(analysis.lower().split("way forward:")[1].split("\n")[0]) > 30,
+                # Look for action plans or next steps being described
+                "action plan" in analysis.lower() and "next steps" in analysis.lower(),
+                # Check if the coaching framework is described as complete
+                "framework is complete" in analysis.lower() or "coaching cycle complete" in analysis.lower(),
+                # Check for discussion about implementing solutions
+                "implementing" in analysis.lower() and "solutions" in analysis.lower()
+            ]
+            
+            # Check for completion indicators in the entire analysis
+            completion_indicators = [
+                "thoroughly discussed" in analysis.lower() and "next logical stage: way forward" in analysis.lower(),
+                "coaching next steps:" in analysis.lower() and "implementation" in analysis.lower(),
+                "session can be concluded" in analysis.lower() or "ready to conclude" in analysis.lower()
+            ]
+            
+            # If we have either clear Way Forward content or completion indicators, suggest wrap-up
+            if any(way_forward_indicators) or any(completion_indicators):
+                return True
+                
+        return False
+            
     def process_input(self, user_input, timeout_seconds=60):
         """
         Process user input and generate an AI response with timeout protection.
@@ -447,4 +489,48 @@ class Conversation:
             results['error'] = error_msg
         
         safe_print("=" * 80)
-        return results 
+        return results
+        
+    def generate_closing_summary(self):
+        """
+        Generate a final summary and action plan for the coaching session.
+        
+        Uses a dedicated LLM instance with the CLOSING_PROMPT to create
+        a structured summary with actionable next steps based on the
+        conversation history.
+        
+        Returns:
+            str: The final summary and action plan
+        """
+        try:
+            # Get the current conversation summary
+            summary_data = self.get_conversation_summary()
+            summary = summary_data.get('summary', 'No summary available.')
+            
+            # Create a dedicated LLM instance for the closing summary
+            closing_llm = ChatOpenAI(
+                api_key=OPENAI_API_KEY,
+                model="gpt-3.5-turbo",  # Using 3.5 for cost efficiency
+                temperature=0.3  # Lower temperature for more consistent summaries
+            )
+            
+            # Create the closing chain
+            closing_prompt = PromptTemplate.from_template(CLOSING_PROMPT)
+            closing_chain = LLMChain(llm=closing_llm, prompt=closing_prompt)
+            
+            # Generate the final summary and action plan
+            final_message = closing_chain.predict(summary=summary)
+            
+            # Log the final summary
+            try:
+                with open(os.path.join(self.log_dir, f"final_summary_{self.session_id}.txt"), "w", encoding="utf-8") as f:
+                    f.write("FINAL SUMMARY AND ACTION PLAN\n")
+                    f.write("=" * 50 + "\n\n")
+                    f.write(final_message)
+            except Exception as log_error:
+                safe_print(f"Warning: Could not log final summary: {log_error}")
+                
+            return final_message
+        except Exception as e:
+            safe_print(f"Error generating closing summary: {e}")
+            return "I'm unable to generate a final summary at this time. Let's continue our conversation." 

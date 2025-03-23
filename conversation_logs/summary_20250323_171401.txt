@@ -1,0 +1,440 @@
+
+=== Summary Update at 2025-03-23 17:14:19 ===
+<PREVIOUS_SUMMARY>
+
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<GOAL>
+Not discussed
+</GOAL>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project
+</REALITY>
+
+<OPTIONS>
+Not discussed
+</OPTIONS>
+
+<WAY_FORWARD>
+Not discussed
+</WAY_FORWARD>
+
+<PROGRESS>
+The client has expressed uncertainty about a specific aspect of the AI chatbot project, indicating a need for further exploration and clarification in the upcoming coaching sessions.
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:14:22 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<GOAL>
+Not discussed
+</GOAL>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project
+</REALITY>
+
+<OPTIONS>
+Not discussed
+</OPTIONS>
+
+<WAY_FORWARD>
+Not discussed
+</WAY_FORWARD>
+
+<PROGRESS>
+The client has expressed uncertainty about a specific aspect of the AI chatbot project, indicating a need for further exploration and clarification in the upcoming coaching sessions.
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress.
+</REALITY>
+
+<PROGRESS>
+The client has shared their feelings of progress in the project, highlighting both the positive aspects of learning and identifying issues, as well as concerns about potential mistakes and the slow pace of progress.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:14:27 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress.
+</REALITY>
+
+<PROGRESS>
+The client has shared their feelings of progress in the project, highlighting both the positive aspects of learning and identifying issues, as well as concerns about potential mistakes and the slow pace of progress.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project.
+</REALITY>
+
+<PROGRESS>
+The client has shared their feelings of progress in the project, highlighting both the positive aspects of learning and identifying issues, as well as concerns about potential mistakes and the slow pace of progress. The client also mentions the challenges of distractions and the lack of a dedicated team impacting the project's speed.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:14:31 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project.
+</REALITY>
+
+<PROGRESS>
+The client has shared their feelings of progress in the project, highlighting both the positive aspects of learning and identifying issues, as well as concerns about potential mistakes and the slow pace of progress. The client also mentions the challenges of distractions and the lack of a dedicated team impacting the project's speed.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+
+<PROGRESS>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:14:40 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+
+<PROGRESS>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:14:46 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation focused on evaluating the progress and time investment in the chatbot project, specifically addressing the impact of part-time work on the pace of development.
+</REALITY>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:14:52 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation focused on evaluating the progress and time investment in the chatbot project, specifically addressing the impact of part-time work on the pace of development.
+</REALITY>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation focused on evaluating the progress and time investment in the chatbot project, specifically addressing the impact of part-time work on the pace of development.
+</REALITY>
+
+<OPTIONS>
+The client expressed a dilemma between prioritizing the AIChat project due to interest and the need for cash flow from the construction business. They mentioned dedicating free time to the AIChatbot project.
+</OPTIONS>
+
+<WAY_FORWARD>
+No specific actions or next steps were decided during this conversation.
+</WAY_FORWARD>
+
+<PROGRESS>
+The conversation delved into the client's struggle with balancing the AIChatbot project with other business priorities and the impact of part-time work on progress.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:14:59 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<NEW_CONVERSATION_ADDITIONS>
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation shifted towards evaluating the progress and time investment in the project, highlighting the impact of part-time work on the pace of development.
+</REALITY>
+</NEW_CONVERSATION_ADDITIONS>
+
+<TOPIC>
+Progress assessment and time investment
+</TOPIC>
+
+<REALITY>
+The conversation focused on evaluating the progress and time investment in the chatbot project, specifically addressing the impact of part-time work on the pace of development.
+</REALITY>
+
+<OPTIONS>
+The client expressed a dilemma between prioritizing the AIChat project due to interest and the need for cash flow from the construction business. They mentioned dedicating free time to the AIChatbot project.
+</OPTIONS>
+
+<WAY_FORWARD>
+No specific actions or next steps were decided during this conversation.
+</WAY_FORWARD>
+
+<PROGRESS>
+The conversation delved into the client's struggle with balancing the AIChatbot project with other business priorities and the impact of part-time work on progress.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<OPTIONS>
+The client expressed a dilemma between prioritizing the AIChat project due to interest and the need for cash flow from the construction business. They mentioned dedicating free time to the AIChatbot project.
+</OPTIONS>
+
+<PROGRESS>
+The conversation delved into the client's struggle with balancing the AIChatbot project with other business priorities and the impact of part-time work on progress.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:15:03 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<OPTIONS>
+The client expressed a dilemma between prioritizing the AIChat project due to interest and the need for cash flow from the construction business. They mentioned dedicating free time to the AIChatbot project.
+</OPTIONS>
+
+<PROGRESS>
+The conversation delved into the client's struggle with balancing the AIChatbot project with other business priorities and the impact of part-time work on progress.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+Client is unsure about a specific aspect of the chatbot project. They feel progress in their work but also express concerns about potentially making mistakes and the slow pace of progress. The client rates the progress as a five out of ten due to distractions from other business activities and the lack of a dedicated team working on the project. Client acknowledges the challenge of working part-time on the project, leading to a slower overall progress compared to a full-time team. The client reflects on the time invested since last year and the delay in publishing the MVP.
+</REALITY>
+
+<OPTIONS>
+The client expressed a dilemma between prioritizing the AIChat project due to interest and the need for cash flow from the construction business. They mentioned dedicating free time to the AIChatbot project.
+</OPTIONS>
+
+<PROGRESS>
+The conversation delved into the client's struggle with balancing the AIChatbot project with other business priorities and the impact of part-time work on progress.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------

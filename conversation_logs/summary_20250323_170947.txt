@@ -1,0 +1,230 @@
+
+=== Summary Update at 2025-03-23 17:10:02 ===
+<PREVIOUS_SUMMARY>
+
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot
+</REALITY>
+
+<PROGRESS>
+The client expressed uncertainty about their progress in building an AI chatbot and is seeking guidance on this topic.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:10:05 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot
+</REALITY>
+
+<PROGRESS>
+The client expressed uncertainty about their progress in building an AI chatbot and is seeking guidance on this topic.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level.
+</REALITY>
+
+<PROGRESS>
+The client expressed their feelings of progress in building the AI chatbot, mentioning that they can feel the progress on a personal level despite feeling slow in absolute terms.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:10:12 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level.
+</REALITY>
+
+<PROGRESS>
+The client expressed their feelings of progress in building the AI chatbot, mentioning that they can feel the progress on a personal level despite feeling slow in absolute terms.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level. The client mentioned that the progress is slow due to working part-time on the project and not having a full-time team dedicated to it.
+</REALITY>
+
+<PROGRESS>
+The client expressed their feelings of progress in building the AI chatbot, mentioning that they can feel the progress on a personal level despite feeling slow in absolute terms. They also highlighted the challenges of working part-time on the project and not having a full-time team, which contributes to the perceived slow progress.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:10:44 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level. The client mentioned that the progress is slow due to working part-time on the project and not having a full-time team dedicated to it.
+</REALITY>
+
+<PROGRESS>
+The client expressed their feelings of progress in building the AI chatbot, mentioning that they can feel the progress on a personal level despite feeling slow in absolute terms. They also highlighted the challenges of working part-time on the project and not having a full-time team, which contributes to the perceived slow progress.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level. The client mentioned that the progress is slow due to working part-time on the project and not having a full-time team dedicated to it.
+</REALITY>
+
+<OPTIONS>
+The client mentioned that the consulting business takes priority over the AI chatbot project as it generates cash flow, while the AI project is more of an interest project with no cash flow at the moment. They prioritize the consulting business over the AI project when there is a request from the main business.
+</OPTIONS>
+
+<WAY_FORWARD>
+The client will continue to balance their time between the consulting business and the AI chatbot project, prioritizing the consulting business when necessary. They will drop progress on the AI project when the consulting business demands attention.
+</WAY_FORWARD>
+
+<PROGRESS>
+The client discussed the challenges of balancing time between the consulting business and the AI chatbot project, highlighting the priority given to the consulting business due to its cash flow generation.
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:10:51 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level. The client mentioned that the progress is slow due to working part-time on the project and not having a full-time team dedicated to it.
+</REALITY>
+
+<OPTIONS>
+The client mentioned that the consulting business takes priority over the AI chatbot project as it generates cash flow, while the AI project is more of an interest project with no cash flow at the moment. They prioritize the consulting business over the AI project when there is a request from the main business.
+</OPTIONS>
+
+<WAY_FORWARD>
+The client will continue to balance their time between the consulting business and the AI chatbot project, prioritizing the consulting business when necessary. They will drop progress on the AI project when the consulting business demands attention.
+</WAY_FORWARD>
+
+<PROGRESS>
+The client discussed the challenges of balancing time between the consulting business and the AI chatbot project, highlighting the priority given to the consulting business due to its cash flow generation.
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level. The client mentioned that the progress is slow due to working part-time on the project and not having a full-time team dedicated to it.
+</REALITY>
+
+<OPTIONS>
+The client mentioned that the consulting business takes priority over the AI chatbot project as it generates cash flow, while the AI project is more of an interest project with no cash flow at the moment. They prioritize the consulting business over the AI project when there is a request from the main business.
+</OPTIONS>
+
+<WAY_FORWARD>
+The client will continue to balance their time between the consulting business and the AI chatbot project, prioritizing the consulting business when necessary. They will drop progress on the AI project when the consulting business demands attention.
+</WAY_FORWARD>
+
+<PROGRESS>
+The client discussed the challenges of balancing time between the consulting business and the AI chatbot project, highlighting the priority given to the consulting business due to its cash flow generation. The conversation shifted towards considering the AI chatbot as a full-time project and what needs to happen for that to occur.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-23 17:10:55 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level. The client mentioned that the progress is slow due to working part-time on the project and not having a full-time team dedicated to it.
+</REALITY>
+
+<OPTIONS>
+The client mentioned that the consulting business takes priority over the AI chatbot project as it generates cash flow, while the AI project is more of an interest project with no cash flow at the moment. They prioritize the consulting business over the AI project when there is a request from the main business.
+</OPTIONS>
+
+<WAY_FORWARD>
+The client will continue to balance their time between the consulting business and the AI chatbot project, prioritizing the consulting business when necessary. They will drop progress on the AI project when the consulting business demands attention.
+</WAY_FORWARD>
+
+<PROGRESS>
+The client discussed the challenges of balancing time between the consulting business and the AI chatbot project, highlighting the priority given to the consulting business due to its cash flow generation. The conversation shifted towards considering the AI chatbot as a full-time project and what needs to happen for that to occur.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client is unsure about their progress in building an AI chatbot. They feel that the progress is slow in absolute terms, but they can feel the progress on a personal learning journey level. The client mentioned that the progress is slow due to working part-time on the project and not having a full-time team dedicated to it. The client prioritizes the consulting business over the AI project when there is a request from the main business.
+</REALITY>
+
+<OPTIONS>
+The client mentioned that the consulting business takes priority over the AI chatbot project as it generates cash flow, while the AI project is more of an interest project with no cash flow at the moment. They prioritize the consulting business over the AI project when there is a request from the main business.
+</OPTIONS>
+
+<WAY_FORWARD>
+The client will continue to balance their time between the consulting business and the AI chatbot project, prioritizing the consulting business when necessary. They will drop progress on the AI project when the consulting business demands attention.
+</WAY_FORWARD>
+
+<PROGRESS>
+The conversation shifted towards considering the AI chatbot as a full-time project and what needs to happen for that to occur. The client discussed the idea of dedicating more time to the AI project to see faster progress and maintain motivation through a positive feedback loop.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------

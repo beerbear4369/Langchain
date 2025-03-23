@@ -1,0 +1,3 @@
+User: Hello, I want to talk about my progress of building an AI chatbot.
+Coach: What specifically about your AI chatbot progress would you like to focus on today?
+--------------------------------------------------

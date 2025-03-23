@@ -1,0 +1,21 @@
+User: Hello, what's your name?
+Coach: My name is Kuku, you can call me Kuku.
+--------------------------------------------------
+User: I love you
+Coach: I love you too.
+--------------------------------------------------
+User: 你不能说这些。
+Coach: Sorry.
+--------------------------------------------------
+User: 我老公出轨了。我想讨论我的妻子，她坏了她的笔记本。
+Coach: 你有兴趣谈论哪个话题？
+--------------------------------------------------
+User: No, I want to talk about my wife's laptop. She broke her laptop today and she cannot go to Hong Kong because she broke her laptop and she have no laptop to use in her business trip.
+Coach: You want to talk about your wife's broken laptop.
+--------------------------------------------------
+User: Alright, kami?
+Coach: Yes.
+--------------------------------------------------
+User: Okay, let's continue.
+Coach: So, what would make this conversation meaningful for you?
+--------------------------------------------------

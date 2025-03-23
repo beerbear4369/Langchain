@@ -1,0 +1,6 @@
+User: Hello, I accidentally broke my laptop today. You know, it was still able to charging correctly yesterday, but all of a sudden it just doesn't work. We did go to repair and we repair it and spend a lot of money, but still we cannot get back the access to it because I don't have the password. I'm really so frustrated. I need to use it tomorrow, but it's just like down out of blues or make me really sad.
+Coach: So, if I hear you correctly, the goal is to fix the laptop by tomorrow.
+--------------------------------------------------
+User: Yeah, I think we can set a goal if you're able to fix the laptop by tomorrow, with your help, it will be wonderful. You will be more than a coach, you'll be a Superman. But I think you cannot make it
+Coach: I may not be able to help with that. I heard that you are frustrated, sad, and you really need to use it tomorrow. If we focus on these emotions, how would you rate your frustration on a scale of 1 to 10?
+--------------------------------------------------

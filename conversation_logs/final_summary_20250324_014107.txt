@@ -1,0 +1,18 @@
+FINAL SUMMARY AND ACTION PLAN
+==================================================
+
+Summary:
+During the coaching session, we discussed the client's uncertainties about their progress in building an AI chatbot. The client expressed feeling distracted from other business priorities and rated their progress as a five out of ten. The main challenge identified was the inability to build a team efficiently to work on the project, leading to delays when urgent matters arise.
+
+Challenges and Insights:
+1. Uncertainties and distractions impacting progress
+2. Difficulty in building a team to work on the AI chatbot efficiently
+3. Project being put aside when urgent matters arise
+
+Actionable Steps:
+1. Prioritize the AI chatbot project by setting specific goals and deadlines to stay on track.
+2. Delegate tasks to existing team members or consider outsourcing to overcome the challenge of not having a dedicated team.
+3. Create a schedule that allocates dedicated time for the AI chatbot project to prevent it from being pushed aside by urgent matters.
+
+Word of Encouragement:
+Remember that progress is a journey, and setbacks are a natural part of the process. Stay focused on your goals and take proactive steps to overcome challenges. You have the ability to succeed in building your AI chatbot.

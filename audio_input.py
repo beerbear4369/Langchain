@@ -4,13 +4,14 @@ import os  # For file operations
 import tempfile  # For creating temporary files
 import threading  # For handling keyboard input while recording
 import platform  # For detecting the operating system
+import time  # For delays and timing
 from openai import OpenAI  # OpenAI API client
 from config import OPENAI_API_KEY, SAMPLE_RATE, CHANNELS, CHUNK_SIZE, RECORD_SECONDS
 
 # Create an OpenAI client with your API key
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-def record_audio(duration=RECORD_SECONDS):
+def record_audio(duration=RECORD_SECONDS, min_duration=0.5):
     """
     Records audio from the user's microphone until a key is pressed or max duration is reached.
     
@@ -22,6 +23,7 @@ def record_audio(duration=RECORD_SECONDS):
     
     Args:
         duration (int): Maximum recording time in seconds (default from config)
+        min_duration (float): Minimum recording duration in seconds to ensure valid audio
         
     Returns:
         str: Path to the recorded audio file
@@ -30,6 +32,9 @@ def record_audio(duration=RECORD_SECONDS):
     
     # Flag to indicate if recording should stop
     stop_recording = threading.Event()
+    
+    # Add a short delay to give user time to prepare
+    time.sleep(0.5)
     
     # Function to check for key press in a separate thread
     def check_for_keypress():
@@ -85,18 +90,36 @@ def record_audio(duration=RECORD_SECONDS):
         # Calculate maximum number of chunks based on duration
         max_chunks = int(SAMPLE_RATE / CHUNK_SIZE * duration)
         
+        # Track recording duration to ensure minimum length
+        recording_duration = 0
+        recording_start = time.time()
+        
         # Record until key is pressed or max duration is reached
         for i in range(max_chunks):
-            if stop_recording.is_set():
+            if stop_recording.is_set() and recording_duration >= min_duration:
+                # Only stop if we've recorded at least the minimum duration
                 break
                 
             data = stream.read(CHUNK_SIZE)  # Read one chunk of audio
             frames.append(data)  # Add to our list
             
+            # Update recording duration
+            recording_duration = time.time() - recording_start
+            
             # Visual indicator of recording progress
             if i % 10 == 0:  # Update every 10 chunks
                 remaining = duration - (i * CHUNK_SIZE / SAMPLE_RATE)
                 print(f"\rRecording... {remaining:.1f}s remaining (or press any key to stop)", end="")
+        
+        # Force minimum recording duration if stopped too early
+        if recording_duration < min_duration:
+            print(f"\rEnsuring minimum recording duration ({min_duration}s)...", end="")
+            time.sleep(min_duration - recording_duration)
+            # Record a bit more to ensure we have enough data
+            additional_chunks = int(SAMPLE_RATE / CHUNK_SIZE * (min_duration - recording_duration))
+            for _ in range(additional_chunks):
+                data = stream.read(CHUNK_SIZE)
+                frames.append(data)
         
         print("\nRecording finished.")
         
@@ -150,9 +173,17 @@ def transcribe_audio(audio_file_path):
         print("Error: Audio file does not exist")
         return None
         
-    # Check if the file is empty
-    if os.path.getsize(audio_file_path) == 0:
+    # Check if the file is empty or too small
+    file_size = os.path.getsize(audio_file_path)
+    if file_size == 0:
         print("Error: Audio file is empty")
+        return None
+    
+    # Check if file is too small (less than approximately 0.1s of audio)
+    # A very rough estimate based on typical WAV file sizes
+    min_valid_size = 4000  # ~0.1s of 16-bit 44.1kHz audio
+    if file_size < min_valid_size:
+        print(f"Error: Audio file too small ({file_size} bytes), needs at least {min_valid_size} bytes")
         return None
     
     try:

@@ -286,7 +286,7 @@ class Conversation:
         """
         history = self.get_conversation_history()
         # Only check for wrap-up if we have enough conversation history
-        if len(history) >= 20:
+        if len(history) >= 25:
             analysis = self.analyze_conversation_progression().get('progression_analysis', '')
             
             # Check for meaningful "Way Forward" content
@@ -507,6 +507,21 @@ class Conversation:
             summary_data = self.get_conversation_summary()
             summary = summary_data.get('summary', 'No summary available.')
             
+            # If summary is empty, create a basic one from the conversation history
+            if not summary or summary == "":
+                messages = self.get_conversation_history()
+                # Format a basic summary from the last 10 messages
+                recent_messages = messages[-min(10, len(messages)):]
+                
+                summary = "Recent conversation summary:\n\n"
+                for msg in recent_messages:
+                    if msg.type == "human":
+                        summary += f"Client: {msg.content[:100]}...\n"
+                    else:
+                        summary += f"Coach: {msg.content[:100]}...\n"
+                
+                safe_print("No existing summary found, generated basic summary from recent messages.")
+            
             # Create a dedicated LLM instance for the closing summary
             closing_llm = ChatOpenAI(
                 api_key=OPENAI_API_KEY,
@@ -514,12 +529,12 @@ class Conversation:
                 temperature=0.3  # Lower temperature for more consistent summaries
             )
             
-            # Create the closing chain
-            closing_prompt = PromptTemplate.from_template(CLOSING_PROMPT)
-            closing_chain = LLMChain(llm=closing_llm, prompt=closing_prompt)
+            # Create the closing chain with the explicitly formatted prompt
+            formatted_closing_prompt = CLOSING_PROMPT.format(summary=summary)
+            safe_print(f"Passing summary to closing prompt (first 100 chars): {summary[:100]}...")
             
-            # Generate the final summary and action plan
-            final_message = closing_chain.predict(summary=summary)
+            # Use direct LLM prediction instead of chain to ensure proper formatting
+            final_message = closing_llm.predict(formatted_closing_prompt)
             
             # Log the final summary
             try:

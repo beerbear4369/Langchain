@@ -126,7 +126,7 @@ def main():
     # Record session start time and initialize a turn counter
     session_start = time.time()
     turn_counter = 0
-    max_turns = 15  # After 15 exchanges, propose wrapping up
+    max_turns = 25  # After 25 exchanges, propose wrapping up
     
     # Define and speak a welcome message to the user
     welcome_message = "Hello! I'm your AI coaching assistant. How can I help you today?"

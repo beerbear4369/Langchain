@@ -1,0 +1,15 @@
+User: Oh, I don't see a thing. Yeah, I don't see a thing.
+Coach: Okay, I guess we start with the session. So, Grace, what do you want to talk about today?
+--------------------------------------------------
+User: Let's see, 5, 4, 3, 2, 1.
+Coach: Yeah.
+--------------------------------------------------
+User: All right. Thank you. Have a good night. 
+Coach: So, Grace, what do you want to talk about today?
+--------------------------------------------------
+User: Thus terminates the conversation.
+Coach: Okay, so you said you don't see anything.
+--------------------------------------------------
+User: 您好,您拨打的用户暂时无法接通,请稍后再拨。
+Coach: So, I guess, no one is here with me.
+--------------------------------------------------

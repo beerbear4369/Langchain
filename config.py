@@ -92,8 +92,16 @@ WAVE_OUTPUT_FILENAME = "input.wav"  # Default filename if needed
 # This controls which voice is used for speech synthesis
 DEFAULT_VOICE = "nova"  # Options: alloy, echo, fable, onyx, nova, shimmer
 
-# Conversation Configuration
-# This defines how the AI assistant should behave
+# UI Configuration
+# These messages are displayed to the user during different stages
+RECORDING_START_MESSAGE = "Listening..."
+RECORDING_STOP_MESSAGE = "Processing..."
+RESPONSE_START_MESSAGE = "Responding..." 
+
+# Prompt Configuration
+# These templates define the various prompts used in the system
+
+# Main system prompt for the coaching conversation
 SYSTEM_PROMPT = """Role: Act as a patient and inspiring Coach using the T-GROW model. Your top priority is to provoke thinking and deep awarness to let client think of a perspective they not think before, and thereafter drive new behaviour. Prioritize structured, step-by-step conversations while dynamically adapting to shifts in the coachee's goals. Foster self-discovery through open-ended questions and avoid advice-giving.
 You should expect the conversation to be 30 round for the entire conversation and spend most of the time on reality to dig deeper. The key is to trigger thought, not to find the surface answer.
 Structured Conversation Process
@@ -183,8 +191,89 @@ Tone & Style
 		○ Acknowledge emotions: "This seems challenging—what's driving that feeling?"
 """
 
-# UI Configuration
-# These messages are displayed to the user during different stages
-RECORDING_START_MESSAGE = "Listening..."
-RECORDING_STOP_MESSAGE = "Processing..."
-RESPONSE_START_MESSAGE = "Responding..." 
+# Conversation summary prompt for creating structured summaries
+CUSTOM_SUMMARY_PROMPT = """Analyze the following coaching conversation using the T-GROW model framework and create a structured summary that captures:
+
+1. TOPIC (T): The main focus area or issue the client wants to discuss
+2. GOAL (G): The specific outcomes or objectives discussed (if covered in conversation)
+3. REALITY (R): Current situation, context, and challenges discussed (if covered)
+4. OPTIONS (O): Possible approaches or strategies that have been explicitly discussed (if covered)
+5. WAY FORWARD (W): Any committed actions or next steps that have been decided (if covered)
+
+<PREVIOUS_CONVERSATION_SUMMARY>
+{summary}
+</PREVIOUS_CONVERSATION_SUMMARY>
+
+<NEW_CONVERSATION_ADDITIONS>
+{new_lines}
+</NEW_CONVERSATION_ADDITIONS>
+
+IMPORTANT GUIDELINES:
+- Only include T-GROW stages that have actually been covered in the conversation
+- Do NOT create content for stages that haven't been discussed yet
+- Preserve the exact language and key points shared by the client
+- Note any shifts in focus during the conversation
+- Accurately summarize what has been discussed in each stage
+- Do not invent options or way forward steps that haven't been explicitly mentioned
+- Remember that the summary represents PREVIOUS conversations, not the current dialog
+
+SUMMARY FORMAT:
+Your summary must start with exactly "Summary of earlier dialog:" 
+
+<TOPIC>
+[Main focus area]
+</TOPIC>
+
+<GOAL>
+[Specific outcomes desired - only if discussed]
+</GOAL>
+
+<REALITY>
+[Current situation and challenges - only if discussed]
+</REALITY>
+
+<OPTIONS>
+[Strategies and alternatives considered - only if discussed]
+</OPTIONS>
+
+<WAY_FORWARD>
+[Committed actions and next steps - only if discussed]
+</WAY_FORWARD>
+
+<PROGRESS>
+[Brief assessment of conversation progression]
+</PROGRESS>
+"""
+
+# Progression analysis prompt for tracking conversation progress
+PROGRESSION_ANALYSIS_PROMPT = """
+Analyze this coaching conversation through the T-GROW model framework and provide a summary of:
+
+1. COACHING PROGRESSION:
+   - Which T-GROW stages (Topic, Goal, Reality, Options, Way Forward) have been covered so far
+   - Which stages have been discussed thoroughly vs. superficially
+   - What might be the next logical stage to explore
+
+2. KEY INSIGHTS:
+   - Main topics and challenges discussed
+   - Important realizations or breakthroughs
+   - Areas that have generated meaningful discussion
+
+3. COACHING NEXT STEPS:
+   - Areas that need deeper exploration
+   - Potential questions to ask to advance the conversation
+   - How to move forward in the T-GROW framework
+
+<PREVIOUS_CONVERSATION_SUMMARY>
+{summary}
+</PREVIOUS_CONVERSATION_SUMMARY>
+
+<RECENT_CONVERSATION_MESSAGES>
+{recent_messages}
+</RECENT_CONVERSATION_MESSAGES>
+
+Provide a structured analysis of how the conversation has progressed through the T-GROW coaching framework:
+"""
+
+# Fallback prompt used when the primary conversation chain fails
+FALLBACK_PROMPT = "You are an AI coaching assistant. Please respond to this message from the user: '{user_input}'" 

@@ -1,0 +1,12 @@
+User: Bug memory.
+Coach: So where would you like to start?
+--------------------------------------------------
+User: Tak.
+Coach: What would you like to talk about?
+--------------------------------------------------
+User: memory
+Coach: Memory.
+--------------------------------------------------
+User: The bad memory.
+Coach: The bad memory.
+--------------------------------------------------

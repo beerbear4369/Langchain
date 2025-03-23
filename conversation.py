@@ -9,12 +9,21 @@ from langchain_core.prompts import (  # For creating structured prompts
     MessagesPlaceholder,
     PromptTemplate,
 )
-from config import OPENAI_API_KEY, SYSTEM_PROMPT, MODEL_NAME, MODEL_TEMPERATURE  # Import configuration
+from config import (  # Import configuration
+    OPENAI_API_KEY, 
+    SYSTEM_PROMPT, 
+    MODEL_NAME, 
+    MODEL_TEMPERATURE, 
+    CUSTOM_SUMMARY_PROMPT,
+    PROGRESSION_ANALYSIS_PROMPT,
+    FALLBACK_PROMPT
+)
 import os
 import json
 from datetime import datetime
 import sys
 import subprocess
+import time
 
 # Fix console encoding for international characters
 if sys.platform == 'win32':
@@ -87,68 +96,17 @@ class Conversation:
         
         # Step 2: Set up conversation memory to store dialogue history with custom summarization
         # Create a custom summarization prompt that focuses on conversation history
-        CUSTOM_SUMMARY_PROMPT = PromptTemplate.from_template(
-            """Analyze the following coaching conversation using the T-GROW model framework and create a structured summary that captures:
-
-1. TOPIC (T): The main focus area or issue the client wants to discuss
-2. GOAL (G): The specific outcomes or objectives discussed (if covered in conversation)
-3. REALITY (R): Current situation, context, and challenges discussed (if covered)
-4. OPTIONS (O): Possible approaches or strategies that have been explicitly discussed (if covered)
-5. WAY FORWARD (W): Any committed actions or next steps that have been decided (if covered)
-
-<PREVIOUS_CONVERSATION_SUMMARY>
-{summary}
-</PREVIOUS_CONVERSATION_SUMMARY>
-
-<NEW_CONVERSATION_ADDITIONS>
-{new_lines}
-</NEW_CONVERSATION_ADDITIONS>
-
-IMPORTANT GUIDELINES:
-- Only include T-GROW stages that have actually been covered in the conversation
-- Do NOT create content for stages that haven't been discussed yet
-- Preserve the exact language and key points shared by the client
-- Note any shifts in focus during the conversation
-- Accurately summarize what has been discussed in each stage
-- Do not invent options or way forward steps that haven't been explicitly mentioned
-- Remember that the summary represents PREVIOUS conversations, not the current dialog
-
-SUMMARY FORMAT:
-Your summary must start with exactly "Summary of earlier dialog:" 
-
-<TOPIC>
-[Main focus area]
-</TOPIC>
-
-<GOAL>
-[Specific outcomes desired - only if discussed]
-</GOAL>
-
-<REALITY>
-[Current situation and challenges - only if discussed]
-</REALITY>
-
-<OPTIONS>
-[Strategies and alternatives considered - only if discussed]
-</OPTIONS>
-
-<WAY_FORWARD>
-[Committed actions and next steps - only if discussed]
-</WAY_FORWARD>
-
-<PROGRESS>
-[Brief assessment of conversation progression]
-</PROGRESS>
-"""
-        )
+        
+        # Convert string template to PromptTemplate object
+        custom_summary_template = PromptTemplate.from_template(CUSTOM_SUMMARY_PROMPT)
         
         # Initialize memory with custom prompt
         self.memory = ConversationSummaryBufferMemory(
             llm=self.summary_llm,
             memory_key="chat_history",
-            max_token_limit=500,  # Increased to retain more context
+            max_token_limit=3000,  # Increased to retain more context
             return_messages=True,
-            prompt=CUSTOM_SUMMARY_PROMPT,
+            prompt=custom_summary_template,
             verbose=True  # Make summarization process visible in console output
         )
         
@@ -286,38 +244,14 @@ Your summary must start with exactly "Summary of earlier dialog:"
             history = self.get_conversation_history()
             recent_messages = history[-min(10, len(history)):]
             
-            # Create analysis prompt
-            progression_prompt = f"""
-            Analyze this coaching conversation through the T-GROW model framework and provide a summary of:
-            
-            1. COACHING PROGRESSION:
-               - Which T-GROW stages (Topic, Goal, Reality, Options, Way Forward) have been covered so far
-               - Which stages have been discussed thoroughly vs. superficially
-               - What might be the next logical stage to explore
-            
-            2. KEY INSIGHTS:
-               - Main topics and challenges discussed
-               - Important realizations or breakthroughs
-               - Areas that have generated meaningful discussion
-            
-            3. COACHING NEXT STEPS:
-               - Areas that need deeper exploration
-               - Potential questions to ask to advance the conversation
-               - How to move forward in the T-GROW framework
-            
-            <PREVIOUS_CONVERSATION_SUMMARY>
-            {summary}
-            </PREVIOUS_CONVERSATION_SUMMARY>
-            
-            <RECENT_CONVERSATION_MESSAGES>
-            {recent_messages}
-            </RECENT_CONVERSATION_MESSAGES>
-            
-            Provide a structured analysis of how the conversation has progressed through the T-GROW coaching framework:
-            """
+            # Format the progression analysis prompt with actual values
+            formatted_prompt = PROGRESSION_ANALYSIS_PROMPT.format(
+                summary=summary,
+                recent_messages=recent_messages
+            )
             
             # Get analysis
-            analysis = self.summary_llm.predict(progression_prompt)
+            analysis = self.summary_llm.predict(formatted_prompt)
             
             return {
                 'progression_analysis': analysis,
@@ -330,17 +264,18 @@ Your summary must start with exactly "Summary of earlier dialog:"
                 'summary': self._safe_get_summary()
             }
             
-    def process_input(self, user_input):
+    def process_input(self, user_input, timeout_seconds=60):
         """
-        Process user input and generate an AI response.
+        Process user input and generate an AI response with timeout protection.
         
         This method:
         1. Checks if the input is valid
-        2. Sends the input to the language model
+        2. Sends the input to the language model with timeout protection
         3. Returns the generated response
         
         Args:
             user_input (str): The user's text input
+            timeout_seconds (int): Maximum time in seconds to wait for a response
             
         Returns:
             str: The AI's response text
@@ -350,12 +285,50 @@ Your summary must start with exactly "Summary of earlier dialog:"
             return "I couldn't hear you clearly. Could you please repeat that?"
         
         try:
+            # Track the start time for timeout purposes
+            start_time = time.time()
+            
             # Get the current summary before processing - with error handling
             old_summary = self._safe_get_summary()
 
-            # Step 2: Use the conversation chain to generate a response
-            # This automatically updates the conversation memory
-            response = self.conversation.predict(input=user_input)
+            # Step 2: Use the conversation chain to generate a response with timeout
+            try:
+                # This automatically updates the conversation memory
+                # Add a timeout parameter if the API wrapper supports it
+                if hasattr(self.llm, 'request_timeout'):
+                    original_timeout = self.llm.request_timeout
+                    self.llm.request_timeout = timeout_seconds
+                    response = self.conversation.predict(input=user_input)
+                    self.llm.request_timeout = original_timeout
+                else:
+                    # If no timeout support, use the regular predict method
+                    response = self.conversation.predict(input=user_input)
+                
+                # Track and log response time
+                elapsed_time = time.time() - start_time
+                safe_print(f"Response generated in {elapsed_time:.2f} seconds")
+                
+            except Exception as timeout_error:
+                elapsed_time = time.time() - start_time
+                safe_print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                
+                # Try a fallback approach - simpler and more reliable
+                try:
+                    # Let the user know we're trying again
+                    safe_print("Attempting fallback response generation...")
+                    
+                    # Use a simpler prompt with the same model but direct call
+                    formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
+                    fallback_response = self.llm.predict(formatted_fallback_prompt)
+                    
+                    # Since we're bypassing the conversation chain, manually add to memory
+                    self.memory.chat_memory.add_user_message(user_input)
+                    self.memory.chat_memory.add_ai_message(fallback_response)
+                    
+                    return fallback_response
+                except Exception as fallback_error:
+                    safe_print(f"Fallback approach also failed: {fallback_error}")
+                    raise timeout_error  # Re-raise the original error
             
             # Check if summary has changed and log if it has - with error handling
             try:
@@ -377,59 +350,8 @@ Your summary must start with exactly "Summary of earlier dialog:"
             safe_print(f"Error in conversation processing: {error_msg}")
             
             # Check if it's a timeout error
-            if "timeout" in error_msg.lower():
-                # Mark summarization as failed
-                self.summarization_failed = True
-                
-                # Try to recover by using a fallback mechanism
-                try:
-                    # If there's an issue with summarization, try to continue without it
-                    safe_print("Attempting to recover from summarization failure...")
-                    
-                    # Create a simpler memory object as fallback if needed
-                    if not hasattr(self, '_fallback_memory'):
-                        from langchain.memory import ConversationBufferWindowMemory
-                        self._fallback_memory = ConversationBufferWindowMemory(
-                            memory_key="chat_history",
-                            k=10,  # Remember only the last 10 exchanges
-                            return_messages=True
-                        )
-                        
-                        # Copy current messages to fallback memory if possible
-                        try:
-                            # Get the most recent messages we can
-                            recent_messages = self.memory.chat_memory.messages[-20:]
-                            
-                            # Add them to fallback memory
-                            for msg in recent_messages:
-                                self._fallback_memory.chat_memory.add_message(msg)
-                                
-                            safe_print(f"Loaded {len(recent_messages)} messages into fallback memory")
-                        except Exception as fallback_error:
-                            safe_print(f"Error initializing fallback memory: {fallback_error}")
-                    
-                    # Use the fallback memory for this request only
-                    temp_chain = ConversationChain(
-                        llm=self.llm,
-                        memory=self._fallback_memory,
-                        prompt=self.conversation.prompt,
-                        verbose=False
-                    )
-                    
-                    # Process with fallback
-                    fallback_response = temp_chain.predict(input=user_input)
-                    
-                    # Update fallback memory
-                    self._fallback_memory.save_context({"input": user_input}, {"output": fallback_response})
-                    
-                    # Log the exchange
-                    self._log_exchange(user_input, fallback_response + " [FALLBACK MODE]")
-                    
-                    return fallback_response + "\n\n(Note: I've switched to a simplified memory mode to ensure our conversation continues smoothly.)"
-                except Exception as fallback_error:
-                    safe_print(f"Fallback mechanism failed: {fallback_error}")
-                
-                return "I'm taking a bit longer than expected to process your message. Let's continue our conversation - what else would you like to discuss?"
+            if "timeout" in error_msg.lower() or "timed out" in error_msg.lower():
+                return "I'm taking too long to respond. Let's try a different approach. Could you ask me something else or rephrase your question?"
             
             return "I'm having trouble processing that request. Let's try again."
     

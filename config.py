@@ -294,19 +294,36 @@ IMPORTANT:
 
 # Prompt for the closing chain to generate a final summary and action plan
 CLOSING_PROMPT = """
-You are a coaching assistant. Based on the following conversation summary, provide a concise final summary and an actionable plan for the client to follow.
+You are a coaching assistant. Based on the following complete conversation history between a coach and client, provide a concise final summary and an actionable plan for the client to follow.
 
-Conversation Summary:
-{summary}
+{conversation_history}
 
 Your response should:
-1. Summarize the key points discussed in the coaching session
-2. Identify the main challenges and insights that emerged
-3. Provide 3-5 specific, actionable steps the client can take based on the conversation
-4. Don't propose any action that is not discussed or committed by the client
-4. End with a brief word of encouragement
+1. Summarize the key points discussed in the coaching session, including:
+   - The main topic/challenge the client wanted to address
+   - Important insights and realizations that emerged
+   - Progress made during the conversation
+2. Identify the main challenges and breakthroughs that occurred
+3. Provide 3-5 specific, actionable steps the client committed to or expressed interest in during the conversation
+4. IMPORTANT: Only include action items that were explicitly discussed or committed to by the client
+5. End with a brief word of encouragement that relates to their specific situation
 
-Final Summary and Action Plan:
+Please format your response as follows:
+
+KEY DISCUSSION POINTS:
+[List the main topics and insights]
+
+MAIN BREAKTHROUGHS:
+[List any significant realizations or shifts in perspective]
+
+ACTION PLAN:
+1. [First committed action]
+2. [Second committed action]
+3. [Third committed action]
+(etc...)
+
+Final Note:
+[Brief encouraging message specific to their situation]
 """
 
 # System prompt for determining if a coaching conversation should be wrapped up

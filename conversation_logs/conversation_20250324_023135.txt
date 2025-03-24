@@ -1,0 +1,126 @@
+User: Hello, how are you?
+Coach: I'm well, thank you!
+--------------------------------------------------
+User: 好，那我可以。
+Coach: So, what would you like to talk about today?
+--------------------------------------------------
+User: Maybe let's talk about my wife coding.
+Coach: Your wife coding?
+--------------------------------------------------
+User: Is that using the cursor like AI to code to develop some functionality?
+Coach: Oh, I see. So, what's the problem with that?
+--------------------------------------------------
+User: Hmm, no worries, let's continue the conversation.
+Coach: Okay, so what would you like to talk about?
+--------------------------------------------------
+User: Yeah, so basically it took me quite a lot of time to do that.
+Coach: So, maybe I can ask you to summarize the main point from your story, which is...
+--------------------------------------------------
+User: Which is I. Okay, so I want to develop some function, but it's like took me quite a lot of time to do that with my coding. And the progress is really slower than I expect. It's like the logic should be questionable, but it just somehow took a really long time to make it work, even a single small step.
+Coach: And what outcome would you like to see from this conversation?
+--------------------------------------------------
+User: So from the conversation, I don't know, maybe I could reflect on my workflow and be able to identify a better way to structure my work in the live coding, to save more time, to spend less time doing this and be able to achieve more.
+Coach: Okay. So if I hear you correctly, you said you want to reflect on your workflow and perhaps find a way to improve the efficiency of your coding process.
+--------------------------------------------------
+User: Exactly.
+Coach: And let me check in with you, how important is this outcome for you?
+--------------------------------------------------
+User: Good question. So this is very important because if I can develop the source more faster, the program will go faster, right? We'll be able to see the results earlier. And basically there will be like a faster feedback loop and everyone will be happier because they can see the progress and see, oh, we are moving somewhere. On the other side, I also have some other ideas to try. And ideally I want to finish the current work and move to the other ideas. But now the current work, I saw it was quite simple, but it also took me quite a long time to finish. So it blocked me from doing the new project, which have a deadline. So it makes me really become nervous. So I really want to finish this fast and able to move on. That's really important. And if I'm able to do that, not only me, the team, everyone will also surprise. They will all have more confidence, more faith in the startups or projects or development that we are doing.
+Coach: Thank you for sharing. So I heard two parts of the importance. One is for your own peace of mind and the other is for the team's confidence, right?
+--------------------------------------------------
+User: 我觉得我长得好美啊，我穿的那个牛仔小裙子真是太漂亮了。
+Coach: So, to achieve this outcome, what do you think is the biggest obstacle for you?
+--------------------------------------------------
+User: I guess the biggest obstacle is my capability of coding, I guess. Because mainly I need to understand what AI is doing. Sometimes it generates code really fast. And I need to be able to catch up with it, to go with it, and then to test and feel for this mistake here. To give it feedback and then to give it idea and direction to change the code. I think my capability to learn, to read code, to understand it, is the threshold.
+Coach: And how do you know that this is the obstacle?
+--------------------------------------------------
+User: I guess by building the amount of time really spent on the iteration, because normally, for example, when I identify what is the major function to develop, I will prompt this question to the ChatGPT and try to get some strategy. And then I will read through the strategy and then put the strategies to my cursor, my developer tool, to try to implement it. So basically, the code is generated really fast. And I think it's my speed for me to read and understand the code is really low. So editing the strategy is easy, but once this goes to the detailed code, I need to somehow read and understand it, then I'm able to maintain it, able to instruct it in the future. So it's by myself feeling about the time taken for each step.
+Coach: Thank you for sharing. And I noticed you mentioned the word “feeling” a couple of times. So would you say this is more of a subjective feeling or a more objective measure?
+--------------------------------------------------
+User: I think it is a subjective feeling as well because I think it's really a nature to time it unless there's an automatic way to observe time is being spent. But from my own assessment, I think it's really hard to get an objective measure.
+Coach: Yeah. So sometimes it feels like you know, right?
+--------------------------------------------------
+User: Yeah, right.
+Coach: Okay. So, so this feeling, how do you, how do you know that this is the obstacle?
+--------------------------------------------------
+User: I think the feeling is not the obstacle, it's just the capability.
+Coach: So if we take this capability, let's say on a scale of 1 to 10, where 1 is you can't code and 10 is you are as good as an expert.
+--------------------------------------------------
+User: Aha, so?
+Coach: I think I'm like a 5.
+--------------------------------------------------
+User: Yeah, so I think I'm like
+Coach: And what do you think is preventing you from moving from 5 to 6?
+--------------------------------------------------
+User: Wow, I guess sometimes I didn't really take the time to do serious study because nowadays it's so easy to just ask GPT, right? Just ask the AI. So I can use that way to solve the problem already. So I don't need to understand it to solve it. I can prompt the problem to AI and let the AI solve it. And that becomes... I don't need to know that, right? So many times I think it's like only when I'm interested, when I'm curious, I ask the AI. Then okay, I know that and I learn from it. If not, I would just do it in the other workflow. Because there is other flow, other flow that you can proceed without really having a good understanding. So sometimes I just rely on that because I want to just finish the things or do it faster. I didn't really take serious time to watch those videos, to study some basic things. I guess that is the reason.
+Coach: Okay, so if I hear you correctly, you mentioned two things. One is the motivation and the other is the time.
+--------------------------------------------------
+User: I was just lazy to do that.
+Coach: So, yeah, so I think I heard you say that the important thing for you is to complete the current work, right?
+--------------------------------------------------
+User: Yep, I do feel completing the current work is quite important. That's how I can show some progress to myself and my team, and also how I could move on to the new project that I'm super interested to do. So I'm really pushing for that.
+Coach: So you mentioned that if you are not interested, you don't really want to learn. But for the current work, you are really pushing for that. So what is the difference?
+--------------------------------------------------
+User: I still want to learn. I actually want to learn. It's the curiosity bringing here. But it's like I'm trying to skip the systematic learning. I'm more like learn on the fly when I face a difficulty that I will research and learn. I sometimes think I spend quite a lot of time to work up really late for the current work. But I guess sometimes I feel maybe it's because I'm stupid and actually shouldn't take that long time. But I'm so interested to play this game. So I think that is the issue.
+Coach: So you mentioned that you don't really want to do the systematic learning. But for the current work, you are really pushing for that. So what is the difference?
+--------------------------------------------------
+User: Like the difference is for the current work, I already know the rough big system, and I can start already and I'm able to just add in some small component. So I think I don't really need a really good systematic learning to do my current work.
+Coach: But if you move on to the new project, it's a completely new thing, right?
+--------------------------------------------------
+User: Yeah, it's not entirely completely new things, but there's much more subject, so I need to learn the new framework and then able to get a head start of it.
+Coach: And I'm just curious, so for the current work, the learning you mentioned, what kind of learning is it?
+--------------------------------------------------
+User: For example, currently I'm using a long chain to develop my chatbot. I need to decide on the technical stack.
+Coach: So you mentioned the learning is to decide on the tech stack, right?
+--------------------------------------------------
+User: Correct. And also to explore what can be done, what cannot be done, to basically see the boundary of it.
+Coach: So I heard you mentioned two things. One is to understand what can be done, what cannot be done. The other is to decide on the tech stack.
+--------------------------------------------------
+User: arrive
+Coach: So the first part, what can be done, what cannot be done, is it something you really need to know?
+--------------------------------------------------
+User: I guess yes. I really need to know what can be done, what cannot be done. Because, otherwise, how do I define the scope of the project, right? It's like I need to decide what to do. And before that, I need to be able to know roughly what can be done. So I can decide to do it or not. Otherwise, it's like just throw to sky, and there's nothing.
+Coach: And the second part, to decide on the tech stack, is that something you need to really know?
+--------------------------------------------------
+User: 然后已经有陆陆续续进入前一百的人给我发信息说你们进入前三十了，马上给你面基啊，很生气。对。是的，我觉得你真的需要知道这个，然后决定一下。否则它会变成像AI做自己的设计，有时候不是最优的，有时候我不知道他们在做什么，对吧？所以这是错的。我觉得我需要知道大方向，然后对我来说会更容易去做，它也有更多的人的参与。
+Coach: So I heard from your answer that the decision on the tech stack is not something you really need to know.
+--------------------------------------------------
+User: No, deciding text and is also what I really need to know.
+Coach: So if we put these two parts together, the first part is necessary and the second part is not necessary.
+--------------------------------------------------
+User: No, those para is not necessary actually.
+Coach: Okay, so what happens if you don't decide on the tech stack?
+--------------------------------------------------
+User: Okay
+Coach: Okay, yeah. So if you don't decide on the tech stack, you can't really do the work, right?
+--------------------------------------------------
+User: I cannot really do it.
+Coach: Okay, so because you can't really do it, you have to learn it.
+--------------------------------------------------
+User: I have learned.
+Coach: So, yeah. So if we go back to your coding capability, you mentioned the obstacle, you mentioned the motivation and the time, right?
+--------------------------------------------------
+User: Right, right, we mentioned kind of a lot of things for this conversation.
+Coach: So if we summarize these things, what do you think is the real obstacle?
+--------------------------------------------------
+User: Ja, so I think the main problem is like
+Coach: I think the real obstacle is your motivation to learn.
+--------------------------------------------------
+User: No, I'm really motivated to learn, and I sometimes spend a long time. But the real obstacle is I'm too interested to solve the problem and if I have a problem to solve it, actually before you have learned completely, you shouldn't do that because that's inefficient. You should just absorb more information, more knowledge, and then you continue to practice.
+Coach: So, you mentioned that your learning style is to learn on the fly, right?
+--------------------------------------------------
+User: Yeah, correct.
+Coach: So, let's say if you want to learn to swim, would you learn on the fly?
+--------------------------------------------------
+User: When I learn swimming, I did see a lot of videos.
+Coach: So, why is it different from coding?
+--------------------------------------------------
+User: Because now we have AI, so I don't have to watch those videos. It's like, whatever, I'll ask AI, and AI is able to help me to fix that. So it's like you don't need to watch the swimming video. You can just go to the water to swim, and if you don't know what to do, you also don't panic. There's someone, you just ask him, hey, what to do now? Then he holds your hand to do the right move. That is the convenience.
+Coach: Yeah, but this someone may not be available all the time, right?
+--------------------------------------------------
+User: No, it is almost available.
+Coach: Yeah, but it may not be as efficient as you watching the video.
+--------------------------------------------------
+User: It may not be as efficient.
+Coach: But sometimes you need to go to the video, right?
+--------------------------------------------------

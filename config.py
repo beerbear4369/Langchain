@@ -303,6 +303,7 @@ Your response should:
 1. Summarize the key points discussed in the coaching session
 2. Identify the main challenges and insights that emerged
 3. Provide 3-5 specific, actionable steps the client can take based on the conversation
+4. Don't propose any action that is not discussed or committed by the client
 4. End with a brief word of encouragement
 
 Final Summary and Action Plan:

@@ -1,0 +1,230 @@
+
+=== Summary Update at 2025-03-24 16:29:43 ===
+<PREVIOUS_SUMMARY>
+
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+The client discussed their progress in building an AI chatbot.
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<GOAL>
+Specific outcomes desired were not explicitly discussed in the conversation.
+</GOAL>
+
+<REALITY>
+The current situation and challenges were not explicitly discussed in the conversation.
+</REALITY>
+
+<OPTIONS>
+Possible approaches or strategies were not explicitly discussed in the conversation.
+</OPTIONS>
+
+<WAY_FORWARD>
+Committed actions or next steps were not explicitly discussed in the conversation.
+</WAY_FORWARD>
+
+<PROGRESS>
+The client initiated the conversation by expressing their interest in discussing the progress of building an AI chatbot.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-24 16:29:46 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+The client discussed their progress in building an AI chatbot.
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<GOAL>
+Specific outcomes desired were not explicitly discussed in the conversation.
+</GOAL>
+
+<REALITY>
+The current situation and challenges were not explicitly discussed in the conversation.
+</REALITY>
+
+<OPTIONS>
+Possible approaches or strategies were not explicitly discussed in the conversation.
+</OPTIONS>
+
+<WAY_FORWARD>
+Committed actions or next steps were not explicitly discussed in the conversation.
+</WAY_FORWARD>
+
+<PROGRESS>
+The client initiated the conversation by expressing their interest in discussing the progress of building an AI chatbot.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+The client discussed their progress in building an AI chatbot.
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-24 16:29:50 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+The client discussed their progress in building an AI chatbot.
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+The client discussed their progress in building an AI chatbot.
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process. The client also mentioned feeling distracted from other business tasks and the challenge of not having a dedicated team to work on the chatbot project.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement. They also discussed the challenges of being distracted by other business tasks and the lack of a dedicated team for the project.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-24 16:30:02 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+The client discussed their progress in building an AI chatbot.
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process. The client also mentioned feeling distracted from other business tasks and the challenge of not having a dedicated team to work on the chatbot project.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement. They also discussed the challenges of being distracted by other business tasks and the lack of a dedicated team for the project.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process. The client also mentioned feeling distracted from other business tasks and the challenge of not having a dedicated team to work on the chatbot project.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement. They also discussed the challenges of being distracted by other business tasks and the lack of a dedicated team for the project.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-24 16:30:07 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process. The client also mentioned feeling distracted from other business tasks and the challenge of not having a dedicated team to work on the chatbot project.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement. They also discussed the challenges of being distracted by other business tasks and the lack of a dedicated team for the project.
+</PROGRESS>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process. The client also mentioned feeling distracted from other business tasks and the challenge of not having a dedicated team to work on the chatbot project.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement. They also discussed the challenges of being distracted by other business tasks and the lack of a dedicated team for the project.
+</PROGRESS> 
+
+<REALITY>
+The client expressed the desire to work full-time on the AI chatbot project to increase speed and reduce distractions. They mentioned the challenge of mentally shifting between tasks and the difficulty of forming a full-time team due to personal commitments like meeting customers in Vietnam. The client described the project as a "sad hustle" at the moment.
+</REALITY>
+</UPDATED_SUMMARY>
+--------------------------------------------------
+
+=== Summary Update at 2025-03-24 16:30:12 ===
+<PREVIOUS_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process. The client also mentioned feeling distracted from other business tasks and the challenge of not having a dedicated team to work on the chatbot project.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement. They also discussed the challenges of being distracted by other business tasks and the lack of a dedicated team for the project.
+</PROGRESS> 
+
+<REALITY>
+The client expressed the desire to work full-time on the AI chatbot project to increase speed and reduce distractions. They mentioned the challenge of mentally shifting between tasks and the difficulty of forming a full-time team due to personal commitments like meeting customers in Vietnam. The client described the project as a "sad hustle" at the moment.
+</REALITY>
+</PREVIOUS_SUMMARY>
+
+<UPDATED_SUMMARY>
+Summary of earlier dialog:
+
+<TOPIC>
+Building an AI chatbot
+</TOPIC>
+
+<REALITY>
+The client expressed feeling the progress of building the AI chatbot, mentioning both fast progress due to real-time feedback and slow progress due to trying different models and obtaining more data. They acknowledged their lack of expertise and the learning journey aspect of the process. The client also mentioned feeling distracted from other business tasks and the challenge of not having a dedicated team to work on the chatbot project. The client expressed the desire to work full-time on the AI chatbot project to increase speed and reduce distractions. They mentioned the challenge of mentally shifting between tasks and the difficulty of forming a full-time team due to personal commitments like meeting customers in Vietnam. The client described the project as a "sad hustle" at the moment.
+</REALITY>
+
+<PROGRESS>
+The client shared their feelings about the progress of building the AI chatbot, highlighting both the fast and slow aspects of their advancement. They also discussed the challenges of being distracted by other business tasks and the lack of a dedicated team for the project.
+</PROGRESS>
+</UPDATED_SUMMARY>
+--------------------------------------------------

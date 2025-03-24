@@ -141,6 +141,9 @@ class Conversation:
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.log_file = os.path.join(self.log_dir, f"conversation_{self.session_id}.txt")
         self.summary_log_file = os.path.join(self.log_dir, f"summary_{self.session_id}.txt")
+        
+        # Add a conversation rounds counter that persists regardless of summarization
+        self.conversation_rounds = 0
     
     def get_conversation_summary(self):
         """
@@ -290,24 +293,26 @@ class Conversation:
         
         # Add debug print statements
         print("\n--- DEBUG CONVERSATION HISTORY ---")
-        print(f"History length: {len(history)}")
-        # Print the entire conversation history instead of just the last 3 messages
-        for i, msg in enumerate(history):
-            # Handle both dict and Message objects
-            if hasattr(msg, 'type') and hasattr(msg, 'content'):
-                # It's a Message object
-                msg_type = msg.type
-                msg_content = msg.content
-            else:
-                # It's a dict
-                msg_type = msg.get('type', 'unknown')
-                msg_content = msg.get('content', '')
+        print(f"Conversation rounds: {self.conversation_rounds}")
+        # # Print the entire conversation history instead of just the last 3 messages
+        # for i, msg in enumerate(history):
+        #     # Handle both dict and Message objects
+        #     if hasattr(msg, 'type') and hasattr(msg, 'content'):
+        #         # It's a Message object
+        #         msg_type = msg.type
+        #         msg_content = msg.content
+        #     else:
+        #         # It's a dict
+        #         msg_type = msg.get('type', 'unknown')
+        #         msg_content = msg.get('content', '')
             
-            print(f"Message {i+1}: [{msg_type}] {msg_content[:100]}...")
+        #     print(f"Message {i+1}: [{msg_type}] {msg_content[:100]}...")
         print("--- END DEBUG ---\n")
         
-        # Only check for wrap-up if we have enough conversation history (at least 20 messages/10 exchanges)
-        if len(history) < 10:
+        # IMPORTANT: Only check for wrap-up if we have enough conversation rounds
+        # Use conversation_rounds counter which is immune to summarization effects
+        if self.conversation_rounds < 15:  # Threshold set to 15 rounds (adjust as needed)
+            print(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds). Skipping LLM call.")
             return False
             
         try:
@@ -430,6 +435,10 @@ class Conversation:
                     self.memory.chat_memory.add_user_message(user_input)
                     self.memory.chat_memory.add_ai_message(fallback_response)
                     
+                    # Increment conversation round counter even when using fallback
+                    self.conversation_rounds += 1
+                    print(f"Conversation round incremented to {self.conversation_rounds} (via fallback)")
+                    
                     return fallback_response
                 except Exception as fallback_error:
                     safe_print(f"Fallback approach also failed: {fallback_error}")
@@ -446,6 +455,10 @@ class Conversation:
             
             # After getting a response, log the exchange
             self._log_exchange(user_input, response)
+            
+            # Increment conversation round counter after successful completion
+            self.conversation_rounds += 1
+            print(f"Conversation round incremented to {self.conversation_rounds}")
             
             # Step 3: Return the response
             return response
@@ -603,4 +616,315 @@ class Conversation:
             return final_message
         except Exception as e:
             safe_print(f"Error generating closing summary: {e}")
-            return "I'm unable to generate a final summary at this time. Let's continue our conversation." 
+            return "I'm unable to generate a final summary at this time. Let's continue our conversation."
+
+    def process_input_without_adding_to_memory(self, user_input, timeout_seconds=60):
+        """
+        Process user input that's already been added to memory.
+        
+        Similar to process_input but skips adding the input to memory again to avoid duplication.
+        
+        Args:
+            user_input (str): The user's text input that's already been added to memory
+            timeout_seconds (int): Maximum time in seconds to wait for a response
+            
+        Returns:
+            str: The AI's response text
+        """
+        # Step 1: Check if the input is valid
+        if not user_input:
+            return "I couldn't hear you clearly. Could you please repeat that?"
+        
+        try:
+            # Track the start time for timeout purposes
+            start_time = time.time()
+            
+            # Get the current summary before processing - with error handling
+            old_summary = self._safe_get_summary()
+
+            # Step 2: Use the conversation chain's LLM to generate a response with timeout
+            try:
+                # Use the LLM directly with the conversation's prompt
+                if hasattr(self.llm, 'request_timeout'):
+                    original_timeout = self.llm.request_timeout
+                    self.llm.request_timeout = timeout_seconds
+                    
+                    # Get the current conversation history
+                    chat_history = self.memory.chat_memory.messages
+                    
+                    # Check for and remove duplicated messages (if the user input is already in memory twice)
+                    self._remove_duplicate_messages()
+                    
+                    # Get updated chat history after removing duplicates
+                    chat_history = self.memory.chat_memory.messages
+                    
+                    # Create input values for the prompt without including user_input again
+                    # This is the key difference - we don't pass the user_input separately
+                    # since it's already in the chat history
+                    input_values = {"input": "", "chat_history": chat_history}
+                    
+                    # Get the prompt with history
+                    prompt_value = self.conversation.prompt.invoke(input_values)
+                    
+                    # Get the response directly from the LLM
+                    response = self.llm.invoke(prompt_value.messages).content
+                    
+                    # Only add the AI's response to memory
+                    self.memory.chat_memory.add_ai_message(response)
+                    
+                    # Trigger summarization if needed
+                    if hasattr(self.memory, 'buffer') and len(self.memory.buffer) > self.memory.max_token_limit:
+                        # Force summarization
+                        print("Triggering manual summarization due to buffer size")
+                        buffer_content = self.memory.buffer
+                        summary = self.memory.summarize(buffer_content)
+                        if summary:
+                            old_summary = self._safe_get_summary() 
+                            # Update the summary
+                            self.memory.moving_summary_buffer = summary
+                            # Clear the buffer after summarization
+                            self.memory.buffer = []
+                            # Log the update
+                            self._log_summary_update(old_summary, summary)
+                    
+                    # Restore original timeout
+                    self.llm.request_timeout = original_timeout
+                else:
+                    # If no timeout support, use the same approach without timeout handling
+                    # Check for and remove duplicated messages
+                    self._remove_duplicate_messages()
+                    
+                    # Get the current conversation history after duplicate removal
+                    chat_history = self.memory.chat_memory.messages
+                    
+                    # Use empty input since the user input is already in chat history
+                    input_values = {"input": "", "chat_history": chat_history}
+                    prompt_value = self.conversation.prompt.invoke(input_values)
+                    response = self.llm.invoke(prompt_value.messages).content
+                    
+                    # Only add the AI response to memory
+                    self.memory.chat_memory.add_ai_message(response)
+                    
+                    # Trigger summarization if needed
+                    if hasattr(self.memory, 'buffer') and len(self.memory.buffer) > self.memory.max_token_limit:
+                        print("Triggering manual summarization due to buffer size")
+                        buffer_content = self.memory.buffer
+                        summary = self.memory.summarize(buffer_content)
+                        if summary:
+                            old_summary = self._safe_get_summary()
+                            self.memory.moving_summary_buffer = summary
+                            self.memory.buffer = []
+                            self._log_summary_update(old_summary, summary)
+                
+                # Track and log response time
+                elapsed_time = time.time() - start_time
+                print(f"Response generated in {elapsed_time:.2f} seconds")
+                
+            except Exception as timeout_error:
+                elapsed_time = time.time() - start_time
+                print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                
+                # Try a fallback approach - simpler and more reliable
+                try:
+                    # Let the user know we're trying again
+                    print("Attempting fallback response generation...")
+                    
+                    # Use a simpler prompt with the same model but direct call
+                    formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
+                    fallback_response = self.llm.predict(formatted_fallback_prompt)
+                    
+                    # Only add the AI's response to memory (input already added)
+                    self.memory.chat_memory.add_ai_message(fallback_response)
+                    
+                    # Increment conversation round counter even when using fallback
+                    self.conversation_rounds += 1
+                    print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in without_adding)")
+                    
+                    return fallback_response
+                except Exception as fallback_error:
+                    print(f"Fallback approach also failed: {fallback_error}")
+                    raise timeout_error  # Re-raise the original error
+            
+            # Check if summary has changed and log if it has - with error handling
+            try:
+                new_summary = self._safe_get_summary()
+                if old_summary != new_summary:
+                    self._log_summary_update(old_summary, new_summary)
+            except Exception as e:
+                print(f"Warning: Error during summary update check: {e}")
+                self.summarization_failed = True
+            
+            # After getting a response, log the exchange
+            self._log_exchange(user_input, response)
+            
+            # Increment conversation round counter after successful completion
+            self.conversation_rounds += 1
+            print(f"Conversation round incremented to {self.conversation_rounds} (via without_adding)")
+            
+            # Step 3: Return the response
+            return response
+        except Exception as e:
+            # Handle any errors that might occur during processing
+            error_msg = str(e)
+            print(f"Error in conversation processing: {error_msg}")
+            
+            # Check if it's a timeout error
+            if "timeout" in error_msg.lower() or "timed out" in error_msg.lower():
+                return "I'm taking too long to respond. Let's try a different approach. Could you ask me something else or rephrase your question?"
+            
+            return "I'm having trouble processing that request. Let's try again."
+            
+    def _remove_duplicate_messages(self):
+        """Helper method to remove duplicate consecutive messages in chat history."""
+        # Get the current messages
+        messages = self.memory.chat_memory.messages
+        
+        # Nothing to do if we have 0 or 1 messages
+        if len(messages) < 2:
+            return
+            
+        # Scan for consecutive duplicate messages with the same content and type
+        i = len(messages) - 1
+        while i > 0:
+            current = messages[i]
+            previous = messages[i-1]
+            
+            # Check if messages are duplicates (same type and content)
+            if (current.type == previous.type and 
+                current.content == previous.content):
+                # Found duplicate - remove the current (later) message
+                print(f"Removing duplicate message: [{current.type}] {current.content[:50]}...")
+                messages.pop(i)
+            i -= 1 
+
+    def add_user_message_to_memory(self, user_input):
+        """
+        Add a user message to memory properly, ensuring both chat_memory and buffer are updated.
+        This preserves ConversationSummaryBufferMemory functionality.
+        
+        Args:
+            user_input (str): The user's message to add
+        """
+        # Remove any existing duplicates first
+        self._remove_duplicate_messages()
+        
+        # Use the memory's proper channels to add the message
+        # This ensures the buffer is updated correctly for summarization
+        self.memory.save_context({"input": user_input}, {"output": ""})
+        
+        # Now remove the empty AI message we just added as a side effect
+        if len(self.memory.chat_memory.messages) > 0 and self.memory.chat_memory.messages[-1].content == "":
+            self.memory.chat_memory.messages.pop()
+            
+        print(f"Added user message to memory: '{user_input[:50]}...'")
+        
+        # Debug buffer state
+        if hasattr(self.memory, 'buffer'):
+            print(f"Buffer size after adding: {len(self.memory.buffer)}")
+        
+    def process_input_with_existing_message(self, user_input, timeout_seconds=60):
+        """
+        Process user input that's already been added to memory correctly.
+        
+        Args:
+            user_input (str): The user's text input that's already been added to memory
+            timeout_seconds (int): Maximum time in seconds to wait for a response
+            
+        Returns:
+            str: The AI's response text
+        """
+        # Step 1: Check if the input is valid
+        if not user_input:
+            return "I couldn't hear you clearly. Could you please repeat that?"
+        
+        try:
+            # Track the start time for timeout purposes
+            start_time = time.time()
+            
+            # Remove any duplicates that might exist in memory
+            self._remove_duplicate_messages()
+            
+            # Step 2: Get a response using the conversation chain
+            try:
+                # Set timeout if supported
+                if hasattr(self.llm, 'request_timeout'):
+                    original_timeout = self.llm.request_timeout
+                    self.llm.request_timeout = timeout_seconds
+                
+                # Get the response using the conversation chain's LLM
+                # We create a dummy empty message, so the chain doesn't add the input again
+                # But we use the conversation predict method to properly handle memory
+                response = self.conversation.predict(input="")
+                
+                # Restore timeout if needed
+                if hasattr(self.llm, 'request_timeout'):
+                    self.llm.request_timeout = original_timeout
+                
+                # Track and log response time
+                elapsed_time = time.time() - start_time
+                print(f"Response generated in {elapsed_time:.2f} seconds")
+                
+            except Exception as timeout_error:
+                elapsed_time = time.time() - start_time
+                print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                
+                # Try a fallback approach
+                try:
+                    print("Attempting fallback response generation...")
+                    formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
+                    fallback_response = self.llm.predict(formatted_fallback_prompt)
+                    
+                    # Manually add the response to memory
+                    self.memory.chat_memory.add_ai_message(fallback_response)
+                    
+                    # Increment conversation round counter even when using fallback
+                    self.conversation_rounds += 1
+                    print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in existing_message)")
+                    
+                    return fallback_response
+                except Exception as fallback_error:
+                    print(f"Fallback approach also failed: {fallback_error}")
+                    raise timeout_error
+            
+            # After getting a response, log the exchange
+            self._log_exchange(user_input, response)
+            
+            # Increment conversation round counter after successful completion
+            self.conversation_rounds += 1
+            print(f"Conversation round incremented to {self.conversation_rounds} (via existing_message)")
+            
+            # Step 3: Return the response
+            return response
+            
+        except Exception as e:
+            error_msg = str(e)
+            print(f"Error in conversation processing: {error_msg}")
+            
+            if "timeout" in error_msg.lower():
+                return "I'm taking too long to respond. Let's try a different approach."
+                
+            return "I'm having trouble processing that request. Let's try again." 
+
+    def add_ai_message_to_memory(self, ai_message):
+        """
+        Add an AI message to memory properly, ensuring both chat_memory and buffer are updated.
+        This preserves ConversationSummaryBufferMemory functionality.
+        
+        Args:
+            ai_message (str): The AI's message to add
+        """
+        # For ConversationSummaryBufferMemory, we need to add the message to the buffer as well
+        # We use an empty user input as we're just adding the AI response
+        self.memory.save_context({"input": ""}, {"output": ai_message})
+        
+        # Now remove the empty user message that was added as a side effect
+        if len(self.memory.chat_memory.messages) >= 2:
+            if self.memory.chat_memory.messages[-2].type == 'human' and self.memory.chat_memory.messages[-2].content == "":
+                # Remove the empty human message
+                self.memory.chat_memory.messages.pop(-2)
+        
+        print(f"Added AI message to memory: '{ai_message[:50]}...'")
+        
+        # Debug buffer state
+        if hasattr(self.memory, 'buffer'):
+            print(f"Buffer size after adding: {len(self.memory.buffer)}") 

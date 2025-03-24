@@ -168,52 +168,59 @@ def main():
                     text_to_speech(response)
                     continue
                 
-                # Special command to save history to file
-                elif any(save_cmd in transcription_lower for save_cmd in ["save history", "export history", "save conversation"]):
-                    save_conversation_history(conversation)
-                    response = "Conversation history has been saved to 'conversation_history.txt'."
-                    print(f"Assistant: {response}")
-                    text_to_speech(response)
-                    continue
+                # # Special command to save history to file
+                # elif any(save_cmd in transcription_lower for save_cmd in ["save history", "export history", "save conversation"]):
+                #     save_conversation_history(conversation)
+                #     response = "Conversation history has been saved to 'conversation_history.txt'."
+                #     print(f"Assistant: {response}")
+                #     text_to_speech(response)
+                #     continue
                 
-                # Special command for debugging
-                elif any(debug_cmd in transcription_lower for debug_cmd in ["debug memory", "debug"]):
-                    debug_conversation_memory(conversation)
-                    response = "Debug information has been displayed in the console."
-                    print(f"Assistant: {response}")
-                    text_to_speech(response)
-                    continue
+                # # Special command for debugging
+                # elif any(debug_cmd in transcription_lower for debug_cmd in ["debug memory", "debug"]):
+                #     debug_conversation_memory(conversation)
+                #     response = "Debug information has been displayed in the console."
+                #     print(f"Assistant: {response}")
+                #     text_to_speech(response)
+                #     continue
                 
-                # Step 4: Process the user's input and generate a response
-                print(RESPONSE_START_MESSAGE)  # Inform user we're thinking
-                try:
-                    # Add timeout protection for API call
-                    start_time = time.time()
-                    response = conversation.process_input(transcription)
-                    processing_time = time.time() - start_time
-                    print(f"Processing completed in {processing_time:.2f} seconds")
-                except Exception as e:
-                    print(f"Error processing input: {e}")
-                    response = "I'm having trouble processing that right now. Could we try something else?"
+                # Step 4: Add the user's message to conversation history
+                # We need to properly add to memory to preserve buffer functionality
+                conversation.add_user_message_to_memory(transcription)
                 
-                # Step 5: Display and speak the response
-                print(f"Assistant: {response}")
-                text_to_speech(response)  # Convert text to spoken audio
-                
-                # Increment turn counter after each exchange
-                turn_counter += 1
-                
-                # Check if the conversation should be wrapped up
+                # Step 5: Check if the conversation should be wrapped up BEFORE processing with main LLM
                 elapsed_time = time.time() - session_start
-                if turn_counter >= max_turns or conversation.should_wrap_up() or elapsed_time >= 30*60:  # 30 min session limit
+                wrap_up_requested = False
+                
+                # Define variables to track wrap-up cooldown if they don't exist
+                if not hasattr(main, 'wrap_up_cooldown'):
+                    main.wrap_up_cooldown = 0
+                if not hasattr(main, 'wrap_up_time_extension'):
+                    main.wrap_up_time_extension = 0
+                if not hasattr(main, 'ignore_should_wrap_up'):
+                    main.ignore_should_wrap_up = False
+                
+                # Check if we're in the cooldown period
+                if main.wrap_up_cooldown > 0:
+                    print(f"Wrap-up cooldown active: {main.wrap_up_cooldown} exchanges remaining")
+                    main.wrap_up_cooldown -= 1
+                    
+                # Only check wrap-up conditions if not in cooldown
+                elif (turn_counter >= max_turns or 
+                      (not main.ignore_should_wrap_up and conversation.should_wrap_up()) or 
+                      elapsed_time >= (30*60 + main.wrap_up_time_extension)):  # 30 min + any extension
+                    
                     # Choose the appropriate wrap-up prompt based on what triggered it
                     wrap_prompt = ""
-                    if conversation.should_wrap_up():
+                    if not main.ignore_should_wrap_up and conversation.should_wrap_up():
                         # Content-based wrap-up (detected Way Forward content)
                         wrap_prompt = "It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize."
-                    elif turn_counter >= max_turns or elapsed_time >= 30*60:
+                    elif turn_counter >= max_turns or elapsed_time >= (30*60 + main.wrap_up_time_extension):
                         # Time or message count based wrap-up
                         wrap_prompt = "I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize."
+                    
+                    # Add the wrap-up prompt to conversation history before presenting it
+                    conversation.add_ai_message_to_memory(wrap_prompt)
                     
                     print(f"\nAssistant: {wrap_prompt}")
                     text_to_speech(wrap_prompt)
@@ -226,6 +233,9 @@ def main():
                     
                     if confirmation:
                         print(f"You: {confirmation}")
+                        
+                        # Add this confirmation response to the conversation history as well
+                        conversation.add_user_message_to_memory(confirmation)
                         
                         # More stringent confirmation commands
                         confirmation_lower = confirmation.lower()
@@ -240,6 +250,8 @@ def main():
                         )
                         
                         if has_explicit_command or affirmative_with_context:
+                            wrap_up_requested = True
+                            
                             # Get the current conversation summary
                             summary_data = conversation.get_conversation_summary()
                             summary = summary_data.get('summary', 'No summary available.')
@@ -266,13 +278,59 @@ def main():
                                 error_response = "I had trouble creating a final summary. Let's continue our conversation."
                                 print(f"Assistant: {error_response}")
                                 text_to_speech(error_response)
+                                wrap_up_requested = False  # If error occurred, continue conversation
                         else:
                             # User doesn't want to wrap up
                             reminder = "Okay, let's continue our conversation."
                             print(f"Assistant: {reminder}")
                             text_to_speech(reminder)
-                            # Reset turn counter to avoid immediate re-prompting
+                            # Add coach's response to memory
+                            conversation.add_ai_message_to_memory(reminder)
+                            
+                            # Reset wrap-up conditions and add cooldown
+                            # 1. Reset turn counter to avoid immediate re-prompting
                             turn_counter = max(0, turn_counter - 5)
+                            
+                            # 2. Set cooldown period for 5 conversation exchanges
+                            main.wrap_up_cooldown = 5
+                            print(f"Set wrap-up cooldown for next {main.wrap_up_cooldown} exchanges")
+                            
+                            # 3. Extend session timeout by 5 minutes
+                            main.wrap_up_time_extension += 5 * 60  # 5 minutes in seconds
+                            print(f"Extended session timeout by 5 minutes (total extension: {main.wrap_up_time_extension/60:.1f} minutes)")
+                            
+                            # 4. Temporarily ignore should_wrap_up() results
+                            main.ignore_should_wrap_up = True
+                            print("Ignoring should_wrap_up() results until cooldown ends")
+                
+                # Step 6: Only process with main LLM if we're not wrapping up
+                if not wrap_up_requested:
+                    print(RESPONSE_START_MESSAGE)  # Inform user we're thinking
+                    try:
+                        # Since we already added the user message to memory, we need to
+                        # process it differently to avoid duplication
+                        start_time = time.time()
+                        
+                        # Use our dedicated method to process input without adding to memory again
+                        response = conversation.process_input_with_existing_message(transcription)
+                        
+                        processing_time = time.time() - start_time
+                        print(f"Processing completed in {processing_time:.2f} seconds")
+                    except Exception as e:
+                        print(f"Error processing input: {e}")
+                        response = "I'm having trouble processing that right now. Could we try something else?"
+                    
+                    # Step 7: Display and speak the response
+                    print(f"Assistant: {response}")
+                    text_to_speech(response)  # Convert text to spoken audio
+                    
+                    # Increment turn counter after each exchange
+                    turn_counter += 1
+                    
+                    # Reset ignore_should_wrap_up flag if cooldown is over
+                    if main.wrap_up_cooldown == 0 and main.ignore_should_wrap_up:
+                        main.ignore_should_wrap_up = False
+                        print("Cooldown ended, should_wrap_up() results will be checked again")
             else:
                 # Handle case where transcription failed
                 print("No transcription available. Please try again.")

@@ -107,7 +107,7 @@ class Conversation:
         self.memory = ConversationSummaryBufferMemory(
             llm=self.summary_llm,
             memory_key="chat_history",
-            max_token_limit=3000,  # Increased to retain more context
+            max_token_limit=2000,  # Increased to retain more context
             return_messages=True,
             prompt=custom_summary_template,
             verbose=True  # Make summarization process visible in console output
@@ -116,13 +116,19 @@ class Conversation:
         # Track if summarization has failed before
         self.summarization_failed = False
         
-        # Step 3: Create the prompt template with clear role separation
-        # This makes it easier for the model to understand who is speaking
-        prompt = ChatPromptTemplate.from_messages([
-            SystemMessage(content=SYSTEM_PROMPT),  # System prompt clearly labeled
+        # Add a conversation rounds counter that persists regardless of summarization
+        self.conversation_rounds = 0
+        
+        # Step 3: Create the prompt template with clear role separation and include conversation rounds
+        # This makes it easier for the model to understand who is speaking and track conversation progress
+        self.prompt_template = lambda rounds: ChatPromptTemplate.from_messages([
+            SystemMessage(content=f"{SYSTEM_PROMPT}\n\nCurrent conversation round: {rounds}/30"),  # System prompt with rounds info
             MessagesPlaceholder(variable_name="chat_history"),  # Dedicated placeholder for chat history
             HumanMessagePromptTemplate.from_template("{input}")  # Clear human input
         ])
+        
+        # Initialize the prompt with conversation_rounds = 0
+        prompt = self.prompt_template(self.conversation_rounds)
         
         # Step 4: Create the conversation chain
         # This connects the language model, memory, and prompt template
@@ -141,9 +147,6 @@ class Conversation:
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.log_file = os.path.join(self.log_dir, f"conversation_{self.session_id}.txt")
         self.summary_log_file = os.path.join(self.log_dir, f"summary_{self.session_id}.txt")
-        
-        # Add a conversation rounds counter that persists regardless of summarization
-        self.conversation_rounds = 0
     
     def get_conversation_summary(self):
         """
@@ -393,8 +396,15 @@ class Conversation:
         # Step 1: Check if the input is valid
         if not user_input:
             return "I couldn't hear you clearly. Could you please repeat that?"
-        
+            
         try:
+            # Add the input to memory
+            self.memory.chat_memory.add_user_message(user_input)
+            
+            # Update the conversation prompt with current conversation_rounds
+            updated_prompt = self.prompt_template(self.conversation_rounds)
+            self.conversation.prompt = updated_prompt
+            
             # Track the start time for timeout purposes
             start_time = time.time()
             
@@ -565,30 +575,22 @@ class Conversation:
         
         Uses a dedicated LLM instance with the CLOSING_PROMPT to create
         a structured summary with actionable next steps based on the
-        conversation history.
+        entire conversation history.
         
         Returns:
             str: The final summary and action plan
         """
         try:
-            # Get the current conversation summary
-            summary_data = self.get_conversation_summary()
-            summary = summary_data.get('summary', 'No summary available.')
+            # Get the entire conversation history
+            messages = self.get_conversation_history()
             
-            # If summary is empty, create a basic one from the conversation history
-            if not summary or summary == "":
-                messages = self.get_conversation_history()
-                # Format a basic summary from the last 10 messages
-                recent_messages = messages[-min(10, len(messages)):]
-                
-                summary = "Recent conversation summary:\n\n"
-                for msg in recent_messages:
-                    if msg.type == "human":
-                        summary += f"Client: {msg.content[:100]}...\n"
-                    else:
-                        summary += f"Coach: {msg.content[:100]}...\n"
-                
-                safe_print("No existing summary found, generated basic summary from recent messages.")
+            # Format the conversation history into a readable string
+            conversation_text = "Full conversation history:\n\n"
+            for msg in messages:
+                if msg.type == "human":
+                    conversation_text += f"Client: {msg.content}\n\n"
+                else:
+                    conversation_text += f"Coach: {msg.content}\n\n"
             
             # Create a dedicated LLM instance for the closing summary
             closing_llm = ChatOpenAI(
@@ -598,8 +600,9 @@ class Conversation:
             )
             
             # Create the closing chain with the explicitly formatted prompt
-            formatted_closing_prompt = CLOSING_PROMPT.format(summary=summary)
-            safe_print(f"Passing summary to closing prompt (first 100 chars): {summary[:100]}...")
+            # Note: CLOSING_PROMPT should be updated in config.py to handle full conversation history
+            formatted_closing_prompt = CLOSING_PROMPT.format(conversation_history=conversation_text)
+            safe_print("Passing complete conversation history to closing prompt...")
             
             # Use direct LLM prediction instead of chain to ensure proper formatting
             final_message = closing_llm.predict(formatted_closing_prompt)
@@ -638,6 +641,10 @@ class Conversation:
         try:
             # Track the start time for timeout purposes
             start_time = time.time()
+            
+            # Update the conversation prompt with current conversation_rounds
+            updated_prompt = self.prompt_template(self.conversation_rounds)
+            self.conversation.prompt = updated_prompt
             
             # Get the current summary before processing - with error handling
             old_summary = self._safe_get_summary()
@@ -843,6 +850,10 @@ class Conversation:
             
             # Remove any duplicates that might exist in memory
             self._remove_duplicate_messages()
+            
+            # Update the conversation prompt with current conversation_rounds
+            updated_prompt = self.prompt_template(self.conversation_rounds)
+            self.conversation.prompt = updated_prompt
             
             # Step 2: Get a response using the conversation chain
             try:

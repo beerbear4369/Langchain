@@ -139,6 +139,43 @@ class Conversation:
             verbose=False  # Don't print debug information
         )
         
+        # Patch the conversation's predict method to prevent empty inputs from being saved
+        original_predict = self.conversation.predict
+        
+        def patched_predict(input: str, **kwargs):
+            # If input is empty, don't save it to memory
+            if not input.strip():
+                # Get current history
+                chat_history = self.memory.chat_memory.messages
+                
+                # Prepare the prompt with existing history but without adding empty input
+                input_values = {"input": "", "chat_history": chat_history}
+                prompt_value = self.conversation.prompt.invoke(input_values)
+                
+                # Get response directly from LLM
+                response = self.llm.invoke(prompt_value.messages).content
+                
+                # Add only the assistant's response to memory
+                self.memory.chat_memory.add_ai_message(response)
+                
+                # Clean up any empty messages that might still exist
+                self._clean_empty_messages()
+                
+                return response
+            else:
+                # Use the original predict method for non-empty inputs
+                return original_predict(input, **kwargs)
+        
+        # Replace the predict method with our patched version
+        # This isn't allowed directly with Pydantic, so we use a wrapper approach
+        def predict_wrapper(*args, **kwargs):
+            return patched_predict(*args, **kwargs)
+            
+        # Store the original method
+        self._original_predict = original_predict
+        # Store our wrapper function
+        self._patched_predict = predict_wrapper
+        
         # Add logging directory
         self.log_dir = "conversation_logs"
         os.makedirs(self.log_dir, exist_ok=True)
@@ -206,11 +243,11 @@ class Conversation:
         """Log when the conversation summary is updated."""
         try:
             # Print to console as well for immediate visibility
-            safe_print("\n" + "!" * 80)
-            safe_print("SUMMARY UPDATE DETECTED!")
-            safe_print("Previous summary length: " + str(len(old_summary)))
-            safe_print("New summary length: " + str(len(new_summary)))
-            safe_print("!" * 80 + "\n")
+            # safe_print("\n" + "!" * 80)
+            # safe_print("SUMMARY UPDATE DETECTED!")
+            # safe_print("Previous summary length: " + str(len(old_summary)))
+            # safe_print("New summary length: " + str(len(new_summary)))
+            # safe_print("!" * 80 + "\n")
             
             with open(self.summary_log_file, "a", encoding="utf-8") as f:
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -230,7 +267,8 @@ class Conversation:
                 f.write(f"Summary length: {len(new_summary)}\n")
                 
         except Exception as e:
-            safe_print(f"Warning: Could not log summary update: {e}")
+            # safe_print(f"Warning: Could not log summary update: {e}")
+            pass
 
     def _safe_get_summary(self):
         """Safely get the current summary with error handling."""
@@ -295,27 +333,14 @@ class Conversation:
         history = self.get_conversation_history()
         
         # Add debug print statements
-        print("\n--- DEBUG CONVERSATION HISTORY ---")
-        print(f"Conversation rounds: {self.conversation_rounds}")
-        # # Print the entire conversation history instead of just the last 3 messages
-        # for i, msg in enumerate(history):
-        #     # Handle both dict and Message objects
-        #     if hasattr(msg, 'type') and hasattr(msg, 'content'):
-        #         # It's a Message object
-        #         msg_type = msg.type
-        #         msg_content = msg.content
-        #     else:
-        #         # It's a dict
-        #         msg_type = msg.get('type', 'unknown')
-        #         msg_content = msg.get('content', '')
-            
-        #     print(f"Message {i+1}: [{msg_type}] {msg_content[:100]}...")
-        print("--- END DEBUG ---\n")
+        # print("\n--- DEBUG CONVERSATION HISTORY ---")
+        # print(f"Conversation rounds: {self.conversation_rounds}")
+        # print("--- END DEBUG ---\n")
         
         # IMPORTANT: Only check for wrap-up if we have enough conversation rounds
         # Use conversation_rounds counter which is immune to summarization effects
-        if self.conversation_rounds < 15:  # Threshold set to 15 rounds (adjust as needed)
-            print(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds). Skipping LLM call.")
+        if self.conversation_rounds < 20:  # Threshold set to 15 rounds (adjust as needed)
+            # print(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds). Skipping LLM call.")
             return False
             
         try:
@@ -366,7 +391,7 @@ class Conversation:
             
             # Clean up and parse the response
             clean_response = response.strip().lower()
-            print(f"\n--- WRAP-UP DECISION ---\nLLM decision: '{clean_response}'\n--- END DECISION ---\n")
+            # print(f"\n--- WRAP-UP DECISION ---\nLLM decision: '{clean_response}'\n--- END DECISION ---\n")
             
             # Return True if the LLM says "yes", False otherwise
             return clean_response == "yes"
@@ -398,6 +423,10 @@ class Conversation:
             return "I couldn't hear you clearly. Could you please repeat that?"
             
         try:
+            # Clean up any empty messages first
+            self._remove_duplicate_messages()
+            self._clean_empty_messages()
+            
             # Add the input to memory
             self.memory.chat_memory.add_user_message(user_input)
             
@@ -424,18 +453,21 @@ class Conversation:
                     # If no timeout support, use the regular predict method
                     response = self.conversation.predict(input=user_input)
                 
+                # Clean up any empty messages that might have been introduced
+                self._clean_empty_messages()
+                
                 # Track and log response time
                 elapsed_time = time.time() - start_time
-                safe_print(f"Response generated in {elapsed_time:.2f} seconds")
+                # print(f"Response generated in {elapsed_time:.2f} seconds")
                 
             except Exception as timeout_error:
                 elapsed_time = time.time() - start_time
-                safe_print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                # print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
                 
                 # Try a fallback approach - simpler and more reliable
                 try:
                     # Let the user know we're trying again
-                    safe_print("Attempting fallback response generation...")
+                    # print("Attempting fallback response generation...")
                     
                     # Use a simpler prompt with the same model but direct call
                     formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
@@ -445,9 +477,12 @@ class Conversation:
                     self.memory.chat_memory.add_user_message(user_input)
                     self.memory.chat_memory.add_ai_message(fallback_response)
                     
+                    # Clean up any empty messages that might have been introduced
+                    self._clean_empty_messages()
+                    
                     # Increment conversation round counter even when using fallback
                     self.conversation_rounds += 1
-                    print(f"Conversation round incremented to {self.conversation_rounds} (via fallback)")
+                    # print(f"Conversation round incremented to {self.conversation_rounds} (via fallback)")
                     
                     return fallback_response
                 except Exception as fallback_error:
@@ -468,7 +503,7 @@ class Conversation:
             
             # Increment conversation round counter after successful completion
             self.conversation_rounds += 1
-            print(f"Conversation round incremented to {self.conversation_rounds}")
+            # print(f"Conversation round incremented to {self.conversation_rounds}")
             
             # Step 3: Return the response
             return response
@@ -503,7 +538,9 @@ class Conversation:
         Returns:
             list: List of conversation messages
         """
-        return self.memory.chat_memory.messages 
+        # Clean up any empty messages before returning history
+        self._clean_empty_messages()
+        return self.memory.chat_memory.messages
 
     def debug_summarization(self):
         """
@@ -513,9 +550,9 @@ class Conversation:
         Returns:
             dict: Debug information about the summarization process
         """
-        safe_print("\n" + "=" * 80)
-        safe_print("DEBUGGING SUMMARIZATION PROCESS")
-        safe_print("=" * 80)
+        # safe_print("\n" + "=" * 80)
+        # safe_print("DEBUGGING SUMMARIZATION PROCESS")
+        # safe_print("=" * 80)
         
         results = {
             'success': False,
@@ -531,12 +568,12 @@ class Conversation:
             results['summary_before'] = self._safe_get_summary()
             results['buffer_size_before'] = len(self.memory.buffer) if hasattr(self.memory, 'buffer') else 0
             
-            safe_print(f"Current summary length: {len(results['summary_before'])}")
-            safe_print(f"Current buffer size: {results['buffer_size_before']}")
+            # safe_print(f"Current summary length: {len(results['summary_before'])}")
+            # safe_print(f"Current buffer size: {results['buffer_size_before']}")
             
             # Add a dummy message to force summarization
             dummy_message = "This is a test message to trigger summarization. Let's discuss our progress on the project goals, particularly focusing on topic continuity and development. We need to make sure we maintain focus on the main topics we've been discussing." * 5
-            safe_print(f"Adding dummy message of length {len(dummy_message)}")
+            # safe_print(f"Adding dummy message of length {len(dummy_message)}")
             
             # Add directly to memory
             self.memory.save_context(
@@ -548,25 +585,26 @@ class Conversation:
             results['summary_after'] = self._safe_get_summary()
             results['buffer_size_after'] = len(self.memory.buffer) if hasattr(self.memory, 'buffer') else 0
             
-            safe_print(f"New summary length: {len(results['summary_after'])}")
-            safe_print(f"New buffer size: {results['buffer_size_after']}")
+            # safe_print(f"New summary length: {len(results['summary_after'])}")
+            # safe_print(f"New buffer size: {results['buffer_size_after']}")
             
             # Check if summarization happened
             if results['summary_before'] != results['summary_after']:
-                safe_print("✅ SUMMARIZATION SUCCESSFUL - Summary changed!")
+                # safe_print("✅ SUMMARIZATION SUCCESSFUL - Summary changed!")
                 results['success'] = True
             else:
-                safe_print("⚠️ No change in summary detected")
+                # safe_print("⚠️ No change in summary detected")
+                pass
             
             # Log the attempt
             self._log_summary_update(results['summary_before'], results['summary_after'])
             
         except Exception as e:
             error_msg = str(e)
-            safe_print(f"❌ ERROR during summarization debug: {error_msg}")
+            # safe_print(f"❌ ERROR during summarization debug: {error_msg}")
             results['error'] = error_msg
         
-        safe_print("=" * 80)
+        # safe_print("=" * 80)
         return results
         
     def generate_closing_summary(self):
@@ -602,7 +640,7 @@ class Conversation:
             # Create the closing chain with the explicitly formatted prompt
             # Note: CLOSING_PROMPT should be updated in config.py to handle full conversation history
             formatted_closing_prompt = CLOSING_PROMPT.format(conversation_history=conversation_text)
-            safe_print("Passing complete conversation history to closing prompt...")
+            # safe_print("Passing complete conversation history to closing prompt...")
             
             # Use direct LLM prediction instead of chain to ensure proper formatting
             final_message = closing_llm.predict(formatted_closing_prompt)
@@ -614,11 +652,12 @@ class Conversation:
                     f.write("=" * 50 + "\n\n")
                     f.write(final_message)
             except Exception as log_error:
-                safe_print(f"Warning: Could not log final summary: {log_error}")
+                # safe_print(f"Warning: Could not log final summary: {log_error}")
+                pass
                 
             return final_message
         except Exception as e:
-            safe_print(f"Error generating closing summary: {e}")
+            # safe_print(f"Error generating closing summary: {e}")
             return "I'm unable to generate a final summary at this time. Let's continue our conversation."
 
     def process_input_without_adding_to_memory(self, user_input, timeout_seconds=60):
@@ -641,6 +680,10 @@ class Conversation:
         try:
             # Track the start time for timeout purposes
             start_time = time.time()
+            
+            # Clean up any duplicates or empty messages before processing
+            self._remove_duplicate_messages()
+            self._clean_empty_messages()
             
             # Update the conversation prompt with current conversation_rounds
             updated_prompt = self.prompt_template(self.conversation_rounds)
@@ -682,7 +725,7 @@ class Conversation:
                     # Trigger summarization if needed
                     if hasattr(self.memory, 'buffer') and len(self.memory.buffer) > self.memory.max_token_limit:
                         # Force summarization
-                        print("Triggering manual summarization due to buffer size")
+                        # print("Triggering manual summarization due to buffer size")
                         buffer_content = self.memory.buffer
                         summary = self.memory.summarize(buffer_content)
                         if summary:
@@ -714,7 +757,8 @@ class Conversation:
                     
                     # Trigger summarization if needed
                     if hasattr(self.memory, 'buffer') and len(self.memory.buffer) > self.memory.max_token_limit:
-                        print("Triggering manual summarization due to buffer size")
+                        # Force summarization
+                        # print("Triggering manual summarization due to buffer size")
                         buffer_content = self.memory.buffer
                         summary = self.memory.summarize(buffer_content)
                         if summary:
@@ -725,16 +769,19 @@ class Conversation:
                 
                 # Track and log response time
                 elapsed_time = time.time() - start_time
-                print(f"Response generated in {elapsed_time:.2f} seconds")
+                # print(f"Response generated in {elapsed_time:.2f} seconds")
+                
+                # Clean up any empty messages that might have been introduced
+                self._clean_empty_messages()
                 
             except Exception as timeout_error:
                 elapsed_time = time.time() - start_time
-                print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                # print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
                 
                 # Try a fallback approach - simpler and more reliable
                 try:
                     # Let the user know we're trying again
-                    print("Attempting fallback response generation...")
+                    # print("Attempting fallback response generation...")
                     
                     # Use a simpler prompt with the same model but direct call
                     formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
@@ -743,9 +790,12 @@ class Conversation:
                     # Only add the AI's response to memory (input already added)
                     self.memory.chat_memory.add_ai_message(fallback_response)
                     
+                    # Clean up any empty messages that might have been introduced
+                    self._clean_empty_messages()
+                    
                     # Increment conversation round counter even when using fallback
                     self.conversation_rounds += 1
-                    print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in without_adding)")
+                    # print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in without_adding)")
                     
                     return fallback_response
                 except Exception as fallback_error:
@@ -766,7 +816,7 @@ class Conversation:
             
             # Increment conversation round counter after successful completion
             self.conversation_rounds += 1
-            print(f"Conversation round incremented to {self.conversation_rounds} (via without_adding)")
+            # print(f"Conversation round incremented to {self.conversation_rounds} (via without_adding)")
             
             # Step 3: Return the response
             return response
@@ -782,27 +832,41 @@ class Conversation:
             return "I'm having trouble processing that request. Let's try again."
             
     def _remove_duplicate_messages(self):
-        """Helper method to remove duplicate consecutive messages in chat history."""
-        # Get the current messages
+        """Remove any duplicate messages from chat memory."""
         messages = self.memory.chat_memory.messages
+        i = len(messages) - 1
         
-        # Nothing to do if we have 0 or 1 messages
-        if len(messages) < 2:
+        # Skip if fewer than 2 messages
+        if i < 1:
             return
             
-        # Scan for consecutive duplicate messages with the same content and type
-        i = len(messages) - 1
-        while i > 0:
+        while i > 0:  # Start from the end, comparing each message with the previous
             current = messages[i]
             previous = messages[i-1]
             
-            # Check if messages are duplicates (same type and content)
             if (current.type == previous.type and 
                 current.content == previous.content):
                 # Found duplicate - remove the current (later) message
-                print(f"Removing duplicate message: [{current.type}] {current.content[:50]}...")
+                # print(f"Removing duplicate message: [{current.type}] {current.content[:50]}...")
                 messages.pop(i)
             i -= 1 
+            
+    def _clean_empty_messages(self):
+        """Remove any empty messages from chat memory."""
+        messages = self.memory.chat_memory.messages
+        cleaned = False
+        
+        # Iterate through messages and remove empty ones
+        i = len(messages) - 1
+        while i >= 0:
+            message = messages[i]
+            if message.content == "":
+                # print(f"Removing empty {message.type} message from memory")
+                messages.pop(i)
+                cleaned = True
+            i -= 1
+            
+        return cleaned
 
     def add_user_message_to_memory(self, user_input):
         """
@@ -812,8 +876,9 @@ class Conversation:
         Args:
             user_input (str): The user's message to add
         """
-        # Remove any existing duplicates first
+        # Clean up any existing duplicates and empty messages first
         self._remove_duplicate_messages()
+        self._clean_empty_messages()
         
         # Use the memory's proper channels to add the message
         # This ensures the buffer is updated correctly for summarization
@@ -823,12 +888,42 @@ class Conversation:
         if len(self.memory.chat_memory.messages) > 0 and self.memory.chat_memory.messages[-1].content == "":
             self.memory.chat_memory.messages.pop()
             
-        print(f"Added user message to memory: '{user_input[:50]}...'")
+        # Final cleanup of any empty messages
+        self._clean_empty_messages()
+            
+        # print(f"Added user message to memory: '{user_input[:50]}...'")
         
         # Debug buffer state
         if hasattr(self.memory, 'buffer'):
-            print(f"Buffer size after adding: {len(self.memory.buffer)}")
+            # print(f"Buffer size after adding: {len(self.memory.buffer)}")
+            pass
+            
+    def add_ai_message_to_memory(self, ai_message):
+        """
+        Add an AI message to memory properly, ensuring both chat_memory and buffer are updated.
+        This preserves ConversationSummaryBufferMemory functionality.
         
+        Args:
+            ai_message (str): The AI's message to add
+        """
+        # Clean up any existing duplicates and empty messages first
+        self._remove_duplicate_messages()
+        self._clean_empty_messages()
+        
+        # For ConversationSummaryBufferMemory, we need to add the message to the buffer as well
+        # We use an empty user input as we're just adding the AI response
+        self.memory.save_context({"input": ""}, {"output": ai_message})
+        
+        # Clean up any empty messages that might have been introduced
+        self._clean_empty_messages()
+        
+        # print(f"Added AI message to memory: '{ai_message[:50]}...'")
+        
+        # Debug buffer state
+        if hasattr(self.memory, 'buffer'):
+            # print(f"Buffer size after adding: {len(self.memory.buffer)}")
+            pass
+            
     def process_input_with_existing_message(self, user_input, timeout_seconds=60):
         """
         Process user input that's already been added to memory correctly.
@@ -848,8 +943,9 @@ class Conversation:
             # Track the start time for timeout purposes
             start_time = time.time()
             
-            # Remove any duplicates that might exist in memory
+            # Remove any duplicates and empty messages that might exist in memory
             self._remove_duplicate_messages()
+            self._clean_empty_messages()
             
             # Update the conversation prompt with current conversation_rounds
             updated_prompt = self.prompt_template(self.conversation_rounds)
@@ -867,17 +963,20 @@ class Conversation:
                 # But we use the conversation predict method to properly handle memory
                 response = self.conversation.predict(input="")
                 
+                # Clean up any empty messages immediately
+                self._clean_empty_messages()
+                
                 # Restore timeout if needed
                 if hasattr(self.llm, 'request_timeout'):
                     self.llm.request_timeout = original_timeout
                 
                 # Track and log response time
                 elapsed_time = time.time() - start_time
-                print(f"Response generated in {elapsed_time:.2f} seconds")
+                # print(f"Response generated in {elapsed_time:.2f} seconds")
                 
             except Exception as timeout_error:
                 elapsed_time = time.time() - start_time
-                print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                # print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
                 
                 # Try a fallback approach
                 try:
@@ -888,9 +987,12 @@ class Conversation:
                     # Manually add the response to memory
                     self.memory.chat_memory.add_ai_message(fallback_response)
                     
+                    # Cleanup after adding the message
+                    self._clean_empty_messages()
+                    
                     # Increment conversation round counter even when using fallback
                     self.conversation_rounds += 1
-                    print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in existing_message)")
+                    # print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in existing_message)")
                     
                     return fallback_response
                 except Exception as fallback_error:
@@ -902,7 +1004,7 @@ class Conversation:
             
             # Increment conversation round counter after successful completion
             self.conversation_rounds += 1
-            print(f"Conversation round incremented to {self.conversation_rounds} (via existing_message)")
+            # print(f"Conversation round incremented to {self.conversation_rounds} (via existing_message)")
             
             # Step 3: Return the response
             return response
@@ -916,26 +1018,50 @@ class Conversation:
                 
             return "I'm having trouble processing that request. Let's try again." 
 
-    def add_ai_message_to_memory(self, ai_message):
+    def debug_messages(self):
         """
-        Add an AI message to memory properly, ensuring both chat_memory and buffer are updated.
-        This preserves ConversationSummaryBufferMemory functionality.
+        Debug the messages in the conversation memory to ensure there are no empty messages.
+        This method checks for and removes any empty messages, and reports on the state of the conversation.
         
-        Args:
-            ai_message (str): The AI's message to add
+        Returns:
+            dict: Information about the conversation state
         """
-        # For ConversationSummaryBufferMemory, we need to add the message to the buffer as well
-        # We use an empty user input as we're just adding the AI response
-        self.memory.save_context({"input": ""}, {"output": ai_message})
+        # Clean up first
+        cleaned = self._clean_empty_messages()
         
-        # Now remove the empty user message that was added as a side effect
-        if len(self.memory.chat_memory.messages) >= 2:
-            if self.memory.chat_memory.messages[-2].type == 'human' and self.memory.chat_memory.messages[-2].content == "":
-                # Remove the empty human message
-                self.memory.chat_memory.messages.pop(-2)
+        # Get the cleaned messages
+        messages = self.memory.chat_memory.messages
         
-        print(f"Added AI message to memory: '{ai_message[:50]}...'")
+        # Check for any remaining empty messages
+        empty_messages = [i for i, msg in enumerate(messages) if msg.content == ""]
         
-        # Debug buffer state
-        if hasattr(self.memory, 'buffer'):
-            print(f"Buffer size after adding: {len(self.memory.buffer)}") 
+        # Count messages by type
+        human_messages = sum(1 for msg in messages if msg.type == "human")
+        ai_messages = sum(1 for msg in messages if msg.type == "ai")
+        
+        # Check for alternating pattern (should be human, ai, human, ai...)
+        alternating = True
+        for i in range(1, len(messages)):
+            if messages[i].type == messages[i-1].type:
+                alternating = False
+                break
+                
+        # Prepare report
+        report = {
+            "total_messages": len(messages),
+            "human_messages": human_messages,
+            "ai_messages": ai_messages,
+            "empty_messages_found": len(empty_messages) > 0,
+            "empty_message_indices": empty_messages,
+            "alternating_pattern": alternating,
+            "cleaned_performed": cleaned,
+            "first_message_type": messages[0].type if messages else None,
+            "last_message_type": messages[-1].type if messages else None
+        }
+        
+        # print("\nCONVERSATION MEMORY DEBUG:")
+        # for key, value in report.items():
+        #     print(f"  {key}: {value}")
+        # print("")
+        
+        return report 

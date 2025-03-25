@@ -61,14 +61,14 @@ print("=== End Config Debug Info ===")
 # MODEL_NAME ="ft:gpt-4o-2024-08-06:bearly-alone:coach-prompt5-vetted:BC9gVbxa:ckpt-step-72"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o-mini without validation
-#MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetteddata-testcongverge:BCibfvKw"
+MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetteddata-testcongverge:BCibfvKw"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o-mini with validation
 # MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetted-testconverge-validation:BCjDCjU6"
 
 # Model for testing with out of the shell model
 # MODEL_NAME = "gpt-4.5-preview"
-MODEL_NAME = "o3-mini-2025-01-31"
+# MODEL_NAME = "o3-mini-2025-01-31"
 
 # Temperature configuration based on model type
 def get_model_temperature():
@@ -102,7 +102,7 @@ RESPONSE_START_MESSAGE = "Responding..."
 # These templates define the various prompts used in the system
 
 # Main system prompt for the coaching conversation
-SYSTEM_PROMPT = """Role: Your name is Kuku. Act as a patient and inspiring Coach using the T-GROW model. Your top priority is to provoke thinking and deep awarness to let client think of a perspective they not think before, and thereafter drive new behaviour. Prioritize structured, step-by-step conversations while dynamically adapting to shifts in the coachee's goals. Foster self-discovery through open-ended questions and avoid advice-giving.
+SYSTEM_PROMPT = """Role: Act as a patient and inspiring Coach using the T-GROW model. Your top priority is to provoke thinking and deep awarness to let client think of a perspective they not think before, and thereafter drive new behaviour. Prioritize structured, step-by-step conversations while dynamically adapting to shifts in the coachee's goals. Foster self-discovery through open-ended questions and avoid advice-giving.
 You should expect the conversation to be 30 round for the entire conversation and spend most of the time on reality to dig deeper. The key is to trigger thought, not to find the surface answer.
 Structured Conversation Process
 	1. Step 1: Topic

@@ -136,6 +136,9 @@ def main():
     # Main conversation loop - continues until user exits
     while True:
         try:
+            # Clean up any lingering empty messages at the start of each loop
+            conversation._clean_empty_messages()
+            
             # Step 1: Record audio from the microphone
             print(RECORDING_START_MESSAGE)  # Inform user we're listening
             audio_file = record_audio()  # Record and save to temporary file
@@ -168,18 +171,85 @@ def main():
                     text_to_speech(response)
                     continue
                 
+                # Check for user-initiated wrap-up requests
+                elif any(wrap_cmd in transcription_lower for wrap_cmd in ["wrap up", "end session", "finish conversation", "summarize and end", "let's conclude", "finish session"]):
+                    wrap_prompt = "Would you like to wrap up our session with a final summary and action plan? Please confirm by saying 'yes' or 'wrap up and summarize'."
+                    conversation.add_ai_message_to_memory(wrap_prompt)
+                    print(f"\nAssistant: {wrap_prompt}")
+                    text_to_speech(wrap_prompt)
+                    
+                    # Record user's confirmation response
+                    print(RECORDING_START_MESSAGE)
+                    confirm_audio = record_audio()
+                    print(RECORDING_STOP_MESSAGE)
+                    confirmation = transcribe_audio(confirm_audio)
+                    
+                    if confirmation:
+                        print(f"You: {confirmation}")
+                        
+                        # Add this confirmation response to the conversation history
+                        conversation.add_user_message_to_memory(confirmation)
+                        
+                        # Check for confirmation commands
+                        confirmation_lower = confirmation.lower()
+                        explicit_commands = ["wrap up and summarize", "wrap up", "summarize", "end session", "yes"]
+                        has_explicit_command = any(cmd in confirmation_lower for cmd in explicit_commands)
+                        
+                        # Check for affirmative responses with context
+                        affirmative_with_context = (
+                            ("yes" in confirmation_lower or "yeah" in confirmation_lower or "sure" in confirmation_lower) and
+                            ("summary" in confirmation_lower or "wrap" in confirmation_lower or "end" in confirmation_lower)
+                        )
+                        
+                        if has_explicit_command or affirmative_with_context:
+                            # User confirmed wrap-up request
+                            wrap_up_requested = True
+                            
+                            try:
+                                # Generate the final summary and action plan
+                                print("Generating final summary and action plan...")
+                                final_message = conversation.generate_closing_summary()
+                                print(f"Assistant: {final_message}")
+                                text_to_speech(final_message)
+                                
+                                # Save the conversation and final summary
+                                save_conversation_history(conversation)
+                                with open("final_summary.txt", "w", encoding="utf-8") as f:
+                                    f.write("FINAL SUMMARY AND ACTION PLAN\n")
+                                    f.write("="*50 + "\n\n")
+                                    f.write(final_message)
+                                print("Final summary saved to 'final_summary.txt'")
+                                
+                                # End the session
+                                break
+                            except Exception as e:
+                                print(f"Error generating final summary: {e}")
+                                error_response = "I had trouble creating a final summary. Let's continue our conversation."
+                                print(f"Assistant: {error_response}")
+                                text_to_speech(error_response)
+                                wrap_up_requested = False  # If error occurred, continue conversation
+                        else:
+                            # User doesn't want to wrap up
+                            reminder = "Okay, let's continue our conversation."
+                            print(f"Assistant: {reminder}")
+                            text_to_speech(reminder)
+                            # Add coach's response to memory
+                            conversation.add_ai_message_to_memory(reminder)
+                            continue
+                
+                # Special command for debugging
+                elif any(debug_cmd in transcription_lower for debug_cmd in ["debug messages", "check messages", "debug conversation"]):
+                    # Call the debug_messages function to check for issues
+                    conversation.debug_messages()
+                    response = "I've performed a debug check on the conversation messages. Results are in the console."
+                    print(f"Assistant: {response}")
+                    text_to_speech(response)
+                    continue
+                
                 # # Special command to save history to file
                 # elif any(save_cmd in transcription_lower for save_cmd in ["save history", "export history", "save conversation"]):
                 #     save_conversation_history(conversation)
                 #     response = "Conversation history has been saved to 'conversation_history.txt'."
-                #     print(f"Assistant: {response}")
-                #     text_to_speech(response)
-                #     continue
-                
-                # # Special command for debugging
-                # elif any(debug_cmd in transcription_lower for debug_cmd in ["debug memory", "debug"]):
-                #     debug_conversation_memory(conversation)
-                #     response = "Debug information has been displayed in the console."
                 #     print(f"Assistant: {response}")
                 #     text_to_speech(response)
                 #     continue
@@ -202,7 +272,7 @@ def main():
                 
                 # Check if we're in the cooldown period
                 if main.wrap_up_cooldown > 0:
-                    print(f"Wrap-up cooldown active: {main.wrap_up_cooldown} exchanges remaining")
+                    # print(f"Wrap-up cooldown active: {main.wrap_up_cooldown} exchanges remaining")
                     main.wrap_up_cooldown -= 1
                     
                 # Only check wrap-up conditions if not in cooldown
@@ -293,15 +363,15 @@ def main():
                             
                             # 2. Set cooldown period for 5 conversation exchanges
                             main.wrap_up_cooldown = 5
-                            print(f"Set wrap-up cooldown for next {main.wrap_up_cooldown} exchanges")
+                            # print(f"Set wrap-up cooldown for next {main.wrap_up_cooldown} exchanges")
                             
                             # 3. Extend session timeout by 5 minutes
                             main.wrap_up_time_extension += 5 * 60  # 5 minutes in seconds
-                            print(f"Extended session timeout by 5 minutes (total extension: {main.wrap_up_time_extension/60:.1f} minutes)")
+                            # print(f"Extended session timeout by 5 minutes (total extension: {main.wrap_up_time_extension/60:.1f} minutes)")
                             
                             # 4. Temporarily ignore should_wrap_up() results
                             main.ignore_should_wrap_up = True
-                            print("Ignoring should_wrap_up() results until cooldown ends")
+                            # print("Ignoring should_wrap_up() results until cooldown ends")
                 
                 # Step 6: Only process with main LLM if we're not wrapping up
                 if not wrap_up_requested:
@@ -315,7 +385,7 @@ def main():
                         response = conversation.process_input_with_existing_message(transcription)
                         
                         processing_time = time.time() - start_time
-                        print(f"Processing completed in {processing_time:.2f} seconds")
+                        # print(f"Processing completed in {processing_time:.2f} seconds")
                     except Exception as e:
                         print(f"Error processing input: {e}")
                         response = "I'm having trouble processing that right now. Could we try something else?"
@@ -330,7 +400,7 @@ def main():
                     # Reset ignore_should_wrap_up flag if cooldown is over
                     if main.wrap_up_cooldown == 0 and main.ignore_should_wrap_up:
                         main.ignore_should_wrap_up = False
-                        print("Cooldown ended, should_wrap_up() results will be checked again")
+                        # print("Cooldown ended, should_wrap_up() results will be checked again")
             else:
                 # Handle case where transcription failed
                 print("No transcription available. Please try again.")

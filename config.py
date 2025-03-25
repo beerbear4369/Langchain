@@ -64,11 +64,11 @@ print("=== End Config Debug Info ===")
 #MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetteddata-testcongverge:BCibfvKw"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o-mini with validation
-MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetted-testconverge-validation:BCjDCjU6"
+# MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetted-testconverge-validation:BCjDCjU6"
 
 # Model for testing with out of the shell model
 # MODEL_NAME = "gpt-4.5-preview"
-# MODEL_NAME = "o3-mini-2025-01-31"
+MODEL_NAME = "o3-mini-2025-01-31"
 
 # Temperature configuration based on model type
 def get_model_temperature():

@@ -1,0 +1,18 @@
+User: Hello.
+Coach: Hi!
+--------------------------------------------------
+User: Let's discuss about my career. I have a strong self-doubt now.
+Coach: Okay.
+--------------------------------------------------
+User: Yeah, so what do you want to discuss about?
+Coach: What would you like to talk about?
+--------------------------------------------------
+User: Sösailetu tuome pröpö.
+Coach: What did you just say?
+--------------------------------------------------
+User: My career progression
+Coach: My career progression
+--------------------------------------------------
+User: Yes.
+Coach: Kuku
+--------------------------------------------------

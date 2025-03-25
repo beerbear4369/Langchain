@@ -1,0 +1,18 @@
+User: Hello, what is your name?
+Coach: My name is Kuku.
+--------------------------------------------------
+User: Let's talk about my career progression issues.
+Coach: What does career progression mean to you?
+--------------------------------------------------
+User: And I'm in my 30s and now I'm basically doing two things at the moment. So I really don't see where I can grow up to be a successful entrepreneur or become something. I feel I'm starting to waste my precious time. It's a good time in my life.
+Coach: How do you know that you are not progressing?
+--------------------------------------------------
+User: Because you see that I'm still one person talking alone, I'm trying to be funny, I guess.
+Coach: So you are a comedian?
+--------------------------------------------------
+User: Wayo sostero.
+Coach: So what do you want to achieve in this coaching session?
+--------------------------------------------------
+User: I hope at the end of the coaching session, I could able to have a clearer view about my career.
+Coach: And on a scale of 1 to 10, how clear are you now?
+--------------------------------------------------

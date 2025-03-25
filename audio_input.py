@@ -33,9 +33,6 @@ def record_audio(duration=RECORD_SECONDS, min_duration=0.5):
     # Flag to indicate if recording should stop
     stop_recording = threading.Event()
     
-    # Add a short delay to give user time to prepare
-    time.sleep(0.5)
-    
     # Function to check for key press in a separate thread
     def check_for_keypress():
         # Use the appropriate method based on the operating system
@@ -91,31 +88,45 @@ def record_audio(duration=RECORD_SECONDS, min_duration=0.5):
         max_chunks = int(SAMPLE_RATE / CHUNK_SIZE * duration)
         
         # Track recording duration to ensure minimum length
-        recording_duration = 0
         recording_start = time.time()
+        
+        # Record buffer period (capture audio before the user is fully ready)
+        # This ensures we don't miss the beginning of speech
+        buffer_chunks = int(SAMPLE_RATE / CHUNK_SIZE * 0.2)  # 200ms buffer
+        for i in range(buffer_chunks):
+            data = stream.read(CHUNK_SIZE)  # Read one chunk of audio
+            frames.append(data)  # Add to our list
+        
+        print("Ready! Speak now...")
         
         # Record until key is pressed or max duration is reached
         for i in range(max_chunks):
-            if stop_recording.is_set() and recording_duration >= min_duration:
-                # Only stop if we've recorded at least the minimum duration
-                break
-                
+            # Read current chunk before checking stop flag
+            # This ensures we capture audio right up to the stopping point
             data = stream.read(CHUNK_SIZE)  # Read one chunk of audio
             frames.append(data)  # Add to our list
             
-            # Update recording duration
+            # Calculate recording duration
             recording_duration = time.time() - recording_start
             
-            # Visual indicator of recording progress
-            if i % 10 == 0:  # Update every 10 chunks
-                remaining = duration - (i * CHUNK_SIZE / SAMPLE_RATE)
+            # Visual indicator of recording progress - update more frequently
+            if i % 5 == 0:  # Update every 5 chunks for more responsive feedback
+                remaining = duration - recording_duration
                 print(f"\rRecording... {remaining:.1f}s remaining (or press any key to stop)", end="")
+            
+            # Check if we should stop AFTER capturing the current chunk
+            if stop_recording.is_set() and recording_duration >= min_duration:
+                # Only stop if we've recorded at least the minimum duration
+                # Add a small tail buffer to catch the end of speech
+                tail_chunks = int(SAMPLE_RATE / CHUNK_SIZE * 0.2)  # 200ms buffer
+                for _ in range(tail_chunks):
+                    data = stream.read(CHUNK_SIZE)
+                    frames.append(data)
+                break
         
         # Force minimum recording duration if stopped too early
         if recording_duration < min_duration:
             print(f"\rEnsuring minimum recording duration ({min_duration}s)...", end="")
-            time.sleep(min_duration - recording_duration)
-            # Record a bit more to ensure we have enough data
             additional_chunks = int(SAMPLE_RATE / CHUNK_SIZE * (min_duration - recording_duration))
             for _ in range(additional_chunks):
                 data = stream.read(CHUNK_SIZE)

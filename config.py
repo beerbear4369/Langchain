@@ -55,19 +55,22 @@ print("=== End Config Debug Info ===")
 # MODEL_NAME ="ft:gpt-4o-2024-08-06:bearly-alone:coach-prompt4-realdata-4o-v3:B8GBRv5R"
 
 # Model fine-tuned on 7 March 2025 with 8 dialogues and new system prompt5 with user feedback 4o
-# MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-realdata-v1:B8MoGLxp:ckpt-step-80"
+MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-realdata-v1:B8MoGLxp:ckpt-step-80"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o
 # MODEL_NAME ="ft:gpt-4o-2024-08-06:bearly-alone:coach-prompt5-vetted:BC9gVbxa:ckpt-step-72"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o-mini without validation
-MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetteddata-testcongverge:BCibfvKw"
+# Export as AI coach B
+# MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetteddata-testcongverge:BCibfvKw"
 
 # Model fine-tuned on 19 March 2025 with 18 dialogues and new system prompt5 with vetted data on 4o-mini with validation
 # MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:bearly-alone:coach-prompt5-vetted-testconverge-validation:BCjDCjU6"
 
 # Model for testing with out of the shell model
 # MODEL_NAME = "gpt-4.5-preview"
+
+# Export as AI coach A
 # MODEL_NAME = "o3-mini-2025-01-31"
 
 # Temperature configuration based on model type

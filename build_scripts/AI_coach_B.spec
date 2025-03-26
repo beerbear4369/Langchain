@@ -7,10 +7,9 @@ import glob
 import tiktoken
 import sys
 
-# Determine if we're in the build_scripts directory
-script_dir = os.path.dirname(os.path.abspath(__file__))
-is_in_build_scripts = os.path.basename(script_dir) == 'build_scripts'
-root_dir = os.path.dirname(script_dir) if is_in_build_scripts else os.getcwd()
+# Define paths directly without using __file__
+root_dir = os.path.abspath(os.path.join(os.getcwd(), os.path.pardir if os.path.basename(os.getcwd()) == 'build_scripts' else '.'))
+script_dir = os.path.join(root_dir, 'build_scripts')
 
 # Find the tiktoken encoding files
 tiktoken_cache_dir = os.path.join(os.path.dirname(tiktoken.__file__), "*.tiktoken")

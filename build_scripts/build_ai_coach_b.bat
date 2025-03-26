@@ -1,7 +1,7 @@
 @echo off
 echo Building AI coach B executable with tiktoken fix...
 
-:: Navigate to the parent directory (project root)
+:: Since we're in the build_scripts directory, we need to build from the parent directory
 cd ..
 
 :: Ensure we're in the virtual environment

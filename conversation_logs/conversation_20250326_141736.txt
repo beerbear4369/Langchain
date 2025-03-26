@@ -1,0 +1,15 @@
+User: Hello, I want to talk about our progress of myself exploring on why I keep Mr. Fight.
+Coach: What about this topic is most interesting or important for you to explore?
+--------------------------------------------------
+User: because I miss flight and I miss money.
+Coach: What is the outcome you're hoping to achieve by the end of our conversation?
+--------------------------------------------------
+User: Not miss her flight again in the future, avoid making the same mistake.
+Coach: What might be the deeper goal you're hoping to achieve?
+--------------------------------------------------
+User: It'll be more functional, and a better version of myself, I guess.
+Coach: And what would be the impact of achieving that deeper goal?
+--------------------------------------------------
+User: I can get what I want.
+Coach: What would that look like for you?
+--------------------------------------------------

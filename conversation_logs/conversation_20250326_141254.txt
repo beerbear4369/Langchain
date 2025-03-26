@@ -1,0 +1,36 @@
+User: Are you?
+Coach: Hi, how are you doing today?
+--------------------------------------------------
+User: Great, I'm so great.
+Coach: That sounds very exciting.
+--------------------------------------------------
+User: Sì.
+Coach: What do you want to talk about today?
+--------------------------------------------------
+User: The progress of the air chatbot
+Coach: Or, as we agreed last time, the emotions behind the progress.
+--------------------------------------------------
+User: range
+Coach: Yeah, and what's your focus for today?
+--------------------------------------------------
+User: Okay, I want to focus on the fact that I keep making mistakes. I missed a flight on my last trip, and on this trip I booked the wrong ticket, I booked a ticket two days later. So I really regret it and it made me spend a lot of extra money. I'm really so tired of it, of myself. Sometimes I hate myself, but sometimes I feel myself quite funny.
+Coach: So, so what's the goal for this conversation?
+--------------------------------------------------
+User: The goal of this organization is to help me look into myself deeper.
+Coach: And how does that relate to the mistake you made?
+--------------------------------------------------
+User: Yeah, so try to avoid the mistake in the future.
+Coach: And what is the goal for you to avoid this mistake?
+--------------------------------------------------
+User: to achieve to a stage that I won't make this mistake again.
+Coach: Then how can I help you with that?
+--------------------------------------------------
+User: Sao?
+Coach: I'm sorry.
+--------------------------------------------------
+User: Why are you saying sorry? I don't understand.
+Coach: Just I didn't hear you, I don't understand.
+--------------------------------------------------
+User: Okay, so what?
+Coach: So, how can I help you with that?
+--------------------------------------------------

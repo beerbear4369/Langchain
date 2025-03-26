@@ -12,20 +12,31 @@ This folder contains all the necessary scripts to build the AI Coach B executabl
 
 ## How to Build
 
-1. Open a command prompt and navigate to this `build_scripts` directory
+### Method 1: From the project root directory (Recommended)
+1. Simply run the `build_ai_coach_b.bat` file located in the root directory:
+   ```
+   build_ai_coach_b.bat
+   ```
+
+### Method 2: From the build_scripts directory
+1. Navigate to the `build_scripts` directory:
+   ```
+   cd build_scripts
+   ```
 2. Run the build script:
    ```
    build_ai_coach_b.bat
    ```
-3. The script will:
-   - Activate the virtual environment
-   - Clean up previous builds
-   - Extract necessary encoding files
-   - Run PyInstaller with the spec file
-   - Copy encoding files to the distribution folder
-   - Create a helper batch file for running the executable
 
-4. When completed, the executable will be available in the `dist` directory at the project root
+Both methods will:
+- Activate the virtual environment
+- Clean up previous builds
+- Extract necessary encoding files
+- Run PyInstaller with the spec file
+- Copy encoding files to the distribution folder
+- Create a helper batch file for running the executable
+
+When completed, the executable will be available in the `dist` directory at the project root.
 
 ## Troubleshooting
 

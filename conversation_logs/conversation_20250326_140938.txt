@@ -1,0 +1,18 @@
+User: Hello, how are you?
+Coach: I'm good, thank you. And you?
+--------------------------------------------------
+User: Yeah, that's great. So what do you want to talk about today?
+Coach: So, um, I would like to, um, discuss something around my career direction.
+--------------------------------------------------
+User: Okay, so what kind of career direction you are considering now?
+Coach: Um, I, I, I think I, I haven't really explored in depth what I really want to do. And I feel like I, I need to make a decision soon about which way to go, because I, I don't want to stay in my current role for too long without having a clear direction.
+--------------------------------------------------
+User: OK, that's so interesting.
+Coach: What do you, what do you want to do?
+--------------------------------------------------
+User: What do you mean by what I want to do?
+Coach: Um, I think I really want to understand what, what would make this session useful for you.
+--------------------------------------------------
+User: OK, you sound so confident. So this will be useful to me to see how good my progress on my AI chatbot developing?
+Coach: OK, because I've been watching you on LinkedIn and it seems you're very clear about what you want to do.
+--------------------------------------------------

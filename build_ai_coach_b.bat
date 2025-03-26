@@ -1,5 +1,5 @@
 @echo off
-echo Building AI coach B executable with tiktoken fix...
+echo Running build script from the root directory...
 
 :: Ensure we're in the virtual environment
 call venv\Scripts\activate.bat
@@ -17,15 +17,15 @@ pip list | findstr "pyinstaller openai langchain pydantic tiktoken"
 if not exist hooks mkdir hooks
 
 :: Copy our tiktoken hook to the hooks directory
-copy hook-tiktoken.py hooks\ /Y
+copy build_scripts\hooks\hook-tiktoken.py hooks\ /Y
 
 :: Run the extraction script to get cl100k_base encoding
 echo Extracting cl100k_base encoding files...
-python extract_cl100k.py
+python build_scripts\extract_cl100k.py
 
 :: Build using the spec file
 echo Building executable using AI_coach_B.spec...
-pyinstaller AI_coach_B.spec
+pyinstaller build_scripts\AI_coach_B.spec
 
 :: Create necessary directories in dist
 if exist "dist\AI coach B.exe" (
@@ -33,9 +33,9 @@ if exist "dist\AI coach B.exe" (
     if not exist "dist\tiktoken_ext" mkdir "dist\tiktoken_ext"
     if not exist "dist\tiktoken_ext\openai_public" mkdir "dist\tiktoken_ext\openai_public"
     
-    if exist cl100k_base*.tiktoken (
+    if exist build_scripts\cl100k_base*.tiktoken (
         echo Copying tiktoken files to dist directory...
-        for %%f in (cl100k_base*.tiktoken) do (
+        for %%f in (build_scripts\cl100k_base*.tiktoken) do (
             copy "%%f" "dist\" /Y
             copy "%%f" "dist\tiktoken\" /Y
             copy "%%f" "dist\tiktoken_ext\" /Y

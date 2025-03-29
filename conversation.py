@@ -329,6 +329,13 @@ class Conversation:
         Returns:
           bool: True if session should be wrapped up, False otherwise.
         """
+        # Check if we have a cached result from a recent call (within 30 seconds)
+        current_time = time.time()
+        if hasattr(self, '_wrap_up_cache_time') and hasattr(self, '_wrap_up_cache_result'):
+            time_diff = current_time - self._wrap_up_cache_time
+            if time_diff < 30:  # Cache valid for 30 seconds
+                return self._wrap_up_cache_result
+        
         # Get conversation history and summary
         history = self.get_conversation_history()
         
@@ -339,7 +346,7 @@ class Conversation:
         
         # IMPORTANT: Only check for wrap-up if we have enough conversation rounds
         # Use conversation_rounds counter which is immune to summarization effects
-        if self.conversation_rounds < 20:  # Threshold set to 15 rounds (adjust as needed)
+        if self.conversation_rounds < 15:  # Threshold set to 15 rounds (adjust as needed)
             # print(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds). Skipping LLM call.")
             return False
             
@@ -393,8 +400,12 @@ class Conversation:
             clean_response = response.strip().lower()
             # print(f"\n--- WRAP-UP DECISION ---\nLLM decision: '{clean_response}'\n--- END DECISION ---\n")
             
+            # Cache the result
+            self._wrap_up_cache_time = current_time
+            self._wrap_up_cache_result = clean_response == "yes"
+            
             # Return True if the LLM says "yes", False otherwise
-            return clean_response == "yes"
+            return self._wrap_up_cache_result
             
         except Exception as e:
             # Log the error and fall back to the default behavior (no wrap-up)
@@ -645,7 +656,18 @@ class Conversation:
             # Use direct LLM prediction instead of chain to ensure proper formatting
             final_message = closing_llm.predict(formatted_closing_prompt)
             
-            # Log the final summary
+            # Log the final summary to the conversation log file
+            try:
+                with open(self.log_file, "a", encoding="utf-8") as f:
+                    f.write("User: Please summarize.\n")
+                    f.write("-" * 50 + "\n")
+                    f.write(f"Coach: {final_message}\n")
+                    f.write("-" * 50 + "\n")
+            except Exception as log_error:
+                # safe_print(f"Warning: Could not update conversation log with final summary: {log_error}")
+                pass
+            
+            # Log the final summary to a separate file
             try:
                 with open(os.path.join(self.log_dir, f"final_summary_{self.session_id}.txt"), "w", encoding="utf-8") as f:
                     f.write("FINAL SUMMARY AND ACTION PLAN\n")

@@ -1,12 +1,9 @@
-CONVERSATION HISTORY
-==================================================
-
 User: Hello, I would like to talk about balancing work and life.
-
+--------------------------------------------------
 Coach: So, balancing work and life, what does that mean to you?
-
+--------------------------------------------------
 User: Please summarize.
-
+--------------------------------------------------
 Coach: KEY DISCUSSION POINTS:
 The main topic/challenge the client wanted to address was balancing work and life. The client expressed a desire to find a better equilibrium between their professional responsibilities and personal life.
 
@@ -20,4 +17,3 @@ ACTION PLAN:
 
 Final Note:
 Remember that finding balance is a journey, and it's okay to adjust your approach as needed. Stay committed to prioritizing your well-being and setting boundaries to create a fulfilling work-life balance.
-

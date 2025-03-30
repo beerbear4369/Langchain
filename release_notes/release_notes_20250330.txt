@@ -1,0 +1,37 @@
+# Release Notes
+
+## March 30, 2025
+
+### Technical Details (Comprehensive)
+- **Bug Fix**: Fixed critical issue with conversation logging where the final summary and wrap-up exchanges weren't properly included in conversation log files
+- **Implementation Details**:
+  - Modified `main.py` to directly log wrap-up proposal and user confirmation to the conversation log file as they happen
+  - Enhanced `generate_closing_summary()` in `conversation.py` to intelligently check for existing wrap-up exchanges before adding placeholder text
+  - Improved `save_conversation_history()` in `main.py` to properly format and save all messages with correct ordering
+  - Added proper file flushing to ensure all data is immediately written to disk
+  - Fixed edge case where the final summary wasn't being added to conversation memory before saving
+- **Model Upgrade**:
+  - Integrated newly fine-tuned language model for improved coaching responses
+  - Enhanced conversation quality and coaching effectiveness with specialized model training
+- **Conversation Flow Improvements**:
+  - Adjusted wrap-up check threshold to 15 conversation rounds (previously set higher)
+  - Added logic to prevent excessively long conversations that may become unfocused
+  - Optimized session length for more effective coaching interactions
+- **Code Improvements**:
+  - Refactored message handling to ensure consistent formatting across all log files
+  - Added error handling for file operations to prevent lost data
+  - Implemented detection logic for wrap-up dialogue patterns to avoid duplication
+- **Testing**:
+  - Verified fix by creating test conversations that included wrap-up exchanges
+  - Confirmed that conversation logs now properly include all exchanges including final summaries
+  - Validated that existing conversations remain correctly formatted
+  - Tested conversation flow with new 15-round threshold for appropriate wrap-up timing
+
+### User-Facing Updates (Simple)
+- **Improved Conversation Records**: Your coaching conversations now include the entire session from start to finish, including the helpful summaries at the end.
+- **Better Documentation**: When you ask your coach to summarize the session, that summary is now properly saved as part of your conversation history.
+- **Reliable Records**: All your conversation files are now more complete and easier to review later.
+- **Enhanced Coaching Experience**: We've updated the AI coach with a new fine-tuned model that provides more insightful and helpful responses.
+- **More Focused Sessions**: Coaching sessions are now optimized to wrap up around 15 exchanges, ensuring conversations stay meaningful and focused on your needs.
+
+This update ensures that when you review past coaching sessions, you'll have the complete conversation including any final summaries and action plans your coach provided. The improved AI model and optimized conversation length help deliver more effective coaching in a timeframe that maintains engagement and focus. 

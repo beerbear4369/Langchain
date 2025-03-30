@@ -64,6 +64,7 @@ def save_conversation_history(conversation):
     messages = conversation.get_conversation_history()
     
     try:
+        # First save to the standard conversation_history.txt file
         with open("conversation_history.txt", "w", encoding="utf-8") as f:
             f.write("CONVERSATION HISTORY\n")
             f.write("="*50 + "\n\n")
@@ -71,47 +72,48 @@ def save_conversation_history(conversation):
             for message in messages:
                 role = "User" if message.type == "human" else "Coach"
                 f.write(f"{role}: {message.content}\n\n")
+            
+            # Ensure file is flushed to disk
+            f.flush()
         
         # Also update the conversation log in the logs directory
         session_id = conversation.session_id
         log_file = os.path.join("conversation_logs", f"conversation_{session_id}.txt")
         
-        # Ensure the file exists and is up to date
+        # Force write all conversation content to ensure completeness
         try:
-            # Read existing content to avoid duplication
-            existing_content = ""
-            if os.path.exists(log_file):
-                with open(log_file, "r", encoding="utf-8") as f:
-                    existing_content = f.read()
-            
-            # Add any missing exchanges
             with open(log_file, "w", encoding="utf-8") as f:
-                # Write out the full conversation with proper formatting
                 last_role = None
-                message_buffer = ""
+                current_content = ""
                 
                 for i, message in enumerate(messages):
                     current_role = "User" if message.type == "human" else "Coach"
                     
-                    # Start a new section when role changes
-                    if last_role is not None and current_role != last_role:
-                        f.write(f"{last_role}: {message_buffer}\n")
+                    # If role changes, write the previous content
+                    if last_role and last_role != current_role and current_content:
+                        f.write(f"{last_role}: {current_content}\n")
                         f.write("-"*50 + "\n")
-                        message_buffer = ""
+                        current_content = ""
                     
-                    # Add to current message buffer
-                    if message_buffer:
-                        message_buffer += "\n\n" + message.content
+                    # Set or append to current content
+                    if not current_content:
+                        current_content = message.content
                     else:
-                        message_buffer = message.content
+                        current_content += "\n\n" + message.content
                     
                     last_role = current_role
                     
-                    # Write the last message if we're at the end
-                    if i == len(messages) - 1 and message_buffer:
-                        f.write(f"{current_role}: {message_buffer}\n")
+                    # If this is the last message, write it
+                    if i == len(messages) - 1 and current_content:
+                        f.write(f"{current_role}: {current_content}\n")
+                        if i < len(messages) - 1:  # Not the last message
+                            f.write("-"*50 + "\n")
+                
+                # Ensure file is flushed to disk
+                f.flush()
+                
         except Exception as e:
-            print(f"Error updating conversation log file: {e}")
+            print(f"Error writing to conversation log file: {e}")
         
         print("Conversation history saved to 'conversation_history.txt'")
     except Exception as e:
@@ -224,6 +226,14 @@ def main():
                     print(f"\nAssistant: {wrap_prompt}")
                     text_to_speech(wrap_prompt)
                     
+                    # Directly log the wrap-up proposal to the log file
+                    try:
+                        with open(conversation.log_file, "a", encoding="utf-8") as f:
+                            f.write(f"Coach: {wrap_prompt}\n")
+                            f.write("-" * 50 + "\n")
+                    except Exception as log_error:
+                        print(f"Warning: Could not log wrap-up proposal: {log_error}")
+                    
                     # Record user's confirmation response
                     print(RECORDING_START_MESSAGE)
                     confirm_audio = record_audio()
@@ -235,6 +245,150 @@ def main():
                         
                         # Add this confirmation response to the conversation history as well
                         conversation.add_user_message_to_memory(confirmation)
+                        
+                        # Directly log the user's confirmation to the log file
+                        try:
+                            with open(conversation.log_file, "a", encoding="utf-8") as f:
+                                f.write(f"User: {confirmation}\n")
+                                f.write("-" * 50 + "\n")
+                        except Exception as log_error:
+                            print(f"Warning: Could not log user confirmation: {log_error}")
+                        
+                        # More stringent confirmation commands
+                        confirmation_lower = confirmation.lower()
+                        explicit_commands = ["wrap up and summarize", "wrap up", "summarize", "end session", "yes"]
+                        has_explicit_command = any(cmd in confirmation_lower for cmd in explicit_commands)
+                        
+                        # Check for affirmative responses with context
+                        affirmative_with_context = (
+                            ("yes" in confirmation_lower or "yeah" in confirmation_lower or "sure" in confirmation_lower) and
+                            ("summary" in confirmation_lower or "wrap" in confirmation_lower or "end" in confirmation_lower)
+                        )
+                        
+                        if has_explicit_command or affirmative_with_context:
+                            # User confirmed wrap-up request
+                            wrap_up_requested = True
+                            
+                            try:
+                                # Generate the final summary and action plan using the closing chain
+                                print("Generating final summary and action plan...")
+                                final_message = conversation.generate_closing_summary()
+                                print(f"Assistant: {final_message}")
+                                text_to_speech(final_message)
+                                
+                                # Add the final summary to the conversation memory before saving
+                                conversation.add_ai_message_to_memory(final_message)
+                                
+                                # Save the conversation and final summary
+                                save_conversation_history(conversation)
+                                with open("final_summary.txt", "w", encoding="utf-8") as f:
+                                    f.write("FINAL SUMMARY AND ACTION PLAN\n")
+                                    f.write("="*50 + "\n\n")
+                                    f.write(final_message)
+                                print("Final summary saved to 'final_summary.txt'")
+                                
+                                # End the session
+                                break
+                            except Exception as e:
+                                print(f"Error generating final summary: {e}")
+                                error_response = "I had trouble creating a final summary. Let's continue our conversation."
+                                print(f"Assistant: {error_response}")
+                                text_to_speech(error_response)
+                                wrap_up_requested = False  # If error occurred, continue conversation
+                        else:
+                            # User doesn't want to wrap up
+                            reminder = "Okay, let's continue our conversation."
+                            print(f"Assistant: {reminder}")
+                            text_to_speech(reminder)
+                            # Add coach's response to memory
+                            conversation.add_ai_message_to_memory(reminder)
+                            continue
+                
+                # Special command for debugging
+                elif any(debug_cmd in transcription_lower for debug_cmd in ["debug messages", "check messages", "debug conversation"]):
+                    # Call the debug_messages function to check for issues
+                    conversation.debug_messages()
+                    response = "I've performed a debug check on the conversation messages. Results are in the console."
+                    print(f"Assistant: {response}")
+                    text_to_speech(response)
+                    continue
+                
+                # # Special command to save history to file
+                # elif any(save_cmd in transcription_lower for save_cmd in ["save history", "export history", "save conversation"]):
+                #     save_conversation_history(conversation)
+                #     response = "Conversation history has been saved to 'conversation_history.txt'."
+                #     print(f"Assistant: {response}")
+                #     text_to_speech(response)
+                #     continue
+                
+                # Step 4: Add the user's message to conversation history
+                # We need to properly add to memory to preserve buffer functionality
+                conversation.add_user_message_to_memory(transcription)
+                
+                # Step 5: Check if the conversation should be wrapped up BEFORE processing with main LLM
+                elapsed_time = time.time() - session_start
+                wrap_up_requested = False
+                
+                # Define variables to track wrap-up cooldown if they don't exist
+                if not hasattr(main, 'wrap_up_cooldown'):
+                    main.wrap_up_cooldown = 0
+                if not hasattr(main, 'wrap_up_time_extension'):
+                    main.wrap_up_time_extension = 0
+                if not hasattr(main, 'ignore_should_wrap_up'):
+                    main.ignore_should_wrap_up = False
+                
+                # Check if we're in the cooldown period
+                if main.wrap_up_cooldown > 0:
+                    # print(f"Wrap-up cooldown active: {main.wrap_up_cooldown} exchanges remaining")
+                    main.wrap_up_cooldown -= 1
+                    
+                # Only check wrap-up conditions if not in cooldown
+                elif (turn_counter >= max_turns or 
+                      (not main.ignore_should_wrap_up and conversation.should_wrap_up()) or 
+                      elapsed_time >= (30*60 + main.wrap_up_time_extension)):  # 30 min + any extension
+                    
+                    # Choose the appropriate wrap-up prompt based on what triggered it
+                    wrap_prompt = ""
+                    if not main.ignore_should_wrap_up and conversation.should_wrap_up():
+                        # Content-based wrap-up (detected Way Forward content)
+                        wrap_prompt = "It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize."
+                    elif turn_counter >= max_turns or elapsed_time >= (30*60 + main.wrap_up_time_extension):
+                        # Time or message count based wrap-up
+                        wrap_prompt = "I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize."
+                    
+                    # Add the wrap-up prompt to conversation history before presenting it
+                    conversation.add_ai_message_to_memory(wrap_prompt)
+                    
+                    print(f"\nAssistant: {wrap_prompt}")
+                    text_to_speech(wrap_prompt)
+                    
+                    # Directly log the wrap-up proposal to the log file
+                    try:
+                        with open(conversation.log_file, "a", encoding="utf-8") as f:
+                            f.write(f"Coach: {wrap_prompt}\n")
+                            f.write("-" * 50 + "\n")
+                    except Exception as log_error:
+                        print(f"Warning: Could not log wrap-up proposal: {log_error}")
+                    
+                    # Record user's confirmation response
+                    print(RECORDING_START_MESSAGE)
+                    confirm_audio = record_audio()
+                    print(RECORDING_STOP_MESSAGE)
+                    confirmation = transcribe_audio(confirm_audio)
+                    
+                    if confirmation:
+                        print(f"You: {confirmation}")
+                        
+                        # Add this confirmation response to the conversation history as well
+                        conversation.add_user_message_to_memory(confirmation)
+                        
+                        # Directly log the user's confirmation to the log file
+                        try:
+                            with open(conversation.log_file, "a", encoding="utf-8") as f:
+                                f.write(f"User: {confirmation}\n")
+                                f.write("-" * 50 + "\n")
+                        except Exception as log_error:
+                            print(f"Warning: Could not log user confirmation: {log_error}")
                         
                         # More stringent confirmation commands
                         confirmation_lower = confirmation.lower()
@@ -304,71 +458,6 @@ def main():
                             # 4. Temporarily ignore should_wrap_up() results
                             main.ignore_should_wrap_up = True
                             # print("Ignoring should_wrap_up() results until cooldown ends")
-                
-                # Special command for debugging
-                elif any(debug_cmd in transcription_lower for debug_cmd in ["debug messages", "check messages", "debug conversation"]):
-                    # Call the debug_messages function to check for issues
-                    conversation.debug_messages()
-                    response = "I've performed a debug check on the conversation messages. Results are in the console."
-                    print(f"Assistant: {response}")
-                    text_to_speech(response)
-                    continue
-                
-                # # Special command to save history to file
-                # elif any(save_cmd in transcription_lower for save_cmd in ["save history", "export history", "save conversation"]):
-                #     save_conversation_history(conversation)
-                #     response = "Conversation history has been saved to 'conversation_history.txt'."
-                #     print(f"Assistant: {response}")
-                #     text_to_speech(response)
-                #     continue
-                
-                # Step 4: Add the user's message to conversation history
-                # We need to properly add to memory to preserve buffer functionality
-                conversation.add_user_message_to_memory(transcription)
-                
-                # Step 5: Check if the conversation should be wrapped up BEFORE processing with main LLM
-                elapsed_time = time.time() - session_start
-                wrap_up_requested = False
-                
-                # Define variables to track wrap-up cooldown if they don't exist
-                if not hasattr(main, 'wrap_up_cooldown'):
-                    main.wrap_up_cooldown = 0
-                if not hasattr(main, 'wrap_up_time_extension'):
-                    main.wrap_up_time_extension = 0
-                if not hasattr(main, 'ignore_should_wrap_up'):
-                    main.ignore_should_wrap_up = False
-                
-                # Check if we're in the cooldown period
-                if main.wrap_up_cooldown > 0:
-                    # print(f"Wrap-up cooldown active: {main.wrap_up_cooldown} exchanges remaining")
-                    main.wrap_up_cooldown -= 1
-                    
-                # Only check wrap-up conditions if not in cooldown
-                elif main.wrap_up_cooldown <= 0:
-                    # Store the should_wrap_up result to avoid calling it twice
-                    should_wrap_up = False
-                    if not main.ignore_should_wrap_up:
-                        should_wrap_up = conversation.should_wrap_up()
-                        
-                    # Check if we should trigger wrap-up
-                    trigger_wrap_up = (turn_counter >= max_turns or 
-                                      should_wrap_up or 
-                                      elapsed_time >= (30*60 + main.wrap_up_time_extension))
-                    
-                    if trigger_wrap_up:
-                        # Choose the appropriate wrap-up prompt based on what triggered it
-                        wrap_prompt = ""
-                        if should_wrap_up:
-                            # Content-based wrap-up (detected Way Forward content)
-                            wrap_prompt = "It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize."
-                        else:
-                            # Time or message count based wrap-up
-                            wrap_prompt = "I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize."
-                        
-                        # Only add the wrap-up prompt if we actually want to trigger wrap-up
-                        conversation.add_ai_message_to_memory(wrap_prompt)
-                        print(f"\nAssistant: {wrap_prompt}")
-                        text_to_speech(wrap_prompt)
                 
                 # Step 6: Only process with main LLM if we're not wrapping up
                 if not wrap_up_requested:

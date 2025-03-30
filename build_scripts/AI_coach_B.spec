@@ -52,10 +52,18 @@ for path in additional_paths:
             for file in openai_files:
                 tiktoken_datas.append((file, os.path.join("tiktoken_ext", "openai_public", os.path.basename(file))))
 
+# Include our fix_imports.py helper module
+fix_imports_path = os.path.join(script_dir, 'fix_imports.py')
+if os.path.exists(fix_imports_path):
+    datas = [(fix_imports_path, '.')]
+else:
+    print(f"Warning: Could not find fix_imports.py at {fix_imports_path}")
+    datas = []
+
 # Update paths for config.json and icon.ico to use paths relative to root
 config_path = os.path.join(root_dir, 'config.json')
 icon_path = os.path.join(root_dir, 'icon.ico')
-datas = [(config_path, '.'), (icon_path, '.')]
+datas.extend([(config_path, '.'), (icon_path, '.')])
 datas.extend(tiktoken_datas)
 
 # Create a hooks directory path relative to root
@@ -98,6 +106,11 @@ conversation_logs_dir = os.path.join(root_dir, 'conversation_logs')
 if os.path.exists(conversation_logs_dir):
     datas += [(os.path.join(conversation_logs_dir, file), os.path.join('conversation_logs', file)) 
               for file in os.listdir(conversation_logs_dir) if os.path.isfile(os.path.join(conversation_logs_dir, file))]
+
+# Ensure conversation_logs directory exists in the package even if empty
+if not os.path.exists(conversation_logs_dir):
+    os.makedirs(conversation_logs_dir, exist_ok=True)
+    datas.append((conversation_logs_dir, 'conversation_logs'))
 
 a = Analysis(
     [main_path],

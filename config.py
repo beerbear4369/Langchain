@@ -71,8 +71,10 @@ print("=== End Config Debug Info ===")
 # MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:kuku-tech:coach-prompt5-purevetted11:BGLUD4j5"
 
 # Model fine-tuned on 29 March 2025/ 11 dialog pure vetted/prompt5/hyperparameter-gpt deep research
-MODEL_NAME =ft:gpt-4o-mini-2024-07-18:kuku-tech:coach-prompt5-purevetted11-hyperparameter-gptdr:BGUjztB7
+# MODEL_NAME =ft:gpt-4o-mini-2024-07-18:kuku-tech:coach-prompt5-purevetted11-hyperparameter-gptdr:BGUjztB7
 
+# Model fine-tuned on 29 March 2025/ 11 dialog pure vetted/prompt7/hyperparameter-gpt deep research
+MODEL_NAME ="ft:gpt-4o-mini-2024-07-18:kuku-tech:coach-prompt7-purevetted11-hyperparameter-gptdr:BGXrTmha"
 # Model for testing with out of the shell model
 # MODEL_NAME = "gpt-4.5-preview"
 

@@ -329,13 +329,6 @@ class Conversation:
         Returns:
           bool: True if session should be wrapped up, False otherwise.
         """
-        # Check if we have a cached result from a recent call (within 30 seconds)
-        current_time = time.time()
-        if hasattr(self, '_wrap_up_cache_time') and hasattr(self, '_wrap_up_cache_result'):
-            time_diff = current_time - self._wrap_up_cache_time
-            if time_diff < 30:  # Cache valid for 30 seconds
-                return self._wrap_up_cache_result
-        
         # Get conversation history and summary
         history = self.get_conversation_history()
         
@@ -346,7 +339,7 @@ class Conversation:
         
         # IMPORTANT: Only check for wrap-up if we have enough conversation rounds
         # Use conversation_rounds counter which is immune to summarization effects
-        if self.conversation_rounds < 15:  # Threshold set to 15 rounds (adjust as needed)
+        if self.conversation_rounds < 3:  # Threshold set to 15 rounds (adjust as needed)
             # print(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds). Skipping LLM call.")
             return False
             
@@ -400,12 +393,8 @@ class Conversation:
             clean_response = response.strip().lower()
             # print(f"\n--- WRAP-UP DECISION ---\nLLM decision: '{clean_response}'\n--- END DECISION ---\n")
             
-            # Cache the result
-            self._wrap_up_cache_time = current_time
-            self._wrap_up_cache_result = clean_response == "yes"
-            
             # Return True if the LLM says "yes", False otherwise
-            return self._wrap_up_cache_result
+            return clean_response == "yes"
             
         except Exception as e:
             # Log the error and fall back to the default behavior (no wrap-up)
@@ -658,9 +647,33 @@ class Conversation:
             
             # Log the final summary to the conversation log file
             try:
+                # Check if the last few messages already have the wrap-up proposal and confirmation
+                # Check for wrap-up trigger & confirmation already in the conversation
+                has_wrap_up_proposal = False
+                has_user_confirmation = False
+                
+                if len(messages) >= 2:
+                    # Check last coach message for wrap-up prompt patterns
+                    last_coach_msgs = [msg.content for msg in messages[-4:] if msg.type == "ai"]
+                    last_user_msgs = [msg.content.lower() for msg in messages[-3:] if msg.type == "human"]
+                    
+                    for msg in last_coach_msgs:
+                        if "wrap up" in msg and "summary" in msg and "action plan" in msg:
+                            has_wrap_up_proposal = True
+                            break
+                    
+                    for msg in last_user_msgs:
+                        if ("yes" in msg or "sure" in msg or "please" in msg) and (
+                            "summarize" in msg or "summary" in msg or "wrap" in msg):
+                            has_user_confirmation = True
+                            break
+                
                 with open(self.log_file, "a", encoding="utf-8") as f:
-                    f.write("User: Please summarize.\n")
-                    f.write("-" * 50 + "\n")
+                    # Only add "Please summarize" if the wrap-up dialog isn't already in the conversation
+                    if not (has_wrap_up_proposal and has_user_confirmation):
+                        f.write("User: Please summarize.\n")
+                        f.write("-" * 50 + "\n")
+                    
                     f.write(f"Coach: {final_message}\n")
                     f.write("-" * 50 + "\n")
             except Exception as log_error:

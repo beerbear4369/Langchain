@@ -1,10 +1,7 @@
-CONVERSATION HISTORY
-==================================================
-
 Coach: It looks like we have made good progress on your issue. Shall we wrap up today's session with a quick summary and action plan? If yes, please say wrap up and summarize.
-
+--------------------------------------------------
 User: Yes, please summarize.
-
+--------------------------------------------------
 Coach: KEY DISCUSSION POINTS:
 - The client's main challenge was feeling overwhelmed by work and struggling to prioritize tasks.
 - Important insights included recognizing the need for better time management and setting boundaries.
@@ -19,4 +16,3 @@ ACTION PLAN:
 
 Final Note:
 Remember, setting boundaries and managing your time effectively are key to reducing overwhelm and achieving a better work-life balance. Keep up the good work!
-

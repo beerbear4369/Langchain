@@ -1,0 +1,15 @@
+User: Hello
+Coach: Hi there! What would you like to explore today?
+--------------------------------------------------
+User: Maybe let's explore why am I able to being serious to mastering any game, mastering any music instrument, be really good at anything. Like why am I just like a normal person, really average, anything. I'm just like a participant. You know, when I join any conferences, I'm just a participant, like a naive. Yeah, I think I have this problem that I've been really brought interest but never able to make any solid progress and become well recognized in that field. So nobody know me, nobody think I'm good.
+Coach: What aspect of this situation would you like to focus on today?
+--------------------------------------------------
+User: I don't know why I end up like this kind of person. Some people are good at some things, right? For me I'm not sure what I'm good at. I don't have any authority in things. People don't respect me.
+Coach: What would make this conversation meaningful for you?
+--------------------------------------------------
+User: Kitaak.
+Coach: What would success look like by the end of our conversation?
+--------------------------------------------------
+User: I guess if I'm able to know what's the reason that I don't have it? Like being good at some things as result, why I not develop into that direction? And if I know why is it this me? Why is it this is what I want?
+Coach: What do you think is happening now, and what approaches have you tried?
+--------------------------------------------------

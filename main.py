@@ -1,3 +1,25 @@
+import os
+import sys
+import json
+
+# Fix import paths for PyInstaller
+try:
+    # First, try to import our custom fix_imports module
+    import fix_imports
+    base_dir = fix_imports.setup_import_paths()
+    print(f"Import paths fixed. Base directory: {base_dir}")
+except ImportError:
+    # Fallback to manual path setup if the module isn't found
+    if hasattr(sys, '_MEIPASS'):
+        # Running as PyInstaller executable
+        if sys._MEIPASS not in sys.path:
+            sys.path.insert(0, sys._MEIPASS)
+            print(f"Added {sys._MEIPASS} to Python path")
+        
+        # Set current working directory to PyInstaller directory
+        os.chdir(sys._MEIPASS)
+        print(f"Changed working directory to {sys._MEIPASS}")
+
 import time
 import signal
 from functools import wraps
@@ -5,7 +27,7 @@ from audio_input import record_audio, transcribe_audio
 from conversation import Conversation
 from audio_output import text_to_speech
 from config import RECORDING_START_MESSAGE, RECORDING_STOP_MESSAGE, RESPONSE_START_MESSAGE
-import os
+import config
 
 # Timeout decorator for functions that might hang
 def timeout(seconds, error_message="Function call timed out"):
@@ -161,8 +183,69 @@ def main():
        - Converts response to speech
        - Repeats until user exits
     """
+    # Check for model_config.json file first
+    model_config_path = "model_config.json"
+    skip_selection_menu = False
+    available_keys = list(config.AVAILABLE_MODELS.keys())
+    
+    if os.path.exists(model_config_path):
+        try:
+            with open(model_config_path, 'r') as f:
+                model_config = json.load(f)
+                if 'model' in model_config:
+                    selected_model = model_config['model']
+                    # Accept key or full model string
+                    if selected_model in config.AVAILABLE_MODELS:
+                        config.MODEL_NAME = config.AVAILABLE_MODELS[selected_model]
+                        print(f"Using model from config file: {selected_model} -> {config.MODEL_NAME}")
+                        skip_selection_menu = True
+                    elif selected_model in config.AVAILABLE_MODELS.values():
+                        config.MODEL_NAME = selected_model
+                        print(f"Using model from config file: {config.MODEL_NAME}")
+                        skip_selection_menu = True
+                    else:
+                        print(f"Model '{selected_model}' not found in config.AVAILABLE_MODELS. Falling back to menu.")
+        except Exception as e:
+            print(f"Error reading model_config.json: {e}")
+            print("Falling back to selection menu.")
+    
+    # Show selection menu if not using config file
+    if not skip_selection_menu:
+        print("=" * 50)
+        print("AI COACH MODEL SELECTION")
+        print("=" * 50)
+        print("Please select a model to use:")
+        
+        for idx, key in enumerate(available_keys, 1):
+            desc = key
+            print(f"{idx}. {key} -> {config.AVAILABLE_MODELS[key]}")
+        print("=" * 50)
+        
+        # Get user selection
+        while True:
+            selection = input(f"Enter your selection (1-{len(available_keys)}): ")
+            if selection.isdigit() and 1 <= int(selection) <= len(available_keys):
+                selected_key = available_keys[int(selection)-1]
+                config.MODEL_NAME = config.AVAILABLE_MODELS[selected_key]
+                print(f"Selected model: {selected_key} -> {config.MODEL_NAME}")
+                # Ask if user wants to save this selection for future
+                save_selection = input("Save this selection for future runs? (y/n): ").lower()
+                if save_selection == 'y':
+                    try:
+                        with open(model_config_path, 'w') as f:
+                            json.dump({"model": selected_key}, f)
+                        print(f"Model preference saved to {model_config_path}")
+                    except Exception as e:
+                        print(f"Error saving model preference: {e}")
+                break
+            else:
+                print("Invalid selection. Please try again.")
+    
+    # Reset model temperature based on the selected model
+    config.MODEL_TEMPERATURE = config.get_model_temperature()
+    
     # Print welcome information to the console
-    print("Voice-Enabled Coaching Assistant")
+    print("\nVoice-Enabled Coaching Assistant")
     print("Say 'exit' or 'quit' to end the conversation.")
     print("Press any key to stop recording when you're done speaking.")
     print("-" * 50)

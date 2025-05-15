@@ -339,7 +339,7 @@ class Conversation:
         
         # IMPORTANT: Only check for wrap-up if we have enough conversation rounds
         # Use conversation_rounds counter which is immune to summarization effects
-        if self.conversation_rounds < 3:  # Threshold set to 15 rounds (adjust as needed)
+        if self.conversation_rounds < 15:  # Threshold set to 15 rounds (adjust as needed)
             # print(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds). Skipping LLM call.")
             return False
             

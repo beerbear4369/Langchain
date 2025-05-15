@@ -1,0 +1,4 @@
+{
+    "model": "gpt4o"
+}
+// To use, rename this file to model_config.json and set the 'model' value to any key from config.py AVAILABLE_MODELS. 

@@ -1,10 +1,14 @@
+# Environment files - NEVER commit these!
+.env
+.env.local
+.env.production
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -16,20 +20,39 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual Environment
+# Virtual environments
 venv/
+env/
 ENV/
-.env
 
-# IDE-specific files
-.idea/
+# IDE
 .vscode/
+.idea/
 *.swp
 *.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Audio files (temporary)
+temp_audio/
+*.wav
+*.mp3
+*.webm
+
+# Config files with sensitive data
+config.json
 
 # Project-specific
 input.wav

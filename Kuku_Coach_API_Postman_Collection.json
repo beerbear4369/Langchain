@@ -1,0 +1,390 @@
+{
+  "info": {
+    "name": "Kuku Coach API - Complete Test Suite",
+    "description": "Comprehensive API testing for Kuku Coach voice coaching assistant",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "session_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Test if API server is running and healthy"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('API is healthy', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.status).to.eql('healthy');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. API Root Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Get API information and documentation links"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('API root returns info', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.message).to.eql('Kuku Coach API');",
+              "    pm.expect(jsonData.version).to.eql('1.0.0');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Create Session",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sessions",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sessions"]
+        },
+        "description": "Create a new coaching session and store session ID"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Session created successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.success).to.be.true;",
+              "    pm.expect(jsonData.data.sessionId).to.be.a('string');",
+              "    pm.expect(jsonData.data.status).to.eql('active');",
+              "    pm.expect(jsonData.data.messageCount).to.eql(0);",
+              "    ",
+              "    // Store session ID for subsequent requests",
+              "    pm.collectionVariables.set('session_id', jsonData.data.sessionId);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Get Session Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/sessions/{{session_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sessions", "{{session_id}}"]
+        },
+        "description": "Get current session status and details"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Session status retrieved', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.success).to.be.true;",
+              "    pm.expect(jsonData.data.sessionId).to.eql(pm.collectionVariables.get('session_id'));",
+              "    pm.expect(jsonData.data.status).to.eql('active');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Send Audio Message (MAIN TEST)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "audio",
+              "type": "file",
+              "src": "",
+              "description": "Upload a real audio file (MP3, WAV, or WebM)"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sessions/{{session_id}}/messages",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sessions", "{{session_id}}", "messages"]
+        },
+        "description": "🔍 CRITICAL TEST: Upload real audio file and get AI response with TTS"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Audio message processed successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const jsonData = pm.response.json();",
+              "    ",
+              "    if (jsonData.success) {",
+              "        pm.expect(jsonData.data.messages).to.be.an('array');",
+              "        pm.expect(jsonData.data.messages).to.have.lengthOf(2); // User + AI",
+              "        ",
+              "        const userMsg = jsonData.data.messages[0];",
+              "        const aiMsg = jsonData.data.messages[1];",
+              "        ",
+              "        pm.expect(userMsg.sender).to.eql('user');",
+              "        pm.expect(aiMsg.sender).to.eql('ai');",
+              "        pm.expect(userMsg.text).to.be.a('string').and.not.empty;",
+              "        pm.expect(aiMsg.text).to.be.a('string').and.not.empty;",
+              "        ",
+              "        console.log('User said:', userMsg.text);",
+              "        console.log('AI responded:', aiMsg.text);",
+              "        ",
+              "        if (aiMsg.audioUrl) {",
+              "            console.log('TTS Audio URL:', aiMsg.audioUrl);",
+              "        }",
+              "    } else {",
+              "        console.log('Audio processing failed:', jsonData.error);",
+              "        pm.expect.fail('Audio processing should succeed with valid audio file');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Get Conversation History",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/sessions/{{session_id}}/messages",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sessions", "{{session_id}}", "messages"]
+        },
+        "description": "Retrieve complete conversation history"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Conversation history retrieved', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.success).to.be.true;",
+              "    pm.expect(jsonData.data.messages).to.be.an('array');",
+              "    ",
+              "    console.log('Total messages in history:', jsonData.data.messages.length);",
+              "    jsonData.data.messages.forEach((msg, index) => {",
+              "        console.log(`Message ${index + 1} [${msg.sender}]: ${msg.text.substring(0, 100)}...`);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Send Another Audio (Optional)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "audio",
+              "type": "file",
+              "src": "",
+              "description": "Test with another audio file to build conversation"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sessions/{{session_id}}/messages",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sessions", "{{session_id}}", "messages"]
+        },
+        "description": "Optional: Send another audio message to test conversation flow"
+      }
+    },
+    {
+      "name": "8. End Session",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sessions/{{session_id}}/end",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sessions", "{{session_id}}", "end"]
+        },
+        "description": "End session and generate summary"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Session ended with summary', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.success).to.be.true;",
+              "    pm.expect(jsonData.data.sessionId).to.eql(pm.collectionVariables.get('session_id'));",
+              "    pm.expect(jsonData.data.summary).to.be.a('string').and.not.empty;",
+              "    pm.expect(jsonData.data.duration).to.be.a('number');",
+              "    pm.expect(jsonData.data.messageCount).to.be.a('number');",
+              "    ",
+              "    console.log('Session Summary:', jsonData.data.summary);",
+              "    console.log('Session Duration:', jsonData.data.duration, 'seconds');",
+              "    console.log('Total Messages:', jsonData.data.messageCount);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ERROR TESTS",
+      "description": "Test error handling scenarios",
+      "item": [
+        {
+          "name": "Get Non-existent Session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sessions/session-nonexistent",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sessions", "session-nonexistent"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Non-existent session returns error', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.false;",
+                  "    pm.expect(jsonData.error).to.include('Session not found');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Send Invalid Audio",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "audio",
+                  "type": "file",
+                  "src": "",
+                  "description": "Upload a non-audio file (e.g., .txt, .jpg) to test validation"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sessions/{{session_id}}/messages",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sessions", "{{session_id}}", "messages"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Invalid audio format rejected', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.false;",
+                  "    pm.expect(jsonData.error).to.include('Invalid audio format');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 

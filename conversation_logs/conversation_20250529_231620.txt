@@ -1,0 +1,6 @@
+User: Okay, my name is Ian. I just want to see whether this is working. It is a quite interesting behavior if I'm able to see if it's working from here. And what is your name? What can you do for me?
+Coach: Hello Ian, I’m Kuku. What would you like to explore today to make this conversation meaningful for you?
+--------------------------------------------------
+User: response mp3 number two and even this is better I think this is better
+Coach: Ian, help me understand what makes you say the second response feels better?
+--------------------------------------------------

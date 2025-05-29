@@ -51,7 +51,7 @@ AVAILABLE_MODELS = {
 }
 
 # Default model (can be changed at runtime)
-MODEL_NAME = AVAILABLE_MODELS["gpt4o"]
+MODEL_NAME = AVAILABLE_MODELS["gpt41mini"]
 
 # Temperature configuration based on model type
 def get_model_temperature():

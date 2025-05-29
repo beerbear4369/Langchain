@@ -56,6 +56,39 @@ def text_to_speech(text, voice=DEFAULT_VOICE):
     except Exception as e:
         print(f"Error in text-to-speech conversion: {e}")
 
+def text_to_speech_api(text, output_path, voice=DEFAULT_VOICE):
+    """
+    Convert text to speech using OpenAI's TTS API and save to a specific file path.
+    This version is designed for API use where we need to save files for serving.
+    
+    Args:
+        text (str): The text to convert to speech
+        output_path (str): Path where to save the audio file
+        voice (str): The voice to use (e.g., "alloy", "echo", "fable")
+        
+    Returns:
+        bool: True if successful, False if failed
+    """
+    if not text:
+        return False
+    
+    try:
+        # Generate speech from text using OpenAI's TTS API
+        response = client.audio.speech.create(
+            model="tts-1",
+            voice=voice,
+            input=text
+        )
+        
+        # Save the audio to the specified file path
+        response.stream_to_file(output_path)
+        
+        return True
+        
+    except Exception as e:
+        print(f"Error in text-to-speech conversion: {e}")
+        return False
+
 def play_audio(file_path):
     """
     Play audio from a file using sounddevice.

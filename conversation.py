@@ -24,35 +24,14 @@ from config import (  # Import configuration
 import os
 import json
 from datetime import datetime
-import sys
-import subprocess
 import time
+import logging # Import the logging module
 
-# Fix console encoding for international characters
-if sys.platform == 'win32':
-    # Instead of redirecting stdout/stderr, just set the console mode
-    try:
-        # Use Windows-specific command to set UTF-8 mode
-        subprocess.run(['chcp', '65001'], shell=True, check=False)
-    except Exception as e:
-        print(f"Warning: Could not set console to UTF-8 mode: {e}")
-        
-    # Ensure Python knows we want UTF-8 output
-    import os
-    os.environ['PYTHONIOENCODING'] = 'utf-8'
+# Setup basic logging configuration
+# In a real application, this might be configured in a central place (e.g., main.py or config.py)
+# For now, basic config for this module.
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def safe_print(*args, **kwargs):
-    """Print function that safely handles Unicode characters."""
-    try:
-        print(*args, **kwargs)
-    except UnicodeEncodeError:
-        # Fall back to printing with limited encoding
-        try:
-            # Try to encode as ASCII with replacement characters
-            encoded_args = [str(arg).encode('ascii', 'replace').decode('ascii') for arg in args]
-            print(*encoded_args, **kwargs)
-        except Exception as e:
-            print(f"Error printing output: {e}")
 
 class Conversation:
     """
@@ -65,7 +44,7 @@ class Conversation:
     4. Provides access to conversation history
     """
     
-    def __init__(self):
+    def __init__(self, user_id: str = None): # Added user_id for potential specific logging per user/session
         """
         Initialize the conversation manager with a language model and memory.
         
@@ -177,14 +156,29 @@ class Conversation:
         self._patched_predict = predict_wrapper
         
         # Add logging directory
-        self.log_dir = "conversation_logs"
+        self.log_dir = "conversation_logs" # This will be made configurable via config.py
         os.makedirs(self.log_dir, exist_ok=True)
         
         # Create a log file for this session
-        self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.log_file = os.path.join(self.log_dir, f"conversation_{self.session_id}.txt")
-        self.summary_log_file = os.path.join(self.log_dir, f"summary_{self.session_id}.txt")
+        # If user_id is provided (e.g. session_id from API), use it for log names
+        log_identifier = user_id if user_id else datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.session_id = log_identifier # Keep session_id attribute for compatibility
+        self.log_file = os.path.join(self.log_dir, f"conversation_{log_identifier}.txt")
+        self.summary_log_file = os.path.join(self.log_dir, f"summary_{log_identifier}.txt")
+
+        # API specific attributes
+        self.start_time = datetime.utcnow()
+        self._is_ended = False
     
+    def end_session(self):
+        """Marks the session as ended."""
+        self._is_ended = True
+        logging.info(f"Session {self.session_id} marked as ended.")
+
+    def is_ended(self):
+        """Checks if the session has been marked as ended."""
+        return self._is_ended
+
     def get_conversation_summary(self):
         """
         Get the current summary of the conversation.
@@ -208,21 +202,21 @@ class Conversation:
             try:
                 result['total_messages'] = len(self.get_conversation_history())
             except Exception as e:
-                safe_print(f"Error getting conversation history count: {e}")
+                logging.error(f"Error getting conversation history count for session {self.session_id}: {e}")
                 result['total_messages'] = -1
             
             # Get summary safely
             try:
                 result['summary'] = self._safe_get_summary()
             except Exception as e:
-                safe_print(f"Error getting summary in summary method: {e}")
+                logging.error(f"Error getting summary in summary method for session {self.session_id}: {e}")
                 result['summarization_status'] = f"error: {str(e)}"
             
             # Get buffer length safely
             try:
                 result['buffer_length'] = len(self.memory.buffer)
             except Exception as e:
-                safe_print(f"Error getting buffer length: {e}")
+                logging.error(f"Error getting buffer length for session {self.session_id}: {e}")
                 result['buffer_length'] = -1
                 
             # Set status if summarization has failed before
@@ -231,10 +225,10 @@ class Conversation:
                 
             return result
         except Exception as e:
-            safe_print(f"Error in get_conversation_summary: {e}")
+            logging.error(f"Error in get_conversation_summary for session {self.session_id}: {e}")
             return {
                 'summary': '',
-                'buffer_length': 0, 
+                'buffer_length': 0,
                 'total_messages': 0,
                 'summarization_status': f'critical_error: {str(e)}'
             }
@@ -242,15 +236,9 @@ class Conversation:
     def _log_summary_update(self, old_summary, new_summary):
         """Log when the conversation summary is updated."""
         try:
-            # Print to console as well for immediate visibility
-            # safe_print("\n" + "!" * 80)
-            # safe_print("SUMMARY UPDATE DETECTED!")
-            # safe_print("Previous summary length: " + str(len(old_summary)))
-            # safe_print("New summary length: " + str(len(new_summary)))
-            # safe_print("!" * 80 + "\n")
-            
+            logging.info(f"Summary updated for session {self.session_id}. Old length: {len(old_summary)}, New length: {len(new_summary)}")
             with open(self.summary_log_file, "a", encoding="utf-8") as f:
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
                 f.write(f"\n=== Summary Update at {timestamp} ===\n")
                 f.write("<PREVIOUS_SUMMARY>\n")
                 f.write(f"{old_summary}\n")
@@ -267,7 +255,7 @@ class Conversation:
                 f.write(f"Summary length: {len(new_summary)}\n")
                 
         except Exception as e:
-            # safe_print(f"Warning: Could not log summary update: {e}")
+            logging.warning(f"Could not log summary update for session {self.session_id}: {e}")
             pass
 
     def _safe_get_summary(self):
@@ -275,7 +263,7 @@ class Conversation:
         try:
             return self.memory.moving_summary_buffer
         except Exception as e:
-            safe_print(f"Warning: Error accessing summary: {e}")
+            logging.warning(f"Error accessing summary for session {self.session_id}: {e}")
             return ""
             
     def analyze_conversation_progression(self):
@@ -313,7 +301,7 @@ class Conversation:
                 'summary': summary
             }
         except Exception as e:
-            safe_print(f"Warning: Could not analyze conversation progression: {e}")
+            logging.warning(f"Could not analyze conversation progression for session {self.session_id}: {e}")
             return {
                 'progression_analysis': "Error analyzing conversation progression",
                 'summary': self._safe_get_summary()
@@ -340,7 +328,7 @@ class Conversation:
         # IMPORTANT: Only check for wrap-up if we have enough conversation rounds
         # Use conversation_rounds counter which is immune to summarization effects
         if self.conversation_rounds < 15:  # Threshold set to 15 rounds (adjust as needed)
-            # print(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds). Skipping LLM call.")
+        # logging.info(f"Not enough conversation rounds for wrap-up check ({self.conversation_rounds}/15 rounds) for session {self.session_id}. Skipping LLM call.")
             return False
             
         try:
@@ -391,15 +379,14 @@ class Conversation:
             
             # Clean up and parse the response
             clean_response = response.strip().lower()
-            # print(f"\n--- WRAP-UP DECISION ---\nLLM decision: '{clean_response}'\n--- END DECISION ---\n")
+            logging.info(f"Wrap-up decision for session {self.session_id}: LLM decision: '{clean_response}'")
             
             # Return True if the LLM says "yes", False otherwise
             return clean_response == "yes"
             
         except Exception as e:
             # Log the error and fall back to the default behavior (no wrap-up)
-            print(f"Error in LLM-based wrap-up decision: {e}")
-            print("Falling back to default behavior: no wrap-up")
+            logging.error(f"Error in LLM-based wrap-up decision for session {self.session_id}: {e}. Falling back to no wrap-up.")
             return False
             
     def process_input(self, user_input, timeout_seconds=60):
@@ -458,16 +445,15 @@ class Conversation:
                 
                 # Track and log response time
                 elapsed_time = time.time() - start_time
-                # print(f"Response generated in {elapsed_time:.2f} seconds")
+                logging.info(f"Response for session {self.session_id} generated in {elapsed_time:.2f} seconds")
                 
             except Exception as timeout_error:
                 elapsed_time = time.time() - start_time
-                # print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                logging.warning(f"API call for session {self.session_id} failed after {elapsed_time:.2f} seconds: {timeout_error}")
                 
                 # Try a fallback approach - simpler and more reliable
                 try:
-                    # Let the user know we're trying again
-                    # print("Attempting fallback response generation...")
+                    logging.info(f"Attempting fallback response generation for session {self.session_id}...")
                     
                     # Use a simpler prompt with the same model but direct call
                     formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
@@ -482,11 +468,11 @@ class Conversation:
                     
                     # Increment conversation round counter even when using fallback
                     self.conversation_rounds += 1
-                    # print(f"Conversation round incremented to {self.conversation_rounds} (via fallback)")
+                    logging.info(f"Conversation round for session {self.session_id} incremented to {self.conversation_rounds} (via fallback)")
                     
                     return fallback_response
                 except Exception as fallback_error:
-                    safe_print(f"Fallback approach also failed: {fallback_error}")
+                    logging.error(f"Fallback approach for session {self.session_id} also failed: {fallback_error}")
                     raise timeout_error  # Re-raise the original error
             
             # Check if summary has changed and log if it has - with error handling
@@ -495,7 +481,7 @@ class Conversation:
                 if old_summary != new_summary:
                     self._log_summary_update(old_summary, new_summary)
             except Exception as e:
-                safe_print(f"Warning: Error during summary update check: {e}")
+                logging.warning(f"Error during summary update check for session {self.session_id}: {e}")
                 self.summarization_failed = True
             
             # After getting a response, log the exchange
@@ -503,14 +489,14 @@ class Conversation:
             
             # Increment conversation round counter after successful completion
             self.conversation_rounds += 1
-            # print(f"Conversation round incremented to {self.conversation_rounds}")
+            logging.info(f"Conversation round for session {self.session_id} incremented to {self.conversation_rounds}")
             
             # Step 3: Return the response
             return response
         except Exception as e:
             # Handle any errors that might occur during processing
             error_msg = str(e)
-            safe_print(f"Error in conversation processing: {error_msg}")
+            logging.error(f"Error in conversation processing for session {self.session_id}: {error_msg}")
             
             # Check if it's a timeout error
             if "timeout" in error_msg.lower() or "timed out" in error_msg.lower():
@@ -526,7 +512,7 @@ class Conversation:
                 f.write(f"Coach: {response}\n")
                 f.write("-" * 50 + "\n")
         except Exception as e:
-            safe_print(f"Warning: Could not log conversation: {e}")
+            logging.warning(f"Could not log conversation for session {self.session_id}: {e}")
     
     def get_conversation_history(self):
         """
@@ -550,9 +536,9 @@ class Conversation:
         Returns:
             dict: Debug information about the summarization process
         """
-        # safe_print("\n" + "=" * 80)
-        # safe_print("DEBUGGING SUMMARIZATION PROCESS")
-        # safe_print("=" * 80)
+        # logging.info("\n" + "=" * 80)
+        # logging.info(f"DEBUGGING SUMMARIZATION PROCESS for session {self.session_id}")
+        # logging.info("=" * 80)
         
         results = {
             'success': False,
@@ -568,12 +554,12 @@ class Conversation:
             results['summary_before'] = self._safe_get_summary()
             results['buffer_size_before'] = len(self.memory.buffer) if hasattr(self.memory, 'buffer') else 0
             
-            # safe_print(f"Current summary length: {len(results['summary_before'])}")
-            # safe_print(f"Current buffer size: {results['buffer_size_before']}")
+            # logging.info(f"Current summary length for session {self.session_id}: {len(results['summary_before'])}")
+            # logging.info(f"Current buffer size for session {self.session_id}: {results['buffer_size_before']}")
             
             # Add a dummy message to force summarization
             dummy_message = "This is a test message to trigger summarization. Let's discuss our progress on the project goals, particularly focusing on topic continuity and development. We need to make sure we maintain focus on the main topics we've been discussing." * 5
-            # safe_print(f"Adding dummy message of length {len(dummy_message)}")
+            # logging.info(f"Adding dummy message of length {len(dummy_message)} for session {self.session_id}")
             
             # Add directly to memory
             self.memory.save_context(
@@ -585,15 +571,15 @@ class Conversation:
             results['summary_after'] = self._safe_get_summary()
             results['buffer_size_after'] = len(self.memory.buffer) if hasattr(self.memory, 'buffer') else 0
             
-            # safe_print(f"New summary length: {len(results['summary_after'])}")
-            # safe_print(f"New buffer size: {results['buffer_size_after']}")
+            # logging.info(f"New summary length for session {self.session_id}: {len(results['summary_after'])}")
+            # logging.info(f"New buffer size for session {self.session_id}: {results['buffer_size_after']}")
             
             # Check if summarization happened
             if results['summary_before'] != results['summary_after']:
-                # safe_print("✅ SUMMARIZATION SUCCESSFUL - Summary changed!")
+                logging.info(f"✅ SUMMARIZATION SUCCESSFUL for session {self.session_id} - Summary changed!")
                 results['success'] = True
             else:
-                # safe_print("⚠️ No change in summary detected")
+                logging.warning(f"⚠️ No change in summary detected for session {self.session_id}")
                 pass
             
             # Log the attempt
@@ -601,10 +587,10 @@ class Conversation:
             
         except Exception as e:
             error_msg = str(e)
-            # safe_print(f"❌ ERROR during summarization debug: {error_msg}")
+            logging.error(f"❌ ERROR during summarization debug for session {self.session_id}: {error_msg}")
             results['error'] = error_msg
         
-        # safe_print("=" * 80)
+        # logging.info("=" * 80)
         return results
         
     def generate_closing_summary(self):
@@ -640,10 +626,11 @@ class Conversation:
             # Create the closing chain with the explicitly formatted prompt
             # Note: CLOSING_PROMPT should be updated in config.py to handle full conversation history
             formatted_closing_prompt = CLOSING_PROMPT.format(conversation_history=conversation_text)
-            # safe_print("Passing complete conversation history to closing prompt...")
+            logging.info(f"Passing complete conversation history to closing prompt for session {self.session_id}...")
             
             # Use direct LLM prediction instead of chain to ensure proper formatting
             final_message = closing_llm.predict(formatted_closing_prompt)
+            self.end_session() # Mark session as ended after generating summary
             
             # Log the final summary to the conversation log file
             try:
@@ -677,7 +664,7 @@ class Conversation:
                     f.write(f"Coach: {final_message}\n")
                     f.write("-" * 50 + "\n")
             except Exception as log_error:
-                # safe_print(f"Warning: Could not update conversation log with final summary: {log_error}")
+                logging.warning(f"Could not update conversation log with final summary for session {self.session_id}: {log_error}")
                 pass
             
             # Log the final summary to a separate file
@@ -687,12 +674,12 @@ class Conversation:
                     f.write("=" * 50 + "\n\n")
                     f.write(final_message)
             except Exception as log_error:
-                # safe_print(f"Warning: Could not log final summary: {log_error}")
+                logging.warning(f"Could not log final summary for session {self.session_id}: {log_error}")
                 pass
                 
             return final_message
         except Exception as e:
-            # safe_print(f"Error generating closing summary: {e}")
+            logging.error(f"Error generating closing summary for session {self.session_id}: {e}")
             return "I'm unable to generate a final summary at this time. Let's continue our conversation."
 
     def process_input_without_adding_to_memory(self, user_input, timeout_seconds=60):
@@ -760,7 +747,7 @@ class Conversation:
                     # Trigger summarization if needed
                     if hasattr(self.memory, 'buffer') and len(self.memory.buffer) > self.memory.max_token_limit:
                         # Force summarization
-                        # print("Triggering manual summarization due to buffer size")
+                        logging.info(f"Triggering manual summarization due to buffer size for session {self.session_id}")
                         buffer_content = self.memory.buffer
                         summary = self.memory.summarize(buffer_content)
                         if summary:
@@ -793,7 +780,7 @@ class Conversation:
                     # Trigger summarization if needed
                     if hasattr(self.memory, 'buffer') and len(self.memory.buffer) > self.memory.max_token_limit:
                         # Force summarization
-                        # print("Triggering manual summarization due to buffer size")
+                        logging.info(f"Triggering manual summarization due to buffer size for session {self.session_id}")
                         buffer_content = self.memory.buffer
                         summary = self.memory.summarize(buffer_content)
                         if summary:
@@ -804,19 +791,18 @@ class Conversation:
                 
                 # Track and log response time
                 elapsed_time = time.time() - start_time
-                # print(f"Response generated in {elapsed_time:.2f} seconds")
+                logging.info(f"Response for session {self.session_id} generated in {elapsed_time:.2f} seconds (without_adding_to_memory)")
                 
                 # Clean up any empty messages that might have been introduced
                 self._clean_empty_messages()
                 
             except Exception as timeout_error:
                 elapsed_time = time.time() - start_time
-                # print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                logging.warning(f"API call for session {self.session_id} failed after {elapsed_time:.2f} seconds (without_adding_to_memory): {timeout_error}")
                 
                 # Try a fallback approach - simpler and more reliable
                 try:
-                    # Let the user know we're trying again
-                    # print("Attempting fallback response generation...")
+                    logging.info(f"Attempting fallback response generation for session {self.session_id} (without_adding_to_memory)...")
                     
                     # Use a simpler prompt with the same model but direct call
                     formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
@@ -830,11 +816,11 @@ class Conversation:
                     
                     # Increment conversation round counter even when using fallback
                     self.conversation_rounds += 1
-                    # print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in without_adding)")
+                    logging.info(f"Conversation round for session {self.session_id} incremented to {self.conversation_rounds} (via fallback in without_adding)")
                     
                     return fallback_response
                 except Exception as fallback_error:
-                    print(f"Fallback approach also failed: {fallback_error}")
+                    logging.error(f"Fallback approach for session {self.session_id} also failed (without_adding_to_memory): {fallback_error}")
                     raise timeout_error  # Re-raise the original error
             
             # Check if summary has changed and log if it has - with error handling
@@ -843,7 +829,7 @@ class Conversation:
                 if old_summary != new_summary:
                     self._log_summary_update(old_summary, new_summary)
             except Exception as e:
-                print(f"Warning: Error during summary update check: {e}")
+                logging.warning(f"Error during summary update check for session {self.session_id} (without_adding_to_memory): {e}")
                 self.summarization_failed = True
             
             # After getting a response, log the exchange
@@ -851,14 +837,14 @@ class Conversation:
             
             # Increment conversation round counter after successful completion
             self.conversation_rounds += 1
-            # print(f"Conversation round incremented to {self.conversation_rounds} (via without_adding)")
+            logging.info(f"Conversation round for session {self.session_id} incremented to {self.conversation_rounds} (via without_adding)")
             
             # Step 3: Return the response
             return response
         except Exception as e:
             # Handle any errors that might occur during processing
             error_msg = str(e)
-            print(f"Error in conversation processing: {error_msg}")
+            logging.error(f"Error in conversation processing for session {self.session_id} (without_adding_to_memory): {error_msg}")
             
             # Check if it's a timeout error
             if "timeout" in error_msg.lower() or "timed out" in error_msg.lower():
@@ -882,7 +868,7 @@ class Conversation:
             if (current.type == previous.type and 
                 current.content == previous.content):
                 # Found duplicate - remove the current (later) message
-                # print(f"Removing duplicate message: [{current.type}] {current.content[:50]}...")
+                logging.debug(f"Removing duplicate message for session {self.session_id}: [{current.type}] {current.content[:50]}...")
                 messages.pop(i)
             i -= 1 
             
@@ -896,7 +882,7 @@ class Conversation:
         while i >= 0:
             message = messages[i]
             if message.content == "":
-                # print(f"Removing empty {message.type} message from memory")
+                logging.debug(f"Removing empty {message.type} message from memory for session {self.session_id}")
                 messages.pop(i)
                 cleaned = True
             i -= 1
@@ -926,11 +912,11 @@ class Conversation:
         # Final cleanup of any empty messages
         self._clean_empty_messages()
             
-        # print(f"Added user message to memory: '{user_input[:50]}...'")
+        logging.debug(f"Added user message to memory for session {self.session_id}: '{user_input[:50]}...'")
         
         # Debug buffer state
         if hasattr(self.memory, 'buffer'):
-            # print(f"Buffer size after adding: {len(self.memory.buffer)}")
+            logging.debug(f"Buffer size after adding for session {self.session_id}: {len(self.memory.buffer)}")
             pass
             
     def add_ai_message_to_memory(self, ai_message):
@@ -952,11 +938,11 @@ class Conversation:
         # Clean up any empty messages that might have been introduced
         self._clean_empty_messages()
         
-        # print(f"Added AI message to memory: '{ai_message[:50]}...'")
+        logging.debug(f"Added AI message to memory for session {self.session_id}: '{ai_message[:50]}...'")
         
         # Debug buffer state
         if hasattr(self.memory, 'buffer'):
-            # print(f"Buffer size after adding: {len(self.memory.buffer)}")
+            logging.debug(f"Buffer size after adding for session {self.session_id}: {len(self.memory.buffer)}")
             pass
             
     def process_input_with_existing_message(self, user_input, timeout_seconds=60):
@@ -1007,15 +993,15 @@ class Conversation:
                 
                 # Track and log response time
                 elapsed_time = time.time() - start_time
-                # print(f"Response generated in {elapsed_time:.2f} seconds")
+                logging.info(f"Response for session {self.session_id} generated in {elapsed_time:.2f} seconds (with_existing_message)")
                 
             except Exception as timeout_error:
                 elapsed_time = time.time() - start_time
-                # print(f"API call failed after {elapsed_time:.2f} seconds: {timeout_error}")
+                logging.warning(f"API call for session {self.session_id} failed after {elapsed_time:.2f} seconds (with_existing_message): {timeout_error}")
                 
                 # Try a fallback approach
                 try:
-                    print("Attempting fallback response generation...")
+                    logging.info(f"Attempting fallback response generation for session {self.session_id} (with_existing_message)...")
                     formatted_fallback_prompt = FALLBACK_PROMPT.format(user_input=user_input)
                     fallback_response = self.llm.predict(formatted_fallback_prompt)
                     
@@ -1027,11 +1013,11 @@ class Conversation:
                     
                     # Increment conversation round counter even when using fallback
                     self.conversation_rounds += 1
-                    # print(f"Conversation round incremented to {self.conversation_rounds} (via fallback in existing_message)")
+                    logging.info(f"Conversation round for session {self.session_id} incremented to {self.conversation_rounds} (via fallback in existing_message)")
                     
                     return fallback_response
                 except Exception as fallback_error:
-                    print(f"Fallback approach also failed: {fallback_error}")
+                    logging.error(f"Fallback approach for session {self.session_id} also failed (with_existing_message): {fallback_error}")
                     raise timeout_error
             
             # After getting a response, log the exchange
@@ -1039,14 +1025,14 @@ class Conversation:
             
             # Increment conversation round counter after successful completion
             self.conversation_rounds += 1
-            # print(f"Conversation round incremented to {self.conversation_rounds} (via existing_message)")
+            logging.info(f"Conversation round for session {self.session_id} incremented to {self.conversation_rounds} (via existing_message)")
             
             # Step 3: Return the response
             return response
             
         except Exception as e:
             error_msg = str(e)
-            print(f"Error in conversation processing: {error_msg}")
+            logging.error(f"Error in conversation processing for session {self.session_id} (with_existing_message): {error_msg}")
             
             if "timeout" in error_msg.lower():
                 return "I'm taking too long to respond. Let's try a different approach."
@@ -1094,9 +1080,9 @@ class Conversation:
             "last_message_type": messages[-1].type if messages else None
         }
         
-        # print("\nCONVERSATION MEMORY DEBUG:")
-        # for key, value in report.items():
-        #     print(f"  {key}: {value}")
-        # print("")
+        logging.debug(f"\nCONVERSATION MEMORY DEBUG for session {self.session_id}:")
+        for key, value in report.items():
+            logging.debug(f"  {key}: {value}")
+        logging.debug("")
         
         return report 

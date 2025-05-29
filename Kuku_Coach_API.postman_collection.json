@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "a9c1b3f2-8f7e-4d6a-9c1b-3f2e8d7a6c5b",
+		"name": "Kuku Coach API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"description": "Collection for testing the Kuku Coach FastAPI backend."
+	},
+	"item": [
+		{
+			"name": "Session Management",
+			"item": [
+				{
+					"name": "Create New Session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sessions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sessions"
+							]
+						},
+						"description": "Creates a new coaching session."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sessions/{{sessionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"{{sessionId}}"
+							]
+						},
+						"description": "Gets the status and details of an existing session. Replace `{{sessionId}}` with an active session ID."
+					},
+					"response": []
+				},
+				{
+					"name": "End Session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sessions/{{sessionId}}/end",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"{{sessionId}}",
+								"end"
+							]
+						},
+						"description": "Ends an active session and generates a summary. Replace `{{sessionId}}` with an active session ID."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints related to session creation, status, and termination."
+		},
+		{
+			"name": "Conversation",
+			"item": [
+				{
+					"name": "Get Conversation History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sessions/{{sessionId}}/messages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"{{sessionId}}",
+								"messages"
+							]
+						},
+						"description": "Gets the conversation history for a session. Replace `{{sessionId}}` with an active session ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Audio Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "audio",
+									"type": "file",
+									"src": [],
+									"description": "Audio file to be transcribed and processed (e.g., .wav, .mp3)."
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/sessions/{{sessionId}}/messages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"{{sessionId}}",
+								"messages"
+							]
+						},
+						"description": "Sends audio to be processed and receives AI response. Replace `{{sessionId}}` with an active session ID. Attach your audio file in the 'audio' field of the form-data body."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints related to sending messages and retrieving conversation history."
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string",
+			"description": "Base URL of the API (e.g., http://localhost:8000 or your Render.com URL)"
+		},
+		{
+			"key": "sessionId",
+			"value": "",
+			"type": "string",
+			"description": "To be populated with the ID of an active session after calling 'Create New Session'."
+		}
+	],
+	"event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Example: Extract sessionId from 'Create New Session' response",
+                    "// and set it as a collection variable.",
+                    "// This script would go in the 'Tests' tab of the 'Create New Session' request.",
+                    "",
+                    "// if (pm.request.url.getPath().endsWith('/api/sessions') && pm.request.method === 'POST') {",
+                    "//     try {",
+                    "//         const responseJson = pm.response.json();",
+                    "//         if (responseJson.success && responseJson.data.sessionId) {",
+                    "//             pm.collectionVariables.set('sessionId', responseJson.data.sessionId);",
+                    "//             console.log('Set sessionId to:', responseJson.data.sessionId);",
+                    "//         }",
+                    "//     } catch (e) {",
+                    "//         console.log('Error parsing/setting sessionId:', e);",
+                    "//     }",
+                    "// }"
+                ]
+            }
+        }
+    ]
+}

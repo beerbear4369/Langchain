@@ -1,0 +1,15 @@
+User: Hi, my name is Ian. How are you? Do you know what is my name?
+Coach: Hi Ian, nice to meet you! I'm curious, what would you like to explore today?
+--------------------------------------------------
+User: oh just want to see uh whether it's smoking in the second round
+Coach: Thank you for sharing that, Ian. Could you clarify what you mean by "smoking in the second round"?
+--------------------------------------------------
+User: Let's see in the third round, I'm able to fire the API to the backend and still get a response. I'm just doing this testing, and it's fantastic when I look at this UI, it's kind of working.
+Coach: That sounds promising! What outcome do you hope to achieve from this testing?
+--------------------------------------------------
+User: Yeah, I just hope to see it respond as Now yeah, it's perfect. I'm so happy
+Coach: Happy to hear that! How will you recognize continued success as you proceed?
+--------------------------------------------------
+User: You know, you're all serious really quick, uh-huh Like be able to push out this MVP is my success So now I just left is the one small step about any conversation How I can end this with a summary page and then that's it. That's What I'm scoped to develop for the MVP a long time ago, then I'm going to deploy it to some web service and from there maybe I need to adjust some You know URL for the integration But that shouldn't be a big problem. Then I'm done right I'm also able to launch a small product
+Coach: Completing the MVP sounds exciting! What strengths or resources do you have to finalize that summary page?
+--------------------------------------------------

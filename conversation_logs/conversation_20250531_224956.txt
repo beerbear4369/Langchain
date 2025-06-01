@@ -1,0 +1,6 @@
+User: response mp3 number two and even this is better I think this is better
+Coach: Help me understand what about this second response feels better to you?
+--------------------------------------------------
+User: Bye-bye. Bye-bye. Bye-bye. 
+Coach: It sounds like you're wrapping up. Before we finish, is there anything else you'd like to explore today?
+--------------------------------------------------

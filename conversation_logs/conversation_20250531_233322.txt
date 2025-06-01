@@ -1,0 +1,3 @@
+User: Does this work?
+Coach: What specific outcome would make you say, "Yes, this works"?
+--------------------------------------------------

@@ -1,0 +1,3 @@
+User: Hello, it's me
+Coach: Hello! What would you like to explore today?
+--------------------------------------------------

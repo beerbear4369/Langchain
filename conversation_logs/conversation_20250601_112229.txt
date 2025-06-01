@@ -1,3 +1,0 @@
-User: Hello, does this work?
-Coach: Hello! What would you like to explore today?
---------------------------------------------------

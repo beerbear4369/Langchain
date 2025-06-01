@@ -1,6 +1,0 @@
-User: Hello, I want to talk about my progress of building an AI chatbot.
-Coach: What specifically do you want to dive into regarding the AI chatbot?
---------------------------------------------------
-User: wow I would like to explore the you know like actually I'm not so sure about it
-Coach: That's fine. Take your time to think about what to talk about.
---------------------------------------------------

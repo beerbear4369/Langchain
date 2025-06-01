@@ -169,7 +169,7 @@
           "host": ["{{base_url}}"],
           "path": ["api", "sessions", "{{session_id}}", "messages"]
         },
-        "description": "🔍 CRITICAL TEST: Upload real audio file and get AI response with TTS"
+        "description": "🔍 CRITICAL TEST: Upload real audio file and get AI response with TTS.\n\n**Manual Wrap-Up Commands:**\nIf you say any of these phrases, the AI will prompt for confirmation:\n- \"wrap up\"\n- \"end session\"\n- \"finish conversation\"\n- \"summarize and end\"\n- \"let's conclude\"\n- \"finish session\"\n\n**Confirmation Commands:**\nTo confirm wrap-up after the prompt, say:\n- \"wrap up and summarize\"\n- \"wrap up\"\n- \"summarize\"\n- \"end session\"\n- \"yes\" (with context like \"yes, summarize\")\n\n**Automatic Session Ending:**\nIf the conversation reaches the wrap-up threshold, the response will include:\n- `sessionEnded: true`\n- `finalSummary: <string>` (optional, if summary generated)\n\n**Example Success Response (Normal):**\n```json\n{\n  \"success\": true,\n  \"data\": {\n    \"messages\": [\n      {\n        \"id\": \"msg-user-123\",\n        \"timestamp\": \"2023-06-15T10:31:00Z\",\n        \"sender\": \"user\",\n        \"text\": \"I'm feeling really overwhelmed with work lately.\"\n      },\n      {\n        \"id\": \"msg-ai-456\",\n        \"timestamp\": \"2023-06-15T10:31:05Z\",\n        \"sender\": \"ai\",\n        \"text\": \"I understand how challenging it can be when work feels overwhelming. Let's break this down together. Could you tell me what aspects of work are causing you the most stress right now?\",\n        \"audioUrl\": \"https://api.kukucoach.com/audio/response-456.mp3\"\n      }\n    ]\n  }\n}\n```\n\n**Example Success Response (Wrap-Up Prompt):**\n```json\n{\n  \"success\": true,\n  \"data\": {\n    \"messages\": [\n      {\n        \"id\": \"msg-user-789\",\n        \"timestamp\": \"2023-06-15T10:35:00Z\",\n        \"sender\": \"user\",\n        \"text\": \"wrap up\"\n      },\n      {\n        \"id\": \"msg-ai-101\",\n        \"timestamp\": \"2023-06-15T10:35:05Z\",\n        \"sender\": \"ai\",\n        \"text\": \"Would you like to wrap up our session with a final summary and action plan? Please confirm by saying 'yes' or 'wrap up and summarize'.\",\n        \"audioUrl\": \"https://api.kukucoach.com/audio/response-101.mp3\"\n      }\n    ],\n    \"awaitingWrapUpConfirmation\": true\n  }\n}\n```\n\n**Example Success Response (Session Ended After Confirmation):**\n```json\n{\n  \"success\": true,\n  \"data\": {\n    \"messages\": [\n      {\n        \"id\": \"msg-user-102\",\n        \"timestamp\": \"2023-06-15T10:36:00Z\",\n        \"sender\": \"user\",\n        \"text\": \"yes, wrap up and summarize\"\n      },\n      {\n        \"id\": \"msg-ai-103\",\n        \"timestamp\": \"2023-06-15T10:36:05Z\",\n        \"sender\": \"ai\",\n        \"text\": \"In this coaching session, you discussed work stress and strategies to manage it...\",\n        \"audioUrl\": \"https://api.kukucoach.com/audio/response-103.mp3\"\n      }\n    ],\n    \"sessionEnded\": true,\n    \"finalSummary\": \"In this coaching session, you discussed work stress and strategies to manage it...\"\n  }\n}\n```\n\n**Example Error Response:**\n```json\n{\n  \"success\": false,\n  \"error\": \"Invalid audio format. Please use MP3, WAV, or WebM format.\"\n}\n```"
       },
       "event": [
         {
@@ -191,6 +191,16 @@
               "        pm.expect(aiMsg.sender).to.eql('ai');",
               "        pm.expect(userMsg.text).to.be.a('string').and.not.empty;",
               "        pm.expect(aiMsg.text).to.be.a('string').and.not.empty;",
+              "        ",
+              "        if (jsonData.data.sessionEnded) {",
+              "            pm.expect(jsonData.data.finalSummary).to.be.a('string').and.not.empty;",
+              "            console.log('Session ended automatically. Final summary:', jsonData.data.finalSummary);",
+              "        }",
+              "        ",
+              "        if (jsonData.data.awaitingWrapUpConfirmation) {",
+              "            console.log('AI is awaiting wrap-up confirmation. AI prompt:', aiMsg.text);",
+              "            console.log('Send another audio message with \"yes\" or \"wrap up and summarize\" to confirm.');",
+              "        }",
               "        ",
               "        console.log('User said:', userMsg.text);",
               "        console.log('AI responded:', aiMsg.text);",

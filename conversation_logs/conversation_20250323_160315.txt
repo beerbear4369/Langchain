@@ -1,6 +1,0 @@
-User: Where is the aerophone?
-Coach: I'm not sure I understand what you're asking. Could you clarify?
---------------------------------------------------
-User: 费。
-Coach: I'm sorry, I don't understand.
---------------------------------------------------

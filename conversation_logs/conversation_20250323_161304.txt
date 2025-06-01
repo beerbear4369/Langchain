@@ -1,6 +1,0 @@
-User: Hello, I'm very good. How are you?
-Coach: Good. Thank you.
---------------------------------------------------
-User: So, the back memory?
-Coach: Yeah, that's right.
---------------------------------------------------

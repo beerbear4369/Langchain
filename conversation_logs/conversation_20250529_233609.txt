@@ -1,6 +1,0 @@
-User: response mp3 number two and even this is better I think this is better
-Coach: Help me understand what makes you say this one is better?
---------------------------------------------------
-User: Okay, my name is Ian. I just want to see whether this is working. It is a quite interesting behavior if I'm able to see if it's working from here. And what is your name? What can you do for me?
-Coach: Hi Ian, thanks for sharing. What would you like to explore or achieve through our conversation today?
---------------------------------------------------

@@ -1,6 +1,0 @@
-User: Okay, so let me see him. How are you?
-Coach: What would you like to focus on today?
---------------------------------------------------
-User: Bye!
-Coach: Is there anything else you'd like to explore before we end?
---------------------------------------------------

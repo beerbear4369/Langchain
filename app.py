@@ -15,7 +15,15 @@ import time
 
 # Import existing conversation logic
 from conversation import Conversation
-from audio_input import transcribe_audio
+
+# Conditional import for audio processing (for deployment compatibility)
+try:
+    from audio_input import transcribe_audio
+    AUDIO_INPUT_AVAILABLE = True
+except ImportError:
+    AUDIO_INPUT_AVAILABLE = False
+    print("Warning: audio_input module not available - audio transcription disabled")
+
 from audio_output import text_to_speech_api
 
 app = FastAPI(
@@ -245,7 +253,13 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
         
         try:
             # Transcribe audio using existing logic
-            user_text = transcribe_audio(temp_audio_path)
+            if AUDIO_INPUT_AVAILABLE:
+                user_text = transcribe_audio(temp_audio_path)
+            else:
+                return MessageResponse(
+                    success=False,
+                    error="Audio transcription not available in this deployment. Please use text input instead."
+                )
             
             if not user_text or not user_text.strip():
                 return MessageResponse(

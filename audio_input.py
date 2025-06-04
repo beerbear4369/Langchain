@@ -1,5 +1,4 @@
 import wave  # For working with WAV audio files
-import pyaudio  # For recording audio from microphone
 import os  # For file operations
 import tempfile  # For creating temporary files
 import threading  # For handling keyboard input while recording
@@ -7,6 +6,14 @@ import platform  # For detecting the operating system
 import time  # For delays and timing
 from openai import OpenAI  # OpenAI API client
 from config import OPENAI_API_KEY, SAMPLE_RATE, CHANNELS, CHUNK_SIZE, RECORD_SECONDS
+
+# Conditional import for desktop audio recording
+try:
+    import pyaudio  # For recording audio from microphone
+    PYAUDIO_AVAILABLE = True
+except ImportError:
+    PYAUDIO_AVAILABLE = False
+    print("Warning: pyaudio not available - record_audio function disabled")
 
 # Create an OpenAI client with your API key
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -28,6 +35,9 @@ def record_audio(duration=RECORD_SECONDS, min_duration=0.5):
     Returns:
         str: Path to the recorded audio file
     """
+    if not PYAUDIO_AVAILABLE:
+        raise ImportError("pyaudio is not available - cannot record audio")
+        
     print("Recording... Press any key to stop recording")
     
     # Flag to indicate if recording should stop

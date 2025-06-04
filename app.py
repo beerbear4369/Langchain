@@ -15,17 +15,17 @@ import time
 
 # Import existing conversation logic
 from conversation import Conversation
+from audio_input import transcribe_audio
+from audio_output import text_to_speech_api
 
 # Conditional import for audio processing (for deployment compatibility)
 try:
-    from audio_input import transcribe_audio
     AUDIO_INPUT_AVAILABLE = True
 except ImportError:
     AUDIO_INPUT_AVAILABLE = False
     print("Warning: audio_input module not available - audio transcription disabled")
 
 try:
-    from audio_output import text_to_speech_api
     AUDIO_OUTPUT_AVAILABLE = True
 except ImportError:
     AUDIO_OUTPUT_AVAILABLE = False
@@ -268,13 +268,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
         
         try:
             # Transcribe audio using existing logic
-            if AUDIO_INPUT_AVAILABLE:
-                user_text = transcribe_audio(temp_audio_path)
-            else:
-                return MessageResponse(
-                    success=False,
-                    error="Audio transcription not available in this deployment. Please use text input instead."
-                )
+            user_text = transcribe_audio(temp_audio_path)
             
             if not user_text or not user_text.strip():
                 return MessageResponse(
@@ -317,7 +311,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                     audio_path = os.path.join("temp_audio", audio_filename)
                     os.makedirs("temp_audio", exist_ok=True)
                     
-                    if generate_tts_if_available(wrap_prompt, audio_path):
+                    if text_to_speech_api(wrap_prompt, audio_path):
                         if os.path.exists(audio_path):
                             audio_url = f"/audio/{audio_filename}"
                 except Exception as e:
@@ -379,7 +373,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                             audio_path = os.path.join("temp_audio", audio_filename)
                             os.makedirs("temp_audio", exist_ok=True)
                             
-                            if generate_tts_if_available(final_message, audio_path):
+                            if text_to_speech_api(final_message, audio_path):
                                 if os.path.exists(audio_path):
                                     audio_url = f"/audio/{audio_filename}"
                         except Exception as e:
@@ -439,7 +433,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                         audio_path = os.path.join("temp_audio", audio_filename)
                         os.makedirs("temp_audio", exist_ok=True)
                         
-                        if generate_tts_if_available(ai_response, audio_path):
+                        if text_to_speech_api(ai_response, audio_path):
                             if os.path.exists(audio_path):
                                 audio_url = f"/audio/{audio_filename}"
                     except Exception as e:
@@ -508,15 +502,15 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                 print(f"Attempting TTS generation for: {ai_response[:50]}...")
                 print(f"Audio file path: {audio_path}")
                 
-                if generate_tts_if_available(ai_response, audio_path):
+                if text_to_speech_api(ai_response, audio_path):
                     print(f"TTS successful, checking if file exists: {os.path.exists(audio_path)}")
                     if os.path.exists(audio_path):
                         audio_url = f"/audio/{audio_filename}"
                         print(f"Audio URL set to: {audio_url}")
                     else:
-                        print("TTS reported success but file does not exist")
+                        print("TTS generation failed - text_to_speech_api returned False")
                 else:
-                    print("TTS generation failed - generate_tts_if_available returned False")
+                    print("TTS generation failed - text_to_speech_api returned False")
             except Exception as e:
                 print(f"TTS generation failed with exception: {e}")
                 import traceback

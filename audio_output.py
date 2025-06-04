@@ -1,9 +1,16 @@
 import tempfile
 import os
-import sounddevice as sd
-import soundfile as sf
 from openai import OpenAI
 from config import OPENAI_API_KEY, DEFAULT_VOICE
+
+# Conditional import for desktop audio playback
+try:
+    import sounddevice as sd
+    import soundfile as sf
+    SOUNDDEVICE_AVAILABLE = True
+except ImportError:
+    SOUNDDEVICE_AVAILABLE = False
+    print("Warning: sounddevice not available - play_audio function disabled")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -47,8 +54,11 @@ def text_to_speech(text, voice=DEFAULT_VOICE):
         # Step 4: Save the audio to the temporary file
         response.stream_to_file(temp_file.name)
         
-        # Step 5: Play the audio file
-        play_audio(temp_file.name)
+        # Step 5: Play the audio file (only if sounddevice is available)
+        if SOUNDDEVICE_AVAILABLE:
+            play_audio(temp_file.name)
+        else:
+            print("Audio generated but playback not available (sounddevice missing)")
         
         # Step 6: Clean up by deleting the temporary file
         os.unlink(temp_file.name)
@@ -104,6 +114,10 @@ def play_audio(file_path):
     Returns:
         None
     """
+    if not SOUNDDEVICE_AVAILABLE:
+        print("Warning: sounddevice not available - cannot play audio")
+        return
+        
     try:
         # Step 1: Load the audio file
         # This returns the audio data and sample rate

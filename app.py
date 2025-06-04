@@ -24,7 +24,12 @@ except ImportError:
     AUDIO_INPUT_AVAILABLE = False
     print("Warning: audio_input module not available - audio transcription disabled")
 
-from audio_output import text_to_speech_api
+try:
+    from audio_output import text_to_speech_api
+    AUDIO_OUTPUT_AVAILABLE = True
+except ImportError:
+    AUDIO_OUTPUT_AVAILABLE = False
+    print("Warning: audio_output module not available - TTS disabled")
 
 app = FastAPI(
     title="Kuku Coach API",
@@ -114,6 +119,16 @@ def update_session_timestamp(session_id: str):
     """Update session's last activity timestamp."""
     if session_id in sessions:
         sessions[session_id]["updatedAt"] = get_current_timestamp()
+
+def generate_tts_if_available(text: str, audio_path: str) -> bool:
+    """Generate TTS if audio output is available, return True if successful."""
+    if not AUDIO_OUTPUT_AVAILABLE:
+        return False
+    try:
+        return text_to_speech_api(text, audio_path)
+    except Exception as e:
+        print(f"TTS generation failed: {e}")
+        return False
 
 # API Endpoints
 
@@ -302,7 +317,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                     audio_path = os.path.join("temp_audio", audio_filename)
                     os.makedirs("temp_audio", exist_ok=True)
                     
-                    if text_to_speech_api(wrap_prompt, audio_path):
+                    if generate_tts_if_available(wrap_prompt, audio_path):
                         if os.path.exists(audio_path):
                             audio_url = f"/audio/{audio_filename}"
                 except Exception as e:
@@ -364,7 +379,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                             audio_path = os.path.join("temp_audio", audio_filename)
                             os.makedirs("temp_audio", exist_ok=True)
                             
-                            if text_to_speech_api(final_message, audio_path):
+                            if generate_tts_if_available(final_message, audio_path):
                                 if os.path.exists(audio_path):
                                     audio_url = f"/audio/{audio_filename}"
                         except Exception as e:
@@ -424,7 +439,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                         audio_path = os.path.join("temp_audio", audio_filename)
                         os.makedirs("temp_audio", exist_ok=True)
                         
-                        if text_to_speech_api(ai_response, audio_path):
+                        if generate_tts_if_available(ai_response, audio_path):
                             if os.path.exists(audio_path):
                                 audio_url = f"/audio/{audio_filename}"
                     except Exception as e:
@@ -493,7 +508,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                 print(f"Attempting TTS generation for: {ai_response[:50]}...")
                 print(f"Audio file path: {audio_path}")
                 
-                if text_to_speech_api(ai_response, audio_path):
+                if generate_tts_if_available(ai_response, audio_path):
                     print(f"TTS successful, checking if file exists: {os.path.exists(audio_path)}")
                     if os.path.exists(audio_path):
                         audio_url = f"/audio/{audio_filename}"
@@ -501,7 +516,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                     else:
                         print("TTS reported success but file does not exist")
                 else:
-                    print("TTS generation failed - text_to_speech_api returned False")
+                    print("TTS generation failed - generate_tts_if_available returned False")
             except Exception as e:
                 print(f"TTS generation failed with exception: {e}")
                 import traceback

@@ -214,30 +214,17 @@ def transcribe_audio(audio_file_path):
         # Step 1: Open the audio file in binary mode
         with open(audio_file_path, "rb") as audio_file:
             try:
-                # Step 2: Send the file to OpenAI's GPT-4o-mini-transcribe API for transcription
+                # Step 2: Send the file to OpenAI's Whisper API for transcription
                 # with a timeout to prevent hanging
                 transcription = client.audio.transcriptions.create(
-                    model="gpt-4o-mini-transcribe",  # Using the improved model for better accuracy
+                    model="whisper-1",  # Using the stable and reliable Whisper model
                     file=audio_file,  # The audio file object
                     timeout=30  # Add a timeout to prevent hanging indefinitely
                 )
             except (TimeoutException, Exception) as e:
-                print(f"Primary model transcription failed: {e}")
-                print("Falling back to whisper-1 model...")
-                
-                # Rewind the file pointer to the beginning
-                audio_file.seek(0)
-                
-                # Try with the whisper-1 model as fallback
-                try:
-                    transcription = client.audio.transcriptions.create(
-                        model="whisper-1",  # Fallback to the stable model
-                        file=audio_file,  # The audio file object
-                        timeout=30  # Add a timeout to prevent hanging indefinitely
-                    )
-                except Exception as e:
-                    print(f"Fallback transcription also failed: {e}")
-                    raise
+                print(f"Whisper transcription failed: {e}")
+                # No fallback needed since whisper-1 is the most reliable model
+                raise
         
         # Report time taken for transcription
         elapsed_time = time.time() - start_time

@@ -67,6 +67,10 @@ class SessionData(BaseModel):
     status: str
     updatedAt: Optional[str] = None
     messageCount: Optional[int] = 0
+    wrapUpCooldown: Optional[int] = 0
+    timeExtensionMinutes: Optional[int] = 0
+    ignoreContentWrapUp: Optional[bool] = False
+    awaitingWrapUpConfirmation: Optional[bool] = False
 
 class SessionResponse(ApiResponse):
     data: Optional[SessionData] = None
@@ -112,7 +116,11 @@ def create_session_data(session_id: str) -> SessionData:
         sessionId=session_id,
         createdAt=get_current_timestamp(),
         status="active",
-        messageCount=0
+        messageCount=0,
+        wrapUpCooldown=0,
+        timeExtensionMinutes=0,
+        ignoreContentWrapUp=False,
+        awaitingWrapUpConfirmation=False
     )
 
 def update_session_timestamp(session_id: str):
@@ -420,8 +428,23 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                         conversation.add_user_message_to_memory(user_text)
                         conversation.add_ai_message_to_memory(ai_response)
                 else:
-                    # User declined wrap-up
+                    # User declined wrap-up - implement cooldown and extension logic from standalone
                     sessions[session_id]["awaitingWrapUpConfirmation"] = False
+                    
+                    # Reset wrap-up conditions and add cooldown (from main.py lines 530-543)
+                    # 1. Reset turn counter to avoid immediate re-prompting
+                    current_message_count = sessions[session_id]["messageCount"]
+                    sessions[session_id]["messageCount"] = max(0, current_message_count - 10)  # Reduce by 5 exchanges
+                    
+                    # 2. Set cooldown period for 5 conversation exchanges
+                    sessions[session_id]["wrapUpCooldown"] = 5
+                    
+                    # 3. Extend session timeout by 5 minutes
+                    sessions[session_id]["timeExtensionMinutes"] += 5
+                    
+                    # 4. Temporarily ignore should_wrap_up() results
+                    sessions[session_id]["ignoreContentWrapUp"] = True
+                    
                     ai_response = "Okay, let's continue our conversation."
                     conversation.add_user_message_to_memory(user_text)
                     conversation.add_ai_message_to_memory(ai_response)
@@ -471,25 +494,85 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
             # Process user input with existing conversation logic
             ai_response = conversation.process_input(user_text)
             
-            # Check if session should be automatically wrapped up (identical to standalone version)
-            should_end_session = False
-            final_summary = None
+            # COMPREHENSIVE WRAP-UP LOGIC (copied from main.py lines 411-543)
+            # Calculate elapsed time and turn counter
+            created_at = datetime.fromisoformat(sessions[session_id]["createdAt"].replace("Z", "+00:00"))
+            elapsed_time = (datetime.utcnow().replace(tzinfo=created_at.tzinfo) - created_at).total_seconds()
+            turn_counter = sessions[session_id]["messageCount"] // 2  # Each exchange = user + AI message
+            max_turns = 25  # After 25 exchanges, propose wrapping up
             
-            # Only check for wrap-up after conversation has progressed enough (matching standalone logic)
-            if conversation.conversation_rounds >= 15:
-                if conversation.should_wrap_up():
-                    should_end_session = True
-                    # Generate final summary using existing conversation logic
-                    try:
-                        final_summary = conversation.generate_closing_summary()
-                        # Update session status to ended
-                        sessions[session_id]["status"] = "ended"
-                        update_session_timestamp(session_id)
-                        # The conversation instance will be cleaned up by the frontend calling /end endpoint
-                    except Exception as e:
-                        print(f"Warning: Failed to generate closing summary: {e}")
-                        # Still end the session even if summary generation fails
-                        should_end_session = True
+            wrap_up_requested = False
+            
+            # Check if we're in the cooldown period
+            if sessions[session_id]["wrapUpCooldown"] > 0:
+                # Decrement cooldown
+                sessions[session_id]["wrapUpCooldown"] -= 1
+                print(f"Wrap-up cooldown active: {sessions[session_id]['wrapUpCooldown']} exchanges remaining")
+                
+            # Only check wrap-up conditions if not in cooldown
+            elif (turn_counter >= max_turns or 
+                  (not sessions[session_id]["ignoreContentWrapUp"] and conversation.should_wrap_up()) or 
+                  elapsed_time >= (30*60 + sessions[session_id]["timeExtensionMinutes"]*60)):  # 30 min + any extension
+                
+                # Choose the appropriate wrap-up prompt based on what triggered it
+                wrap_prompt = ""
+                if not sessions[session_id]["ignoreContentWrapUp"] and conversation.should_wrap_up():
+                    # Content-based wrap-up (detected Way Forward content)
+                    wrap_prompt = "It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize."
+                elif turn_counter >= max_turns or elapsed_time >= (30*60 + sessions[session_id]["timeExtensionMinutes"]*60):
+                    # Time or message count based wrap-up
+                    wrap_prompt = "I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize."
+                
+                # Add the wrap-up prompt to conversation history before presenting it
+                conversation.add_ai_message_to_memory(wrap_prompt)
+                
+                # Set awaiting confirmation flag
+                sessions[session_id]["awaitingWrapUpConfirmation"] = True
+                update_session_timestamp(session_id)
+                
+                # Generate TTS for wrap-up prompt
+                audio_url = None
+                try:
+                    audio_filename = f"response-{generate_message_id()}.mp3"
+                    audio_path = os.path.join("temp_audio", audio_filename)
+                    os.makedirs("temp_audio", exist_ok=True)
+                    
+                    if text_to_speech_api(wrap_prompt, audio_path):
+                        if os.path.exists(audio_path):
+                            audio_url = f"/audio/{audio_filename}"
+                except Exception as e:
+                    print(f"TTS generation failed for wrap-up prompt: {e}")
+                
+                # Create message objects for wrap-up prompt
+                user_message = Message(
+                    id=generate_message_id(),
+                    timestamp=get_current_timestamp(),
+                    sender="user",
+                    text=user_text
+                )
+                
+                ai_message = Message(
+                    id=generate_message_id(),
+                    timestamp=get_current_timestamp(),
+                    sender="ai",
+                    text=wrap_prompt,
+                    audioUrl=audio_url
+                )
+                
+                # Update session message count
+                sessions[session_id]["messageCount"] += 2
+                update_session_timestamp(session_id)
+                
+                # Prepare response data with awaiting confirmation flag
+                response_data = {
+                    "messages": [user_message, ai_message],
+                    "awaitingWrapUpConfirmation": True
+                }
+                
+                return MessageResponse(
+                    success=True,
+                    data=response_data
+                )
             
             # Generate TTS for AI response
             audio_url = None
@@ -539,13 +622,6 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
             
             # Prepare response data
             response_data = {"messages": [user_message, ai_message]}
-            
-            # Add session ending information if the session should be wrapped up
-            if should_end_session:
-                response_data["sessionEnded"] = True
-                if final_summary:
-                    response_data["finalSummary"] = final_summary
-                print(f"Session {session_id} automatically ended after {conversation.conversation_rounds} rounds")
             
             return MessageResponse(
                 success=True,

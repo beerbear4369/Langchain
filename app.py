@@ -327,70 +327,9 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                     error="Could not transcribe audio. Please try again."
                 )
             
-            # Check for explicit user-initiated wrap-up requests (from main.py logic)
             user_text_lower = user_text.lower()
-            wrap_up_commands = ["wrap up", "end session", "finish conversation", "summarize and end", "let's conclude", "finish session"]
             
-            # Check if user requested wrap-up
-            if any(wrap_cmd in user_text_lower for wrap_cmd in wrap_up_commands):
-                # User requested wrap-up, provide confirmation prompt
-                wrap_prompt = "Would you like to wrap up our session with a final summary and action plan? Please confirm by saying 'yes' or 'wrap up and summarize'."
-                
-                # Add both user message and wrap-up prompt to conversation memory
-                conversation.add_user_message_to_memory(user_text)
-                conversation.add_ai_message_to_memory(wrap_prompt)
-                
-                # Create message objects
-                user_message = Message(
-                    id=generate_message_id(),
-                    timestamp=get_current_timestamp(),
-                    sender="user",
-                    text=user_text
-                )
-                
-                ai_message = Message(
-                    id=generate_message_id(),
-                    timestamp=get_current_timestamp(),
-                    sender="ai",
-                    text=wrap_prompt
-                )
-                
-                # Save messages to database
-                save_message_to_database(session_id, user_message.id, "user", user_text)
-                save_message_to_database(session_id, ai_message.id, "ai", wrap_prompt)
-                
-                # Generate TTS for the wrap-up prompt
-                audio_url = None
-                try:
-                    audio_filename = f"response-{generate_message_id()}.mp3"
-                    audio_path = os.path.join("temp_audio", audio_filename)
-                    os.makedirs("temp_audio", exist_ok=True)
-                    
-                    if text_to_speech_api(wrap_prompt, audio_path):
-                        if os.path.exists(audio_path):
-                            audio_url = f"/audio/{audio_filename}"
-                except Exception as e:
-                    print(f"TTS generation failed for wrap-up prompt: {e}")
-                
-                ai_message.audioUrl = audio_url
-                
-                # Update session message count and add flag to indicate awaiting confirmation
-                sessions[session_id]["messageCount"] += 2
-                sessions[session_id]["awaitingWrapUpConfirmation"] = True
-                update_session_timestamp(session_id)
-                
-                # Prepare response data with confirmation prompt
-                response_data = {
-                    "messages": [user_message, ai_message],
-                    "awaitingWrapUpConfirmation": True
-                }
-                
-                return MessageResponse(
-                    success=True,
-                    data=response_data
-                )
-            
-            # Check if we're awaiting wrap-up confirmation
+            # Prioritize checking for wrap-up confirmation
             is_awaiting_confirmation = sessions[session_id].get("awaitingWrapUpConfirmation", False)
             
             if is_awaiting_confirmation:
@@ -456,6 +395,29 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                         
                         # Update session message count
                         sessions[session_id]["messageCount"] += 2
+                        
+                        # Save session summary to database if available (CRITICAL FIX)
+                        if DATABASE_AVAILABLE:
+                            try:
+                                # Calculate session duration (same logic as manual ending)
+                                created_at = datetime.fromisoformat(sessions[session_id]["createdAt"].replace("Z", "+00:00"))
+                                duration = int((datetime.utcnow().replace(tzinfo=created_at.tzinfo) - created_at).total_seconds())
+                                
+                                db_service.end_session(
+                                    session_id=session_id, 
+                                    summary=final_message, 
+                                    duration=duration,
+                                    rating=None,  # Will be set by frontend later
+                                    feedback=None  # Will be set by frontend later
+                                )
+                                print(f"✅ Session {session_id} automatically ended and saved to database")
+                            except Exception as e:
+                                print(f"⚠️ Failed to save automatic session ending to database: {e}")
+                                # Continue without database - session still ends successfully
+                        
+                        # Clean up conversation instance (same as manual ending)
+                        if session_id in session_conversations:
+                            del session_conversations[session_id]
                         
                         # Prepare response data with session ended flag
                         response_data = {
@@ -541,6 +503,66 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                         data=response_data
                     )
             
+            # Check for explicit user-initiated wrap-up requests
+            wrap_up_commands = ["wrap up", "end session", "finish conversation", "summarize and end", "let's conclude", "finish session"]
+            if any(wrap_cmd in user_text_lower for wrap_cmd in wrap_up_commands):
+                # User requested wrap-up, provide confirmation prompt
+                wrap_prompt = "Would you like to wrap up our session with a final summary and action plan? Please confirm by saying 'yes' or 'wrap up and summarize'."
+                
+                # Add both user message and wrap-up prompt to conversation memory
+                conversation.add_user_message_to_memory(user_text)
+                conversation.add_ai_message_to_memory(wrap_prompt)
+                
+                # Create message objects
+                user_message = Message(
+                    id=generate_message_id(),
+                    timestamp=get_current_timestamp(),
+                    sender="user",
+                    text=user_text
+                )
+                
+                ai_message = Message(
+                    id=generate_message_id(),
+                    timestamp=get_current_timestamp(),
+                    sender="ai",
+                    text=wrap_prompt
+                )
+                
+                # Save messages to database
+                save_message_to_database(session_id, user_message.id, "user", user_text)
+                save_message_to_database(session_id, ai_message.id, "ai", wrap_prompt)
+                
+                # Generate TTS for the wrap-up prompt
+                audio_url = None
+                try:
+                    audio_filename = f"response-{generate_message_id()}.mp3"
+                    audio_path = os.path.join("temp_audio", audio_filename)
+                    os.makedirs("temp_audio", exist_ok=True)
+                    
+                    if text_to_speech_api(wrap_prompt, audio_path):
+                        if os.path.exists(audio_path):
+                            audio_url = f"/audio/{audio_filename}"
+                except Exception as e:
+                    print(f"TTS generation failed for wrap-up prompt: {e}")
+                
+                ai_message.audioUrl = audio_url
+                
+                # Update session message count and add flag to indicate awaiting confirmation
+                sessions[session_id]["messageCount"] += 2
+                sessions[session_id]["awaitingWrapUpConfirmation"] = True
+                update_session_timestamp(session_id)
+                
+                # Prepare response data with confirmation prompt
+                response_data = {
+                    "messages": [user_message, ai_message],
+                    "awaitingWrapUpConfirmation": True
+                }
+                
+                return MessageResponse(
+                    success=True,
+                    data=response_data
+                )
+
             # Normal conversation processing (not wrap-up related)
             # Process user input with existing conversation logic
             ai_response = conversation.process_input(user_text)

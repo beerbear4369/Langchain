@@ -80,6 +80,8 @@ class SessionData(BaseModel):
     timeExtensionMinutes: Optional[int] = 0
     ignoreContentWrapUp: Optional[bool] = False
     awaitingWrapUpConfirmation: Optional[bool] = False
+    rating: Optional[int] = None
+    feedback: Optional[str] = None
 
 class SessionResponse(ApiResponse):
     data: Optional[SessionData] = None
@@ -105,6 +107,13 @@ class SummaryData(BaseModel):
 
 class SummaryResponse(ApiResponse):
     data: Optional[SummaryData] = None
+
+class RatingData(BaseModel):
+    rating: int  # 1-5 scale
+    feedback: Optional[str] = None
+
+class RatingResponse(ApiResponse):
+    data: Optional[Dict[str, Any]] = None
 
 # Helper functions
 def generate_session_id() -> str:
@@ -833,6 +842,114 @@ async def get_conversation_history(session_id: str):
         return ConversationHistoryResponse(
             success=False,
             error=f"Failed to get conversation history: {str(e)}"
+        )
+
+@app.post("/api/sessions/{session_id}/rating", response_model=RatingResponse)
+async def submit_session_rating(session_id: str, rating_data: RatingData):
+    """Submit rating and feedback for a completed session."""
+    try:
+        # Validate rating range
+        if not (1 <= rating_data.rating <= 5):
+            return RatingResponse(
+                success=False,
+                error="Rating must be between 1 and 5"
+            )
+        
+        # Check if session exists and is ended
+        if session_id not in sessions:
+            return RatingResponse(
+                success=False,
+                error="Session not found"
+            )
+        
+        if sessions[session_id]["status"] != "ended":
+            return RatingResponse(
+                success=False,
+                error="Can only rate completed sessions"
+            )
+        
+        # Update session with rating in database
+        if DATABASE_AVAILABLE:
+            try:
+                db_service.update_session(
+                    session_id, 
+                    {
+                        "rating": rating_data.rating,
+                        "feedback": rating_data.feedback
+                    }
+                )
+                print(f"✅ Rating {rating_data.rating} saved for session {session_id}")
+            except Exception as e:
+                print(f"⚠️ Failed to save rating to database: {e}")
+                return RatingResponse(
+                    success=False,
+                    error="Failed to save rating"
+                )
+        
+        # Update in-memory session data
+        sessions[session_id]["rating"] = rating_data.rating
+        sessions[session_id]["feedback"] = rating_data.feedback
+        update_session_timestamp(session_id)
+        
+        return RatingResponse(
+            success=True,
+            data={
+                "sessionId": session_id,
+                "rating": rating_data.rating,
+                "feedback": rating_data.feedback,
+                "timestamp": get_current_timestamp()
+            }
+        )
+    
+    except Exception as e:
+        return RatingResponse(
+            success=False,
+            error=f"Failed to submit rating: {str(e)}"
+        )
+
+@app.get("/api/sessions/{session_id}/rating", response_model=RatingResponse)
+async def get_session_rating(session_id: str):
+    """Get existing rating for a session."""
+    try:
+        if session_id not in sessions:
+            return RatingResponse(
+                success=False,
+                error="Session not found"
+            )
+        
+        # Try to get from database first
+        if DATABASE_AVAILABLE:
+            try:
+                db_session = db_service.get_session(session_id)
+                if db_session and (db_session.get("rating") or db_session.get("feedback")):
+                    return RatingResponse(
+                        success=True,
+                        data={
+                            "sessionId": session_id,
+                            "rating": db_session.get("rating"),
+                            "feedback": db_session.get("feedback"),
+                            "hasRating": db_session.get("rating") is not None
+                        }
+                    )
+            except Exception as e:
+                print(f"⚠️ Failed to get rating from database: {e}")
+        
+        # Fallback to in-memory data
+        session_data = sessions[session_id]
+        return RatingResponse(
+            success=True,
+            data={
+                "sessionId": session_id,
+                "rating": session_data.get("rating"),
+                "feedback": session_data.get("feedback"),
+                "hasRating": session_data.get("rating") is not None
+            }
+        )
+    
+    except Exception as e:
+        return RatingResponse(
+            success=False,
+            error=f"Failed to get rating: {str(e)}"
         )
 
 # Health check endpoint

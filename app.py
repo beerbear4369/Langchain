@@ -18,6 +18,15 @@ from conversation import Conversation
 from audio_input import transcribe_audio
 from audio_output import text_to_speech_api
 
+# Import database service
+try:
+    from database_service import db_service
+    DATABASE_AVAILABLE = True
+    print("✅ Database service loaded successfully")
+except Exception as e:
+    DATABASE_AVAILABLE = False
+    print(f"⚠️ Database service not available: {e}")
+
 # Conditional import for audio processing (for deployment compatibility)
 try:
     AUDIO_INPUT_AVAILABLE = True
@@ -138,6 +147,16 @@ def generate_tts_if_available(text: str, audio_path: str) -> bool:
         print(f"TTS generation failed: {e}")
         return False
 
+def save_message_to_database(session_id: str, message_id: str, sender: str, text_content: str):
+    """Save a message to the database if available."""
+    if DATABASE_AVAILABLE:
+        try:
+            db_service.save_message(session_id, message_id, sender, text_content)
+            print(f"✅ Message {message_id} saved to database")
+        except Exception as e:
+            print(f"⚠️ Failed to save message to database: {e}")
+            # Continue without database - message still processed in memory
+
 # API Endpoints
 
 @app.post("/api/sessions", response_model=SessionResponse)
@@ -147,11 +166,20 @@ async def create_session():
         session_id = generate_session_id()
         session_data = create_session_data(session_id)
         
-        # Store session data
+        # Store session data in memory (for immediate access)
         sessions[session_id] = session_data.dict()
         
         # Create conversation instance
         session_conversations[session_id] = Conversation()
+        
+        # Store in database if available
+        if DATABASE_AVAILABLE:
+            try:
+                db_session = db_service.create_session(session_id, user_id=None)  # user_id None for now (Phase 2)
+                print(f"✅ Session {session_id} created in database")
+            except Exception as e:
+                print(f"⚠️ Failed to create session in database: {e}")
+                # Continue without database - in-memory session still works
         
         return SessionResponse(
             success=True,
@@ -215,6 +243,21 @@ async def end_session(session_id: str):
         if sessions[session_id]["status"] != "ended":
             sessions[session_id]["status"] = "ended"
             update_session_timestamp(session_id)
+        
+        # Save to database if available
+        if DATABASE_AVAILABLE:
+            try:
+                db_service.end_session(
+                    session_id=session_id, 
+                    summary=summary, 
+                    duration=duration,
+                    rating=None,  # Will be set by frontend later
+                    feedback=None  # Will be set by frontend later
+                )
+                print(f"✅ Session {session_id} ended and saved to database")
+            except Exception as e:
+                print(f"⚠️ Failed to save session summary to database: {e}")
+                # Continue without database - session still ends successfully
         
         # Clean up conversation instance
         if session_id in session_conversations:
@@ -312,6 +355,10 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                     text=wrap_prompt
                 )
                 
+                # Save messages to database
+                save_message_to_database(session_id, user_message.id, "user", user_text)
+                save_message_to_database(session_id, ai_message.id, "ai", wrap_prompt)
+                
                 # Generate TTS for the wrap-up prompt
                 audio_url = None
                 try:
@@ -402,6 +449,10 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                             text=final_message,
                             audioUrl=audio_url
                         )
+                        
+                        # Save messages to database
+                        save_message_to_database(session_id, user_message.id, "user", user_text)
+                        save_message_to_database(session_id, ai_message.id, "ai", final_message)
                         
                         # Update session message count
                         sessions[session_id]["messageCount"] += 2
@@ -563,6 +614,10 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                 sessions[session_id]["messageCount"] += 2
                 update_session_timestamp(session_id)
                 
+                # Save messages to database
+                save_message_to_database(session_id, user_message.id, "user", user_text)
+                save_message_to_database(session_id, ai_message.id, "ai", wrap_prompt)
+                
                 # Prepare response data with awaiting confirmation flag
                 response_data = {
                     "messages": [user_message, ai_message],
@@ -620,6 +675,10 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
             sessions[session_id]["messageCount"] += 2  # User + AI message
             update_session_timestamp(session_id)
             
+            # Save messages to database
+            save_message_to_database(session_id, user_message.id, "user", user_text)
+            save_message_to_database(session_id, ai_message.id, "ai", ai_response)
+            
             # Prepare response data
             response_data = {"messages": [user_message, ai_message]}
             
@@ -651,7 +710,32 @@ async def get_conversation_history(session_id: str):
                 error="Session not found"
             )
         
-        # Get conversation instance
+        # Try to get conversation history from database first
+        if DATABASE_AVAILABLE:
+            try:
+                db_messages = db_service.get_conversation_history(session_id)
+                
+                # Convert database messages to API format
+                messages = []
+                for db_msg in db_messages:
+                    message = Message(
+                        id=db_msg["message_id"],
+                        timestamp=db_msg["created_at"],
+                        sender=db_msg["sender"],
+                        text=db_msg["text_content"]
+                    )
+                    messages.append(message)
+                
+                return ConversationHistoryResponse(
+                    success=True,
+                    data={"messages": messages}
+                )
+                
+            except Exception as e:
+                print(f"⚠️ Failed to get conversation history from database: {e}")
+                # Fall back to in-memory conversation
+        
+        # Fallback: Get conversation instance from memory
         conversation = session_conversations.get(session_id)
         if not conversation:
             # Return empty messages for sessions without conversation

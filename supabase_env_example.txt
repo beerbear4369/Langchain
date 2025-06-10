@@ -1,0 +1,14 @@
+# Copy these to your .env file and replace with your actual values
+
+# OpenAI Configuration (existing)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Supabase Configuration (new)
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+
+# Instructions:
+# 1. Copy these lines to your .env file
+# 2. Replace the values with your actual Supabase URL and Service Role Key
+# 3. Make sure .env is in your .gitignore file
+# 4. Never commit .env file to version control 

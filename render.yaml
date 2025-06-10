@@ -2,9 +2,9 @@ services:
   - type: web
     name: kuku-coach-api
     env: python
-    plan: starter  # IMPORTANT: The 'starter' plan is for development and testing. Upgrade to 'starter+' or a standard plan for production workloads.
+    plan: starter  # Free tier - upgrade to starter+ for production
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT"
+    startCommand: "uvicorn app:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0

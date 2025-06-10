@@ -23,6 +23,7 @@ class DatabaseService:
             "session_id": session_id,
             "user_id": user_id,
             "status": "active",
+            "message_count": 0,  # Explicitly initialize message count
             "created_at": datetime.utcnow().isoformat() + "Z"
         }
         
@@ -52,11 +53,17 @@ class DatabaseService:
         """Update session in database following supabase-py update pattern"""
         updates["updated_at"] = datetime.utcnow().isoformat() + "Z"
         
+        print(f"🔍 DEBUG update_session called:")
+        print(f"  session_id: {session_id}")
+        print(f"  updates: {updates}")
+        
         # Following supabase-py update + eq pattern from documentation
         result = self.supabase.table("sessions")\
             .update(updates)\
             .eq("session_id", session_id)\
             .execute()
+        
+        print(f"🔍 Supabase update result: {result.data}")
         
         # Check if data was updated successfully
         if result.data and len(result.data) > 0:
@@ -65,8 +72,16 @@ class DatabaseService:
             raise Exception(f"Failed to update session {session_id}")
     
     def end_session(self, session_id: str, summary: str, duration: int, 
-                   rating: Optional[int] = None, feedback: Optional[str] = None) -> Dict[str, Any]:
-        """End session and save summary"""
+                   rating: Optional[int] = None, feedback: Optional[str] = None, message_count: Optional[int] = None) -> Dict[str, Any]:
+        """End session and save summary, including message count if provided"""
+        print(f"🔍 DEBUG end_session called with:")
+        print(f"  session_id: {session_id}")
+        print(f"  summary: {summary[:50]}...")
+        print(f"  duration: {duration}")
+        print(f"  rating: {rating}")
+        print(f"  feedback: {feedback}")
+        print(f"  message_count: {message_count}")
+        
         updates = {
             "status": "ended",
             "ended_at": datetime.utcnow().isoformat() + "Z",
@@ -75,7 +90,13 @@ class DatabaseService:
             "rating": rating,
             "feedback": feedback
         }
+        if message_count is not None:
+            updates["message_count"] = message_count
+            print(f"✅ Added message_count to updates: {message_count}")
+        else:
+            print(f"⚠️  message_count is None, not adding to updates")
         
+        print(f"🔍 Full updates dict: {updates}")
         return self.update_session(session_id, updates)
     
     def save_message(self, session_id: str, message_id: str, sender: str, text_content: str) -> Dict[str, Any]:
@@ -143,6 +164,25 @@ class DatabaseService:
             print(f"Search error: {e}")
             # Return empty list if search fails
             return []
+    
+    def debug_get_all_sessions(self) -> List[Dict[str, Any]]:
+        """Debug method to get all sessions and their message counts"""
+        try:
+            result = self.supabase.table("sessions")\
+                .select("session_id, status, message_count, created_at, ended_at, summary")\
+                .order("created_at", desc=True)\
+                .execute()
+            
+            return result.data or []
+        except Exception as e:
+            print(f"Error getting sessions: {e}")
+            return []
+    
+    def debug_update_message_count(self, session_id: str, message_count: int) -> Dict[str, Any]:
+        """Debug method to manually update a session's message count"""
+        print(f"🔧 DEBUG: Manually updating message_count for {session_id} to {message_count}")
+        updates = {"message_count": message_count}
+        return self.update_session(session_id, updates)
 
 
 # Initialize singleton service instance

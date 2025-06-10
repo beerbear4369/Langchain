@@ -157,6 +157,37 @@ def save_message_to_database(session_id: str, message_id: str, sender: str, text
             print(f"⚠️ Failed to save message to database: {e}")
             # Continue without database - message still processed in memory
 
+def update_message_count(session_id: str, increment: int):
+    """Update message count in memory and database."""
+    if session_id in sessions:
+        new_count = sessions[session_id]["messageCount"] + increment
+        sessions[session_id]["messageCount"] = new_count
+        update_session_timestamp(session_id)
+        if DATABASE_AVAILABLE:
+            try:
+                db_service.update_session(
+                    session_id, 
+                    {"message_count": new_count}
+                )
+                print(f"✅ Updated message_count to {new_count} in database for session {session_id}")
+            except Exception as e:
+                print(f"⚠️ Failed to update message_count in database for session {session_id}: {e}")
+
+def set_message_count(session_id: str, count: int):
+    """Set message count in memory and database."""
+    if session_id in sessions:
+        sessions[session_id]["messageCount"] = count
+        update_session_timestamp(session_id)
+        if DATABASE_AVAILABLE:
+            try:
+                db_service.update_session(
+                    session_id, 
+                    {"message_count": count}
+                )
+                print(f"✅ Set message_count to {count} in database for session {session_id}")
+            except Exception as e:
+                print(f"⚠️ Failed to set message_count in database for session {session_id}: {e}")
+
 # API Endpoints
 
 @app.post("/api/sessions", response_model=SessionResponse)
@@ -247,12 +278,17 @@ async def end_session(session_id: str):
         # Save to database if available
         if DATABASE_AVAILABLE:
             try:
+                print(f"🔍 DEBUG: About to end session {session_id}")
+                print(f"  In-memory session data: {sessions[session_id]}")
+                print(f"  messageCount: {sessions[session_id]['messageCount']}")
+                
                 db_service.end_session(
                     session_id=session_id, 
                     summary=summary, 
                     duration=duration,
                     rating=None,  # Will be set by frontend later
-                    feedback=None  # Will be set by frontend later
+                    feedback=None,  # Will be set by frontend later
+                    message_count=sessions[session_id]["messageCount"]
                 )
                 print(f"✅ Session {session_id} ended and saved to database")
             except Exception as e:
@@ -394,7 +430,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                         save_message_to_database(session_id, ai_message.id, "ai", final_message)
                         
                         # Update session message count
-                        sessions[session_id]["messageCount"] += 2
+                        update_message_count(session_id, 2)
                         
                         # Save session summary to database if available (CRITICAL FIX)
                         if DATABASE_AVAILABLE:
@@ -403,12 +439,17 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                                 created_at = datetime.fromisoformat(sessions[session_id]["createdAt"].replace("Z", "+00:00"))
                                 duration = int((datetime.utcnow().replace(tzinfo=created_at.tzinfo) - created_at).total_seconds())
                                 
+                                print(f"🔍 DEBUG: About to auto-end session {session_id}")
+                                print(f"  In-memory session data: {sessions[session_id]}")
+                                print(f"  messageCount: {sessions[session_id]['messageCount']}")
+                                
                                 db_service.end_session(
                                     session_id=session_id, 
                                     summary=final_message, 
                                     duration=duration,
                                     rating=None,  # Will be set by frontend later
-                                    feedback=None  # Will be set by frontend later
+                                    feedback=None,  # Will be set by frontend later
+                                    message_count=sessions[session_id]["messageCount"]
                                 )
                                 print(f"✅ Session {session_id} automatically ended and saved to database")
                             except Exception as e:
@@ -447,7 +488,8 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                     # Reset wrap-up conditions and add cooldown (from main.py lines 530-543)
                     # 1. Reset turn counter to avoid immediate re-prompting
                     current_message_count = sessions[session_id]["messageCount"]
-                    sessions[session_id]["messageCount"] = max(0, current_message_count - 10)  # Reduce by 5 exchanges
+                    new_count = max(0, current_message_count - 10) # Reduce by 5 exchanges
+                    set_message_count(session_id, new_count)
                     
                     # 2. Set cooldown period for 5 conversation exchanges
                     sessions[session_id]["wrapUpCooldown"] = 5
@@ -492,7 +534,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                     )
                     
                     # Update session message count
-                    sessions[session_id]["messageCount"] += 2
+                    update_message_count(session_id, 2)
                     update_session_timestamp(session_id)
                     
                     # Prepare response data
@@ -548,9 +590,8 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                 ai_message.audioUrl = audio_url
                 
                 # Update session message count and add flag to indicate awaiting confirmation
-                sessions[session_id]["messageCount"] += 2
+                update_message_count(session_id, 2)
                 sessions[session_id]["awaitingWrapUpConfirmation"] = True
-                update_session_timestamp(session_id)
                 
                 # Prepare response data with confirmation prompt
                 response_data = {
@@ -633,7 +674,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
                 )
                 
                 # Update session message count
-                sessions[session_id]["messageCount"] += 2
+                update_message_count(session_id, 2)
                 update_session_timestamp(session_id)
                 
                 # Save messages to database
@@ -694,8 +735,7 @@ async def send_audio_message(session_id: str, audio: UploadFile = File(...)):
             )
             
             # Update session message count
-            sessions[session_id]["messageCount"] += 2  # User + AI message
-            update_session_timestamp(session_id)
+            update_message_count(session_id, 2)  # User + AI message
             
             # Save messages to database
             save_message_to_database(session_id, user_message.id, "user", user_text)

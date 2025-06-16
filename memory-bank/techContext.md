@@ -11,8 +11,11 @@
 
 *   **Core Library:** `LangChain`
     *   **Reason:** It provides a framework to chain together different AI components, such as the language model, memory, and prompts. This modularizes the conversation logic.
-*   **Language Model:** `OpenAI`
-    *   **Reason:** Provides access to powerful, general-purpose language models that are well-suited for a coaching conversation.
+*   **Language Model:** `OpenAI` - **Currently using fine-tuned GPT-4.1-mini model**
+    *   **Active Model:** `gpt41mini_hyper2` (ft:gpt-4.1-mini-2025-04-14)
+    *   **Model Features:** 49 vetted dialogs with enhanced emotional intelligence (EQ) prompting capabilities
+    *   **Deployment Date:** June 16th, 2025
+    *   **Reason:** Custom fine-tuned model specifically optimized for coaching conversations with improved emotional awareness and response quality. Provides better coaching outcomes compared to base models.
 *   **Conversation Memory:** `ConversationBufferMemory` from LangChain
     *   **Reason:** It is used to store the history of the conversation, which is essential for the AI to maintain context across multiple turns.
 

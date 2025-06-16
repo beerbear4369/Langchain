@@ -1,0 +1,92 @@
+# Kuku Coach API - Project Intelligence
+
+## Core Development Principles
+- Do not touch code that is unrelated to the task
+- Write thorough tests for all major functionality
+- Avoid making major changes to patterns and architecture of how a feature works after it has shown to work well, unless explicitly instructed
+- Always think about what other methods and areas of code might be affected by code changes
+
+## AI Model Management - CRITICAL KNOWLEDGE
+
+### Current Model Configuration (June 2025)
+- **Active Model**: `gpt41mini_hyper2` (config.py line 58)
+- **Model ID**: `ft:gpt-4.1-mini-2025-04-14:kuku-tech:coach-prompt10-purevetted49-basemodel-outofshell-parachange2:Bj66Dtia`
+- **Key Feature**: Enhanced emotional intelligence (EQ) in coaching prompts
+- **Training**: 49 vetted coaching dialogs for superior conversation quality
+- **Deployment**: June 16th, 2025
+
+### Model Evolution Pattern
+The project uses a sophisticated model selection system in config.py with multiple fine-tuned models available:
+- Models are categorized by training dates and capabilities
+- Each model targets specific coaching improvements
+- Easy switching via AVAILABLE_MODELS dictionary
+- Current focus: Emotional intelligence enhancement
+
+### Model Update Impact Areas
+When updating models, these components are affected:
+1. `config.py` - MODEL_NAME selection
+2. `memory-bank/` - All files need review and updates
+3. `release_notes/deployment_log.md` - Document changes
+4. User experience - Enhanced coaching quality expected
+
+## Session Management Architecture - PROVEN PATTERNS
+
+### Stateless API with State Simulation
+- Uses `session_id` as the key for simulating state
+- Global `sessions` dictionary in app.py stores all context
+- CRITICAL: All session attributes must be stored/retrieved consistently
+- Known limitation: In-memory storage (database migration planned)
+
+### Conversation Flow Priority Logic - DEBUGGED & VERIFIED
+Critical order of operations in message processing:
+1. **Check for awaiting wrap-up confirmation** (highest priority)
+2. **Check for new wrap-up request** (secondary)
+3. **Process as normal conversation** (default)
+
+This pattern was essential to fix a critical logic loop bug in wrap-up confirmations.
+
+### Database Integration Status
+- `database_service.py` exists but not fully integrated
+- Supabase chosen for persistent storage
+- Migration from in-memory to database is high priority
+- Session data structure is already database-ready
+
+## Audio Processing Pipeline - STABLE
+- Whisper for speech-to-text (OpenAI API)
+- ElevenLabs for text-to-speech
+- Audio files stored in `temp_audio/` directory
+- Response audio linked via `/audio/` endpoint
+
+## Testing Approach - CRITICAL INSIGHTS
+- `test_conversation_flow.py` is the gold standard for testing complex flows
+- Uses pre-recorded audio files for realistic testing
+- Targets specific scenarios like wrap-up confirmation sequences
+- Essential for verifying state-dependent conversation logic
+
+## Configuration Management - SECURITY NOTES
+- API keys loaded from environment variables first
+- Fallback to config.json for development
+- Debug info shows API key status without exposing keys
+- Model temperature configuration varies by model type (O3 models don't support temperature)
+
+## Memory Bank Maintenance - DOCUMENTATION PATTERN
+The project relies heavily on documentation in `memory-bank/` directory:
+- Core files: projectbrief.md, productContext.md, systemPatterns.md, techContext.md, activeContext.md, progress.md
+- Updates required when significant changes occur
+- Memory bank serves as project continuity across development sessions
+- Always update activeContext.md and progress.md for current state
+
+## Key File Relationships
+- `config.py` → Central configuration including model selection
+- `app.py` → Main API endpoints and session management
+- `conversation.py` → LangChain integration and conversation logic
+- `database_service.py` → Future persistent storage integration
+- `memory-bank/` → Project documentation and context
+- `release_notes/deployment_log.md` → Change tracking
+
+## Critical Success Factors
+1. **Model Quality**: Enhanced EQ model significantly improves coaching effectiveness
+2. **Session State Management**: Robust handling of stateful logic in stateless API
+3. **Wrap-up Confirmation Flow**: Complex but essential user experience pattern
+4. **Documentation Maintenance**: Memory bank must stay current for project continuity
+5. **Testing Strategy**: Realistic audio-based testing for conversation flows 

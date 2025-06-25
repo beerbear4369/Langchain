@@ -1,0 +1,11 @@
+User: Discuss whether I should retire.
+--------------------------------------------------
+Coach: What aspects of retirement are you considering right now?
+--------------------------------------------------
+User: Thanks for watching!
+--------------------------------------------------
+Coach: What would make this conversation about retirement meaningful for you today?
+--------------------------------------------------
+User: Are you listening to me?
+--------------------------------------------------
+Coach: I hear your concern. What in your current situation about retirement feels most pressing to explore?

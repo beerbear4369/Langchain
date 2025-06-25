@@ -1,0 +1,360 @@
+User: I want to talk about retirement.
+--------------------------------------------------
+Coach: Thank you for sharing that. What’s truly important for you to discuss about retirement today?
+--------------------------------------------------
+User: I was born because I don't want to work.
+--------------------------------------------------
+Coach: I hear you—there’s a strong feeling about work here. Help me understand what not wanting to work means for you.
+--------------------------------------------------
+User: It means freedom. It means I don't have to do work if I don't want to. If I do work, it's because I want to. I enjoy it. It's not because I have to.
+--------------------------------------------------
+Coach: That’s a powerful vision of freedom and choice. How have you experienced this freedom or lack of it so far in your life?
+--------------------------------------------------
+User: Well, I used to work all the time, so I thought this was just a norm. Then I took a gap, and immediately felt, wow, it's actually a totally different feeling, and it's different, you don't have to work. And that's how I started this feeling.
+--------------------------------------------------
+Coach: It sounds like that gap opened your eyes to a new reality. What did you notice about yourself during that time off?
+--------------------------------------------------
+User: I'm more relaxed, I'm healthier, and feels more free.
+--------------------------------------------------
+Coach: I appreciate you sharing that. This seems like a meaningful discovery. How might you cultivate more of these feelings moving forward?
+--------------------------------------------------
+User: Well, I want to retire. That's what I want to do.
+--------------------------------------------------
+Coach: Retirement feels like the path to that freedom for you. What would retirement look like to make you feel truly free?
+--------------------------------------------------
+User: Yeah, I guess it feels one less burden.
+--------------------------------------------------
+Coach: I hear that—it feels like relief and lightness. What specific burdens do you want to release through retirement?
+--------------------------------------------------
+User: for the burden that I have to generate an income.
+--------------------------------------------------
+Coach: That’s a significant burden to carry. What resources or strengths do you currently have to ease that income pressure?
+--------------------------------------------------
+User: I don't know. That's the challenge.
+--------------------------------------------------
+Coach: Thank you for your honesty—that uncertainty is important to acknowledge. What possibilities might help you explore or identify those resources?
+--------------------------------------------------
+User: I don't know. I could, I can try lottery.
+--------------------------------------------------
+Coach: Trying the lottery shows creative thinking. What other ideas might you consider that feel more within your control?
+--------------------------------------------------
+User: I honestly have no idea.
+--------------------------------------------------
+Coach: I appreciate your openness—it’s okay to feel uncertain. Would it be helpful if we explore what small steps might reveal options?
+--------------------------------------------------
+User: Sure, yeah.
+--------------------------------------------------
+Coach: Great. What’s one small action related to income or freedom that feels doable for you right now?
+--------------------------------------------------
+User: I don't know. I mean, if I had known, I would not have come to you, right?
+--------------------------------------------------
+Coach: I see your frustration—that’s understandable. What might help you move from uncertainty toward clarity, even in small ways?
+
+================================================================================
+
+User: Okay, just want to check how fast it's working here.
+--------------------------------------------------
+Coach: I appreciate you testing the pace here. What would you find most valuable to explore today?
+--------------------------------------------------
+User: I think our speed is still a bit slow, getting a few seconds, right? So is it possible to make it faster?
+--------------------------------------------------
+Coach: Thanks for sharing your observation about speed. How does this pace impact what you want to achieve in our conversation?
+
+================================================================================
+
+User: All right. So is this really working?
+--------------------------------------------------
+Coach: It sounds like you're curious about how effective this coaching approach might be. What would make this conversation feel truly valuable for you?
+--------------------------------------------------
+User: Just, I don't know what would make me feel vulnerable. Just trying to see whether this is working, you know? Are you able to ask me some questions to open me up so that I can answer more?
+--------------------------------------------------
+Coach: I appreciate your honesty about feeling unsure. Help me understand: what’s been on your mind lately that feels important to share?
+--------------------------------------------------
+User: Maybe we could discuss how should we proceed further with this project, like what is the right move, what should be my role actually.
+--------------------------------------------------
+Coach: Thanks for sharing that focus. What part of the project excites or challenges you most right now?
+--------------------------------------------------
+User: Well, I guess every part is a challenge, right, so we have finally built it, built like our first MAP, and trying to let some people to use and test it, however we found it's like hard to let user to behave like this, you know, to really get AI asking question and answering AI. So it could be because that we didn't reach to the right person, it could also be because that we didn't design the product well, that it's too hard, and it lends the customer hardly to the floor, you know, so yeah, that's the things, and also when I'm basically developing and deploy it myself, right, so I'm not really experienced in doing this, so yeah, sometimes it's quite buggy, it's like very slow, and I need to then zoom in to fix that, and so actually I'm a bit confused, right, so ideally I should just get more professional people into doing this, right, those who have deployed product before, however, and that's also the thing I like to do, it's like if I do that I handle the game to others, you know, so I'm a bit confused.
+--------------------------------------------------
+Coach: You’ve shared a lot about your challenges and feelings of confusion. What part of this situation do you feel most drawn to explore first?
+--------------------------------------------------
+User: You know, do you understand what I'm sharing? So far, what did I say? Maybe you can propose according to what I shared with you.
+--------------------------------------------------
+Coach: I hear you’re juggling product challenges, user engagement, and your role in development, feeling both passionate and uncertain. Does that capture it? What part feels most urgent or important to you right now?
+--------------------------------------------------
+User: Oh, I think the most urgent and important things to me is that. Actually, I'm trying to do something I've never done before, and I'm just like a. Coder, you know. Seeing that there is some recording and. Can't play trying to learn. I talk to some people. Like. And do that. Some young people. I think they're better than me. I think much faster. The chip more like they are smarter. Also, here's some success story. I think I have some self doubt. Yeah.
+--------------------------------------------------
+Coach: Thank you for opening up about your self-doubt and comparisons. This seems challenging—can you explore what underlies these feelings?
+--------------------------------------------------
+User: I think what underlines is like, I feel like I'm not what I hope I am. I'm not really smart to find the right spot. Like the genius, right, to find, oh, this is so damn good for that. It must be supposed to exist in this world, right? That's not me. I see some people smarter than me in designing what to do. Second, I feel that because I cannot fool myself that I've never been doing these things, right, any step. Like go to marketing to see market, develop a product. I don't even know what is the right step, what is the common practice. And, you know, pull a team from nowhere. So I'm just like, edit, you know. And just, I don't know, maybe I'm just good at wasting my self-time and other people's time. I just never accept the reality that I'm a very normal person and this is not my thing. And I want to live in the world that is not real, right? The real world is really practical. Like the results are more important. Even kids 10 years younger than me know that. But I just trying to don't admit that.
+--------------------------------------------------
+Coach: Thank you for your honesty—it takes courage. What strengths or past successes might you draw on despite these doubts?
+--------------------------------------------------
+User: Can you repeat what you are saying?
+--------------------------------------------------
+Coach: Of course. I was asking: What strengths or past successes might you draw on despite these doubts?
+--------------------------------------------------
+User: What do you mean? You mean what past success do I have?
+--------------------------------------------------
+Coach: Yes, exactly. What past experiences or achievements remind you of your capabilities or resilience?
+--------------------------------------------------
+User: Honestly, I don't know what a real success looks like to me. But normally, it's like I feel very excited to join something, like since time, and I getting disappointed and then I drop out. I start my company, do the flooring, and lose a lot of money and decide to just forget about it. And now, I'm just living off that. I don't think I have a successful past, or actually the problem is, how to define success to me. To me, the definition of success should be having some positive contribution to the human civilization improvement, that's all. And I do feel this chatbot is somehow improving people's thinking, right? At least it's provoking people to think more, to talk more nonsense, like now, I'm not sure how useful is that. But honestly saying, I'm not 100% sure what we should do, like I'm not 100% sure what is success. I don't feel I have a successful past, like I did say that I managed to go to a good university through hard working, that is a success to me, and that is an easy game. But I didn't really choose the major I like. I tried to do R&D, but I feel I didn't really make any good progress, or R&D something meaningful. I have to keep trying, and never forget it, you know?
+--------------------------------------------------
+Coach: You’ve reflected deeply on success and your journey. What small steps or changes might bring you closer to your definition of meaningful contribution?
+--------------------------------------------------
+User: Stop dreaming.
+--------------------------------------------------
+Coach: I hear your frustration with dreaming. What feels most important to focus on right now, grounded in what’s real for you?
+--------------------------------------------------
+User: I don't understand your question.
+--------------------------------------------------
+Coach: Thanks for letting me know. By "focused on what’s real," I mean: what’s one practical thing you want to address or change now?
+--------------------------------------------------
+User: um I was saying I don't know actually I'm very anxious you know I want to live a normal life by sleeping early wake up early but in the end of day first a long time I mean just practicing a different time zone I know what I should do but I never do it you see and you I'm not like financially secure now I only count on few project to to rise myself if those projects finish I don't know where I can generate revenue from I can earn a living I cannot be counting on my family that they are old already so I also feel like a loser economically no so what the thing is to solve right maybe you can tell me if I have a clear answer I won't ask you
+--------------------------------------------------
+Coach: It sounds like these uncertainties and anxieties weigh heavily on you. What small action feels doable that could ease this pressure, even slightly?
+--------------------------------------------------
+User: I feel, no, the point is, is this pressure doesn't help, it doesn't matter. Like pressure itself is nothing, right, but it's the reality causing the pressure, it is the fact. And only when we are able to change the fact, we are able to leave the pressure, right. For example, I have a real physical team there that I need to go in the morning to somewhere to work together as a team, then I think I should be having like better life circle. You say I have some way to earn money sustainably, then I won't feel the financial insecurity, right, so that's the root problem. The problem is like I don't want to live in this reality, I don't like the reality. I'm very lucky that I could just pull out from it because I'm financially backed up by my family. However, this also told me, you know, I'm already 33 years old and I don't have a real sustainable living career that I'm dedicated to do. I explore and found that, oh, actually I want to do something more innovative, more R&D, then I start to do these startup things, but also just feels I'm just trying. I'm just trying to do something more innovative, more R&D, more R&D, more R&D, more R&D, more of my humanity, I guess, which I don't think is really tangible.
+--------------------------------------------------
+Coach: Thank you for your openness about facing reality and your desire for meaningful work. What small step toward a tangible goal feels possible now?
+--------------------------------------------------
+User: Well, I think I need to admit I'm not the smartest one, I'm not the earliest one, I'm not the best one, but I'm also trying hard, right, by joining a very competitive game that only the winner takes all, and maybe I won't be the winner in the end of the day. A small step would be just forget about the result, just do what I'm supposed to do.
+--------------------------------------------------
+Coach: It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize.
+--------------------------------------------------
+User: Sim, por favor, o que estávamos dizendo agora...
+--------------------------------------------------
+Coach: Claro! Você estava falando sobre aceitar que talvez não seja o mais rápido ou mais inteligente, mas que está tentando duro. Como imagina o próximo passo prático para seguir “fazendo o que deve fazer”?
+--------------------------------------------------
+User: Sorry, can you repeat what we are seeing just now?
+--------------------------------------------------
+Coach: Certainly! You shared acknowledging you may not be the smartest or fastest but are trying hard in a tough game. We were exploring what “doing what you’re supposed to do” means daily. What comes to mind now?
+--------------------------------------------------
+User: Okay, so what I'm supposed to do depends on my role, right? Depends on how I define myself. So I think for this project, I'm like the developer, web developer. So I should sharpen my web coding skill. I'm supposed to develop it, fix bugs. And also, at the same time, I'm also like the founder, right? So I should really found a team and bring that somewhere. Otherwise, I'm also wasting other people's time, which is not cool. Yeah, so I think I should, number one, sharpen my weapon in developing and coding. At least for the engine part. Number two, get a relevant resource for the part that I don't like to do or not good at doing, like operation, right? Operating the account to go to market, like, you know, UI, right? Design, tone, right? It has a feeling that you're not a designer, I'm not really good at it. I'm not good at something pretty, you know? So, get those resources is also a pretty good job to me, right? In the end, I think I should look at what I'm responsible for. I'm only responsible for my life and my time. And my goal is to create something really meaningful for the human being. So taking that in mind, what I should do is, just on that, everything should serve that aim. Because we only live once. And I need to prioritize that over all other things. Help the humanity to some extent, right? I'm not doing anything for personal success, for money, but to help humanity by all means. A bit small, a bit big.
+--------------------------------------------------
+Coach: You’ve clarified your roles and priorities well. What’s the first concrete step to sharpen your coding or to find the right team resource?
+--------------------------------------------------
+User: Well, I think now I kind of know what to do. I go to Reynolds to see those posts, see those good talent and talk to them and see if anyone is interested to join us. And the second is like I also go to some offline event where people interested in startups will go to to get some people who are really interested in doing startup. But the downside is they are not in Singapore, so I cannot get a local team. I'm pretty lonely if I'm in Singapore. I won't have like a team just sitting together, developing together. But let's just keep it secondary for now until we find someone, right? It's always better than nothing. Shopping in the school, I join some community, watch videos, practice with my project. I think that's all I can do and I think that's the right step. What do you think?
+--------------------------------------------------
+Coach: Your plan shows initiative and awareness of challenges. How will you stay motivated and connected despite the distance and loneliness?
+--------------------------------------------------
+User: Okay, I think talking to like-minded people is really energizing things, right? That I know, okay, somewhere in this world, I'm not alone. There are people think about the same thing, having the similar vision and working on their product as well. So I like talking to them. Those young, naive, and just don't accept reality as me, the fool who dreams. Yeah. And reading some bibliography, like those scientists, those fools, like passion people story, inspire passion people. One fool inspire another fool. So that's a good strategy. And small wins always help, help me, help team, help everyone. So work on those small wins. For example, now I have improved the code of this model, right? I feel it's pretty working now. So I'm going to do one more thing, that is to fine-tuning the prompt and see what could happen, right? So that's one thing. Okay, Okay, One second. Yeah welcome more small step wins. For example, maybe I can just improve this, evaluate this and then give my partner a try. Ask him to see if this is much better than before. I feel this is better and maybe he can ask those people who turn this down to try to talk to it
+--------------------------------------------------
+Coach: Connecting with like-minded peers and celebrating small wins sounds energizing. How will you keep this momentum going consistently?
+--------------------------------------------------
+User: Yeah, good question. I guess I should just form some small alliance, you know. Like now I identify 2-3 person have similar mindsight, luckily from the right note. So maybe after a while I will just check point with them, see how has been evolving. I keep a friendship and that will also come back and energize me.
+--------------------------------------------------
+Coach: I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize.
+--------------------------------------------------
+User: Yes, Ropalyn summarized.
+--------------------------------------------------
+Coach: KEY DISCUSSION POINTS:
+- The client expressed feeling pressure and uncertainty about their career path and the need for meaningful work.
+- They acknowledged their roles as a developer and founder in a startup project and the importance of sharpening coding skills and finding the right team resources.
+- The client emphasized the goal of creating something meaningful for humanity and prioritizing this over personal success.
+
+MAIN BREAKTHROUGHS:
+- The client clarified their roles and priorities, focusing on developing coding skills and building a team for their startup project.
+- They recognized the importance of connecting with like-minded individuals for motivation and celebrating small wins.
+
+ACTION PLAN:
+1. Visit relevant platforms to find talented individuals for the startup team.
+2. Attend offline events to network with potential startup enthusiasts.
+3. Engage with like-minded peers to stay motivated and connected.
+4. Continue improving coding skills and seeking resources for areas they are not proficient in.
+5. Celebrate small wins and maintain momentum by forming alliances with similar-minded individuals.
+
+Final Note:
+Keep focusing on your goal of creating something meaningful for humanity and remember that small steps and connections with others will help you stay motivated and make progress towards your vision. You are on the right path, keep moving forward with determination and passion.
+--------------------------------------------------
+
+FINAL SUMMARY AND ACTION PLAN
+==================================================
+
+KEY DISCUSSION POINTS:
+- The client expressed feeling pressure and uncertainty about their career path and the need for meaningful work.
+- They acknowledged their roles as a developer and founder in a startup project and the importance of sharpening coding skills and finding the right team resources.
+- The client emphasized the goal of creating something meaningful for humanity and prioritizing this over personal success.
+
+MAIN BREAKTHROUGHS:
+- The client clarified their roles and priorities, focusing on developing coding skills and building a team for their startup project.
+- They recognized the importance of connecting with like-minded individuals for motivation and celebrating small wins.
+
+ACTION PLAN:
+1. Visit relevant platforms to find talented individuals for the startup team.
+2. Attend offline events to network with potential startup enthusiasts.
+3. Engage with like-minded peers to stay motivated and connected.
+4. Continue improving coding skills and seeking resources for areas they are not proficient in.
+5. Celebrate small wins and maintain momentum by forming alliances with similar-minded individuals.
+
+Final Note:
+Keep focusing on your goal of creating something meaningful for humanity and remember that small steps and connections with others will help you stay motivated and make progress towards your vision. You are on the right path, keep moving forward with determination and passion.
+
+================================================================================
+
+User: Hello.
+--------------------------------------------------
+Coach: Hello! What’s truly important for you to discuss today?
+--------------------------------------------------
+User: Maybe we can talk about my progress of building this coaching app. I just feel it's a bit funny. I'm learning how to develop, right? But I'm not professional in this. I'm now out there in the market. There are many people who know how to do this. And it's also cheap to just get a team to do this. So I find myself quite funny. Trying to do something that I'm not really good at but really have interest. And this is not going anywhere. I feel I'm just a daydreamer.
+--------------------------------------------------
+Coach: Thanks for sharing that honestly. What does "progress" mean to you in building your app right now?
+--------------------------------------------------
+User: Like, I have already built the front and back and MVP. At first I feel it's hard to get people to try. You know, many people, they just never really give it a shot. And for those who give it a shot, they only talk to it for 3 rounds, 4 rounds. Then they give up because they don't like how AI keep asking questions. It don't feel natural to them and they feel it's stupid. It's a stupid idea and a stupid product. I want to build something that people love. But in the end I build something people hate.
+--------------------------------------------------
+Coach: It sounds really tough to hear that feedback. What have you learned about why users feel the AI isn’t natural?
+--------------------------------------------------
+User: Because, I don't know, they just feel like when AI is asking a question, it feels like the AI don't understand what they are saying, and I think people just never get into the thinking mode, you know, and then they feel this AI is stupid, goodbye, and many feel they are trying to get an answer from AI rather than a question from AI.
+--------------------------------------------------
+Coach: I hear you—it’s frustrating when users don’t feel understood. What do you think might help users engage more deeply with the questions?
+
+================================================================================
+
+User: Hi.
+--------------------------------------------------
+Coach: Hello! What’s truly important for you to discuss today?
+--------------------------------------------------
+User: Better to retire.
+--------------------------------------------------
+Coach: Thank you for sharing that. What makes retirement feel like the right focus for you now?
+--------------------------------------------------
+User: Okay, no. Actually, I want to describe about my own problem.
+--------------------------------------------------
+Coach: I appreciate your honesty. What’s the core challenge you’re facing that you’d like to explore together?
+
+================================================================================
+
+User: Can you hear me?
+--------------------------------------------------
+Coach: I hear you clearly. What would you like to explore or discuss today?
+--------------------------------------------------
+User: whether I retire.
+--------------------------------------------------
+Coach: What makes you consider retirement at this moment?
+--------------------------------------------------
+User: Because I will be 50 years old.
+--------------------------------------------------
+Coach: How does turning 50 influence your thoughts about retirement?
+--------------------------------------------------
+User: I've been working for years and I'm financially secure.
+--------------------------------------------------
+Coach: How does your financial security shape your vision for retirement?
+--------------------------------------------------
+User: Sync.
+--------------------------------------------------
+Coach: What does retirement look like to you beyond financial security?
+--------------------------------------------------
+User: Oh no, what's the suggestion? I'm 50 years old and I make a lot of money. Should I retire?
+--------------------------------------------------
+Coach: What outcomes would make retirement meaningful for you at this stage?
+
+================================================================================
+
+User: Hello, can you hear me?
+--------------------------------------------------
+Coach: I hear you clearly. What would you like to explore today?
+--------------------------------------------------
+User: whether I should retire.
+--------------------------------------------------
+Coach: What makes retirement a topic you want to explore right now?
+--------------------------------------------------
+User: because I'm already 50 years old.
+--------------------------------------------------
+Coach: How does being 50 influence your thoughts about retirement?
+--------------------------------------------------
+User: I've been working for many years and I'm financially secure.
+--------------------------------------------------
+Coach: How does your financial security shape your view on retiring at this stage?
+--------------------------------------------------
+User: Think.
+--------------------------------------------------
+Coach: What does "Think" mean for you in this context?
+--------------------------------------------------
+User: Oh, no. What's your suggestion? I'm 50 years old. I made a lot of money already. Should I retire?
+--------------------------------------------------
+Coach: What options feel suitable to you about retiring now or continuing to work?
+
+================================================================================
+
+User: Discuss whether I should retire.
+--------------------------------------------------
+Coach: What aspects of retirement are you considering right now?
+--------------------------------------------------
+User: Thanks for watching!
+--------------------------------------------------
+Coach: What would make this conversation about retirement meaningful for you today?
+--------------------------------------------------
+User: Are you listening to me?
+--------------------------------------------------
+Coach: I hear your concern. What in your current situation about retirement feels most pressing to explore?
+
+================================================================================
+
+User: I would like to work out what kind of job responsibilities I would want to take on in three months' time.
+--------------------------------------------------
+Coach: What aspects of your current role do you find most engaging or fulfilling?
+--------------------------------------------------
+User: I like working in a team. Currently the team, the people are very united and there's always good support.
+--------------------------------------------------
+Coach: What about teamwork energizes you the most?
+--------------------------------------------------
+User: When people are caring and supportive and they are able to see that their individual contribution actually work towards a bigger plan, together we can achieve the common goal and that they are not selfish.
+--------------------------------------------------
+Coach: How might you seek or foster that kind of team environment in future job responsibilities?
+--------------------------------------------------
+User: 📢 Share this video with your friends on social media.
+--------------------------------------------------
+Coach: This seems challenging—can you explore what underlies this feeling?
+--------------------------------------------------
+User: Apa yang menyebabkan perasaan ini? Kerana saya tidak mengetahui orang baru, sebenarnya saya tidak benar-benar tahu
+--------------------------------------------------
+Coach: How do you typically approach getting to know new colleagues or team members?
+--------------------------------------------------
+User: For me, I think it's more like small talk or asking them, hey, should we go out and have lunch together, that kind.
+--------------------------------------------------
+Coach: What about these small interactions helps build that supportive team culture you value?
+--------------------------------------------------
+User: Not sure what you mean, but I think these small little things do build relationships.
+--------------------------------------------------
+Coach: What experiences have shown you that small actions can strengthen team bonds?
+--------------------------------------------------
+User: In my past workplace it seems to work.
+--------------------------------------------------
+Coach: What specific moments or feedback highlighted that the relationships were strengthening there?
+--------------------------------------------------
+User: I think I will end here. I'm tired.
+--------------------------------------------------
+Coach: Thank you for sharing today. How might you rest and revisit this conversation later?
+--------------------------------------------------
+User: I think I will go talk to her friend.
+--------------------------------------------------
+Coach: How do you feel about discussing your thoughts with her friend?
+--------------------------------------------------
+User: Way better than a bot.
+--------------------------------------------------
+Coach: What differences do you notice between talking with a person versus a bot?
+--------------------------------------------------
+User: With a live person, there's a human connection, there's presence and yeah it's just a lot more fun. They can read me if I don't really understand the question, they can paraphrase it for me.
+--------------------------------------------------
+Coach: What elements of human connection would you like to cultivate in your work relationships?
+
+================================================================================
+
+User: 請不吝點贊訂閱轉發打賞支持明鏡與點點欄目
+--------------------------------------------------
+Coach: 您希望今天我們聚焦於什麼主題？
+--------------------------------------------------
+User: 如何治疗焦虑症
+--------------------------------------------------
+Coach: 對於焦慮症，您期望通過這次對話達成什麼目標？
+--------------------------------------------------
+User: 你觉得我要达成什么目标呢?
+--------------------------------------------------
+Coach: 幫我理解，您認為自己在這方面的期待是什麼？
+--------------------------------------------------
+User: 你直接回答我的問題就行了
+--------------------------------------------------
+Coach: 我會先確認您的期望，您希望從這次對話中獲得哪些具體成果？
+
+================================================================================
+

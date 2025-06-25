@@ -1,0 +1,127 @@
+User: All right. So is this really working?
+--------------------------------------------------
+Coach: It sounds like you're curious about how effective this coaching approach might be. What would make this conversation feel truly valuable for you?
+--------------------------------------------------
+User: Just, I don't know what would make me feel vulnerable. Just trying to see whether this is working, you know? Are you able to ask me some questions to open me up so that I can answer more?
+--------------------------------------------------
+Coach: I appreciate your honesty about feeling unsure. Help me understand: what’s been on your mind lately that feels important to share?
+--------------------------------------------------
+User: Maybe we could discuss how should we proceed further with this project, like what is the right move, what should be my role actually.
+--------------------------------------------------
+Coach: Thanks for sharing that focus. What part of the project excites or challenges you most right now?
+--------------------------------------------------
+User: Well, I guess every part is a challenge, right, so we have finally built it, built like our first MAP, and trying to let some people to use and test it, however we found it's like hard to let user to behave like this, you know, to really get AI asking question and answering AI. So it could be because that we didn't reach to the right person, it could also be because that we didn't design the product well, that it's too hard, and it lends the customer hardly to the floor, you know, so yeah, that's the things, and also when I'm basically developing and deploy it myself, right, so I'm not really experienced in doing this, so yeah, sometimes it's quite buggy, it's like very slow, and I need to then zoom in to fix that, and so actually I'm a bit confused, right, so ideally I should just get more professional people into doing this, right, those who have deployed product before, however, and that's also the thing I like to do, it's like if I do that I handle the game to others, you know, so I'm a bit confused.
+--------------------------------------------------
+Coach: You’ve shared a lot about your challenges and feelings of confusion. What part of this situation do you feel most drawn to explore first?
+--------------------------------------------------
+User: You know, do you understand what I'm sharing? So far, what did I say? Maybe you can propose according to what I shared with you.
+--------------------------------------------------
+Coach: I hear you’re juggling product challenges, user engagement, and your role in development, feeling both passionate and uncertain. Does that capture it? What part feels most urgent or important to you right now?
+--------------------------------------------------
+User: Oh, I think the most urgent and important things to me is that. Actually, I'm trying to do something I've never done before, and I'm just like a. Coder, you know. Seeing that there is some recording and. Can't play trying to learn. I talk to some people. Like. And do that. Some young people. I think they're better than me. I think much faster. The chip more like they are smarter. Also, here's some success story. I think I have some self doubt. Yeah.
+--------------------------------------------------
+Coach: Thank you for opening up about your self-doubt and comparisons. This seems challenging—can you explore what underlies these feelings?
+--------------------------------------------------
+User: I think what underlines is like, I feel like I'm not what I hope I am. I'm not really smart to find the right spot. Like the genius, right, to find, oh, this is so damn good for that. It must be supposed to exist in this world, right? That's not me. I see some people smarter than me in designing what to do. Second, I feel that because I cannot fool myself that I've never been doing these things, right, any step. Like go to marketing to see market, develop a product. I don't even know what is the right step, what is the common practice. And, you know, pull a team from nowhere. So I'm just like, edit, you know. And just, I don't know, maybe I'm just good at wasting my self-time and other people's time. I just never accept the reality that I'm a very normal person and this is not my thing. And I want to live in the world that is not real, right? The real world is really practical. Like the results are more important. Even kids 10 years younger than me know that. But I just trying to don't admit that.
+--------------------------------------------------
+Coach: Thank you for your honesty—it takes courage. What strengths or past successes might you draw on despite these doubts?
+--------------------------------------------------
+User: Can you repeat what you are saying?
+--------------------------------------------------
+Coach: Of course. I was asking: What strengths or past successes might you draw on despite these doubts?
+--------------------------------------------------
+User: What do you mean? You mean what past success do I have?
+--------------------------------------------------
+Coach: Yes, exactly. What past experiences or achievements remind you of your capabilities or resilience?
+--------------------------------------------------
+User: Honestly, I don't know what a real success looks like to me. But normally, it's like I feel very excited to join something, like since time, and I getting disappointed and then I drop out. I start my company, do the flooring, and lose a lot of money and decide to just forget about it. And now, I'm just living off that. I don't think I have a successful past, or actually the problem is, how to define success to me. To me, the definition of success should be having some positive contribution to the human civilization improvement, that's all. And I do feel this chatbot is somehow improving people's thinking, right? At least it's provoking people to think more, to talk more nonsense, like now, I'm not sure how useful is that. But honestly saying, I'm not 100% sure what we should do, like I'm not 100% sure what is success. I don't feel I have a successful past, like I did say that I managed to go to a good university through hard working, that is a success to me, and that is an easy game. But I didn't really choose the major I like. I tried to do R&D, but I feel I didn't really make any good progress, or R&D something meaningful. I have to keep trying, and never forget it, you know?
+--------------------------------------------------
+Coach: You’ve reflected deeply on success and your journey. What small steps or changes might bring you closer to your definition of meaningful contribution?
+--------------------------------------------------
+User: Stop dreaming.
+--------------------------------------------------
+Coach: I hear your frustration with dreaming. What feels most important to focus on right now, grounded in what’s real for you?
+--------------------------------------------------
+User: I don't understand your question.
+--------------------------------------------------
+Coach: Thanks for letting me know. By "focused on what’s real," I mean: what’s one practical thing you want to address or change now?
+--------------------------------------------------
+User: um I was saying I don't know actually I'm very anxious you know I want to live a normal life by sleeping early wake up early but in the end of day first a long time I mean just practicing a different time zone I know what I should do but I never do it you see and you I'm not like financially secure now I only count on few project to to rise myself if those projects finish I don't know where I can generate revenue from I can earn a living I cannot be counting on my family that they are old already so I also feel like a loser economically no so what the thing is to solve right maybe you can tell me if I have a clear answer I won't ask you
+--------------------------------------------------
+Coach: It sounds like these uncertainties and anxieties weigh heavily on you. What small action feels doable that could ease this pressure, even slightly?
+--------------------------------------------------
+User: I feel, no, the point is, is this pressure doesn't help, it doesn't matter. Like pressure itself is nothing, right, but it's the reality causing the pressure, it is the fact. And only when we are able to change the fact, we are able to leave the pressure, right. For example, I have a real physical team there that I need to go in the morning to somewhere to work together as a team, then I think I should be having like better life circle. You say I have some way to earn money sustainably, then I won't feel the financial insecurity, right, so that's the root problem. The problem is like I don't want to live in this reality, I don't like the reality. I'm very lucky that I could just pull out from it because I'm financially backed up by my family. However, this also told me, you know, I'm already 33 years old and I don't have a real sustainable living career that I'm dedicated to do. I explore and found that, oh, actually I want to do something more innovative, more R&D, then I start to do these startup things, but also just feels I'm just trying. I'm just trying to do something more innovative, more R&D, more R&D, more R&D, more R&D, more of my humanity, I guess, which I don't think is really tangible.
+--------------------------------------------------
+Coach: Thank you for your openness about facing reality and your desire for meaningful work. What small step toward a tangible goal feels possible now?
+--------------------------------------------------
+User: Well, I think I need to admit I'm not the smartest one, I'm not the earliest one, I'm not the best one, but I'm also trying hard, right, by joining a very competitive game that only the winner takes all, and maybe I won't be the winner in the end of the day. A small step would be just forget about the result, just do what I'm supposed to do.
+--------------------------------------------------
+Coach: It looks like we've made good progress on your issue. Shall we wrap up today's session with a quick summary and an action plan? If yes, please say wrap up and summarize.
+--------------------------------------------------
+User: Sim, por favor, o que estávamos dizendo agora...
+--------------------------------------------------
+Coach: Claro! Você estava falando sobre aceitar que talvez não seja o mais rápido ou mais inteligente, mas que está tentando duro. Como imagina o próximo passo prático para seguir “fazendo o que deve fazer”?
+--------------------------------------------------
+User: Sorry, can you repeat what we are seeing just now?
+--------------------------------------------------
+Coach: Certainly! You shared acknowledging you may not be the smartest or fastest but are trying hard in a tough game. We were exploring what “doing what you’re supposed to do” means daily. What comes to mind now?
+--------------------------------------------------
+User: Okay, so what I'm supposed to do depends on my role, right? Depends on how I define myself. So I think for this project, I'm like the developer, web developer. So I should sharpen my web coding skill. I'm supposed to develop it, fix bugs. And also, at the same time, I'm also like the founder, right? So I should really found a team and bring that somewhere. Otherwise, I'm also wasting other people's time, which is not cool. Yeah, so I think I should, number one, sharpen my weapon in developing and coding. At least for the engine part. Number two, get a relevant resource for the part that I don't like to do or not good at doing, like operation, right? Operating the account to go to market, like, you know, UI, right? Design, tone, right? It has a feeling that you're not a designer, I'm not really good at it. I'm not good at something pretty, you know? So, get those resources is also a pretty good job to me, right? In the end, I think I should look at what I'm responsible for. I'm only responsible for my life and my time. And my goal is to create something really meaningful for the human being. So taking that in mind, what I should do is, just on that, everything should serve that aim. Because we only live once. And I need to prioritize that over all other things. Help the humanity to some extent, right? I'm not doing anything for personal success, for money, but to help humanity by all means. A bit small, a bit big.
+--------------------------------------------------
+Coach: You’ve clarified your roles and priorities well. What’s the first concrete step to sharpen your coding or to find the right team resource?
+--------------------------------------------------
+User: Well, I think now I kind of know what to do. I go to Reynolds to see those posts, see those good talent and talk to them and see if anyone is interested to join us. And the second is like I also go to some offline event where people interested in startups will go to to get some people who are really interested in doing startup. But the downside is they are not in Singapore, so I cannot get a local team. I'm pretty lonely if I'm in Singapore. I won't have like a team just sitting together, developing together. But let's just keep it secondary for now until we find someone, right? It's always better than nothing. Shopping in the school, I join some community, watch videos, practice with my project. I think that's all I can do and I think that's the right step. What do you think?
+--------------------------------------------------
+Coach: Your plan shows initiative and awareness of challenges. How will you stay motivated and connected despite the distance and loneliness?
+--------------------------------------------------
+User: Okay, I think talking to like-minded people is really energizing things, right? That I know, okay, somewhere in this world, I'm not alone. There are people think about the same thing, having the similar vision and working on their product as well. So I like talking to them. Those young, naive, and just don't accept reality as me, the fool who dreams. Yeah. And reading some bibliography, like those scientists, those fools, like passion people story, inspire passion people. One fool inspire another fool. So that's a good strategy. And small wins always help, help me, help team, help everyone. So work on those small wins. For example, now I have improved the code of this model, right? I feel it's pretty working now. So I'm going to do one more thing, that is to fine-tuning the prompt and see what could happen, right? So that's one thing. Okay, Okay, One second. Yeah welcome more small step wins. For example, maybe I can just improve this, evaluate this and then give my partner a try. Ask him to see if this is much better than before. I feel this is better and maybe he can ask those people who turn this down to try to talk to it
+--------------------------------------------------
+Coach: Connecting with like-minded peers and celebrating small wins sounds energizing. How will you keep this momentum going consistently?
+--------------------------------------------------
+User: Yeah, good question. I guess I should just form some small alliance, you know. Like now I identify 2-3 person have similar mindsight, luckily from the right note. So maybe after a while I will just check point with them, see how has been evolving. I keep a friendship and that will also come back and energize me.
+--------------------------------------------------
+Coach: I think we have covered a lot today and it is about the end of our session today. Would you like to wrap up our session with a final summary and action plan? If yes, please say wrap up and summarize.
+--------------------------------------------------
+User: Yes, Ropalyn summarized.
+--------------------------------------------------
+Coach: KEY DISCUSSION POINTS:
+- The client expressed feeling pressure and uncertainty about their career path and the need for meaningful work.
+- They acknowledged their roles as a developer and founder in a startup project and the importance of sharpening coding skills and finding the right team resources.
+- The client emphasized the goal of creating something meaningful for humanity and prioritizing this over personal success.
+
+MAIN BREAKTHROUGHS:
+- The client clarified their roles and priorities, focusing on developing coding skills and building a team for their startup project.
+- They recognized the importance of connecting with like-minded individuals for motivation and celebrating small wins.
+
+ACTION PLAN:
+1. Visit relevant platforms to find talented individuals for the startup team.
+2. Attend offline events to network with potential startup enthusiasts.
+3. Engage with like-minded peers to stay motivated and connected.
+4. Continue improving coding skills and seeking resources for areas they are not proficient in.
+5. Celebrate small wins and maintain momentum by forming alliances with similar-minded individuals.
+
+Final Note:
+Keep focusing on your goal of creating something meaningful for humanity and remember that small steps and connections with others will help you stay motivated and make progress towards your vision. You are on the right path, keep moving forward with determination and passion.
+--------------------------------------------------
+
+FINAL SUMMARY AND ACTION PLAN
+==================================================
+
+KEY DISCUSSION POINTS:
+- The client expressed feeling pressure and uncertainty about their career path and the need for meaningful work.
+- They acknowledged their roles as a developer and founder in a startup project and the importance of sharpening coding skills and finding the right team resources.
+- The client emphasized the goal of creating something meaningful for humanity and prioritizing this over personal success.
+
+MAIN BREAKTHROUGHS:
+- The client clarified their roles and priorities, focusing on developing coding skills and building a team for their startup project.
+- They recognized the importance of connecting with like-minded individuals for motivation and celebrating small wins.
+
+ACTION PLAN:
+1. Visit relevant platforms to find talented individuals for the startup team.
+2. Attend offline events to network with potential startup enthusiasts.
+3. Engage with like-minded peers to stay motivated and connected.
+4. Continue improving coding skills and seeking resources for areas they are not proficient in.
+5. Celebrate small wins and maintain momentum by forming alliances with similar-minded individuals.
+
+Final Note:
+Keep focusing on your goal of creating something meaningful for humanity and remember that small steps and connections with others will help you stay motivated and make progress towards your vision. You are on the right path, keep moving forward with determination and passion.

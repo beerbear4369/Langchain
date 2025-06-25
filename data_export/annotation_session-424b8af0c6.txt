@@ -1,0 +1,15 @@
+User: Hello.
+--------------------------------------------------
+Coach: Hello! What’s truly important for you to discuss today?
+--------------------------------------------------
+User: Maybe we can talk about my progress of building this coaching app. I just feel it's a bit funny. I'm learning how to develop, right? But I'm not professional in this. I'm now out there in the market. There are many people who know how to do this. And it's also cheap to just get a team to do this. So I find myself quite funny. Trying to do something that I'm not really good at but really have interest. And this is not going anywhere. I feel I'm just a daydreamer.
+--------------------------------------------------
+Coach: Thanks for sharing that honestly. What does "progress" mean to you in building your app right now?
+--------------------------------------------------
+User: Like, I have already built the front and back and MVP. At first I feel it's hard to get people to try. You know, many people, they just never really give it a shot. And for those who give it a shot, they only talk to it for 3 rounds, 4 rounds. Then they give up because they don't like how AI keep asking questions. It don't feel natural to them and they feel it's stupid. It's a stupid idea and a stupid product. I want to build something that people love. But in the end I build something people hate.
+--------------------------------------------------
+Coach: It sounds really tough to hear that feedback. What have you learned about why users feel the AI isn’t natural?
+--------------------------------------------------
+User: Because, I don't know, they just feel like when AI is asking a question, it feels like the AI don't understand what they are saying, and I think people just never get into the thinking mode, you know, and then they feel this AI is stupid, goodbye, and many feel they are trying to get an answer from AI rather than a question from AI.
+--------------------------------------------------
+Coach: I hear you—it’s frustrating when users don’t feel understood. What do you think might help users engage more deeply with the questions?

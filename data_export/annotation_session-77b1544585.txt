@@ -1,0 +1,11 @@
+User: Hi.
+--------------------------------------------------
+Coach: Hello! What’s truly important for you to discuss today?
+--------------------------------------------------
+User: Better to retire.
+--------------------------------------------------
+Coach: Thank you for sharing that. What makes retirement feel like the right focus for you now?
+--------------------------------------------------
+User: Okay, no. Actually, I want to describe about my own problem.
+--------------------------------------------------
+Coach: I appreciate your honesty. What’s the core challenge you’re facing that you’d like to explore together?

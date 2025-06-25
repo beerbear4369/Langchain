@@ -1,0 +1,23 @@
+User: Hello, can you hear me?
+--------------------------------------------------
+Coach: I hear you clearly. What would you like to explore today?
+--------------------------------------------------
+User: whether I should retire.
+--------------------------------------------------
+Coach: What makes retirement a topic you want to explore right now?
+--------------------------------------------------
+User: because I'm already 50 years old.
+--------------------------------------------------
+Coach: How does being 50 influence your thoughts about retirement?
+--------------------------------------------------
+User: I've been working for many years and I'm financially secure.
+--------------------------------------------------
+Coach: How does your financial security shape your view on retiring at this stage?
+--------------------------------------------------
+User: Think.
+--------------------------------------------------
+Coach: What does "Think" mean for you in this context?
+--------------------------------------------------
+User: Oh, no. What's your suggestion? I'm 50 years old. I made a lot of money already. Should I retire?
+--------------------------------------------------
+Coach: What options feel suitable to you about retiring now or continuing to work?
